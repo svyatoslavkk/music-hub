@@ -9,11 +9,9 @@
 }
 
 .signup-content {
-  display: flex;
+  @include column-between-styles;
   flex: 1;
   height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
   gap: 1.5rem;
   background-color: #fff;
   padding: 1rem;

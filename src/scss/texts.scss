@@ -1,11 +1,35 @@
-.mid-text-white {
-  font-size: 14px;
+.mid-header-white {
+  font-size: 16px;
   font-weight: 600;
   color: $primary-white;
 }
 
-.mid-text-gray {
-  font-size: 14px;
+.mid-header-dark {
+  font-size: 16px;
   font-weight: 600;
-  color: $primary-grey;
+  color: $vilvet-color;
+}
+
+.mid-header-gray {
+  font-size: 16px;
+  font-weight: 600;
+  color: $primary-gray;
+}
+
+.big-header-dark {
+  font-size: 20px;
+  font-weight: 600;
+  color: $vilvet-color;
+}
+
+.small-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: $primary-gray;
+}
+
+.mid-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: $primary-gray;
 }

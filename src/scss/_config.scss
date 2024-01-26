@@ -1,7 +1,8 @@
 $light-background: #f2f1f4;
 $primary-white: #f0f2f8;
 $dark-background: #0b0b0b;
-$primary-grey: #00000099;
+$primary-gray: #00000099;
+$vilvet-color: #190b14;
 $interactive-color: #e4774d;
 $component-color: #f2eff6;
 
@@ -20,9 +21,21 @@ $component-color: #f2eff6;
   width: 100%;
 }
 
+@mixin flex-center-styles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @mixin flex-between-styles {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+@mixin column-between-styles {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 

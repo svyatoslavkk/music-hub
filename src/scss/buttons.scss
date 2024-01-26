@@ -13,17 +13,13 @@
 }
 
 .border-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center-styles;
   background-color: transparent;
   border: 2px solid #969696;
   border-radius: 0.5rem;
 }
 
 .transparent-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center-styles;
   background-color: transparent;
 }
