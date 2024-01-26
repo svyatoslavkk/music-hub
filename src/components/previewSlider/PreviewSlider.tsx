@@ -60,7 +60,7 @@ export default function PreviewSlider() {
           className="preview-img"
           alt="Track Image"
         />
-        <div className="preview-slider-content">
+        <div className={`preview-slider-content`}>
           <div>
             <div className="flex-content">
               <h2>{slides[currIndex].track}</h2>

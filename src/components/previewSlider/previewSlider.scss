@@ -40,7 +40,14 @@
 .preview-image-block {
   width: 100%;
   border-radius: 0.5rem;
-  transition: transform ease-out 0.3s;
+  transition: opacity 0.2s ease-out;
+  &.hidden {
+    opacity: 0;
+    transition: opacity 0.1s ease-in 0.2s;
+  }
+  &.animating {
+    opacity: 0;
+  }
 }
 
 .preview-img {
