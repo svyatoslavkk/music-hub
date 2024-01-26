@@ -1,4 +1,39 @@
 $light-background: #f2f1f4;
+$primary-white: #f0f2f8;
 $dark-background: #0b0b0b;
+$primary-grey: #00000099;
 $interactive-color: #e4774d;
 $component-color: #f2eff6;
+
+@mixin default-container-styles {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+@mixin button-styles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  width: 100%;
+}
+
+@mixin flex-between-styles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-content-styles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@mixin column-content-styles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

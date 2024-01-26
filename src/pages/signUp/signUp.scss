@@ -1,0 +1,39 @@
+.signup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: $dark-background;
+  padding: 0.25rem;
+  gap: 0.25rem;
+}
+
+.signup-content {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  height: auto;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .signup {
+    flex-direction: row;
+  }
+  .signup-content {
+    max-width: 512px;
+    justify-content: center;
+  }
+}

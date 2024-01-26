@@ -1,0 +1,29 @@
+.primary-btn {
+  background-color: $interactive-color;
+  border-radius: 0.75rem;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.secondary-btn {
+  @include button-styles;
+  gap: 0.5rem;
+  background-color: $primary-white;
+  padding: 0.5rem;
+}
+
+.border-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 2px solid #969696;
+  border-radius: 0.5rem;
+}
+
+.transparent-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}

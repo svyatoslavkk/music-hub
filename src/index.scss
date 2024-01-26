@@ -1,6 +1,10 @@
 @import './scss/config';
 @import './pages/Welcome/welcome.scss';
 @import './pages/signUp/signUp.scss';
+@import './scss/inputs.scss';
+@import './scss/buttons.scss';
+@import './scss/texts.scss';
+@import './components/previewSlider/previewSlider.scss';
 
 * {
   margin: 0;
@@ -10,5 +14,28 @@
 }
 
 body {
-  background-color: $light-background;
+  background-color: #fff;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.flex-between {
+  @include flex-between-styles;
+}
+
+.flex-content {
+  @include flex-content-styles;
+}
+
+.column-content {
+  @include column-content-styles;
 }
