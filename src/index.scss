@@ -6,6 +6,7 @@
 @import './scss/texts.scss';
 @import './components/previewSlider/previewSlider.scss';
 @import './pages/login/login.scss';
+@import './pages/main/main.scss';
 
 * {
   margin: 0;
@@ -39,4 +40,17 @@ button {
 
 .column-content {
   @include column-content-styles;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(20, 20, 20, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
 }

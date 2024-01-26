@@ -63,14 +63,14 @@ export default function PreviewSlider() {
         <div className={`preview-slider-content`}>
           <div>
             <div className="flex-content">
-              <h2>{slides[currIndex].track}</h2>
+              <h2 className="big-header-white">{slides[currIndex].track}</h2>
               <div className="music-anim">
                 {Array.from({ length: 9 }, (_, index) => (
                   <span key={index}></span>
                 ))}
               </div>
             </div>
-            <p>{slides[currIndex].artists}</p>
+            <p className="mid-text-white">{slides[currIndex].artists}</p>
           </div>
           <button className="transparent-btn" onClick={toggleMute}>
             {isMuted ? (

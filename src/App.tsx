@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Welcome from "./pages/Welcome/Welcome";
 import SignUp from "./pages/signUp/SignUp";
 import Login from "./pages/login/Login";
+import Main from "./pages/main/Main";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -13,6 +14,7 @@ export default function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Main />} />
         </Routes>
       </BrowserRouter>
     </Provider>

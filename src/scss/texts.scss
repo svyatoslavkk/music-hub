@@ -1,3 +1,9 @@
+.big-header-white {
+  font-size: 20px;
+  font-weight: 600;
+  color: $primary-white;
+}
+
 .mid-header-white {
   font-size: 16px;
   font-weight: 600;
@@ -22,10 +28,24 @@
   color: $vilvet-color;
 }
 
+//////////////////////////////////////
+
+.small-text-white {
+  font-size: 12px;
+  font-weight: 500;
+  color: $primary-white;
+}
+
 .small-text {
   font-size: 12px;
   font-weight: 500;
   color: $primary-gray;
+}
+
+.mid-text-white {
+  font-size: 14px;
+  font-weight: 500;
+  color: $primary-white;
 }
 
 .mid-text {
