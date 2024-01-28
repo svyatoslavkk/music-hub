@@ -7,6 +7,14 @@
 @import './components/previewSlider/previewSlider.scss';
 @import './pages/login/login.scss';
 @import './pages/main/main.scss';
+@import './components/genres/genres.scss';
+@import './components/dropItem/dropItem.scss';
+@import './components/sliderList/sliderList.scss';
+@import './components/navBar/navBar.scss';
+@import './pages/explore/explore.scss';
+@import './components/artistItem/artistItem.scss';
+@import './components/artistList/artistList.scss';
+@import './components/playlistCards/playlistCards.scss';
 
 * {
   margin: 0;
@@ -16,7 +24,7 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: $background-alt;
 }
 
 input {
@@ -30,8 +38,16 @@ button {
   cursor: pointer;
 }
 
+img {
+  object-fit: cover;
+}
+
 .flex-between {
   @include flex-between-styles;
+}
+
+.column-between {
+  @include column-between-styles;
 }
 
 .flex-content {
@@ -53,4 +69,16 @@ button {
   align-items: center;
   justify-content: center;
   z-index: 200;
+}
+
+.large-sq-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 0.5rem;
+}
+
+.mid-circle-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }

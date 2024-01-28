@@ -1,10 +1,17 @@
-$light-background: #f2f1f4;
-$primary-white: #f0f2f8;
-$dark-background: #0b0b0b;
+$light-background: #e7e6e9;
+$primary-white: #e9ebf0;
+$very-light-gray: #cdcfd4;
+$dark-background: #120909;
 $primary-gray: #00000099;
 $vilvet-color: #190b14;
 $interactive-color: #e4774d;
-$component-color: #f2eff6;
+$component-color: #e4e0e8;
+
+$background-alt: #111010;
+$interactive-alt: #dfbf60;
+$text-alt: #E0E0E0;
+$icon-alt: #9E9E9E;
+
 
 @mixin default-container-styles {
   display: flex;
@@ -48,5 +55,6 @@ $component-color: #f2eff6;
 @mixin column-content-styles {
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
   align-items: center;
 }

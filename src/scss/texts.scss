@@ -1,30 +1,49 @@
 .big-header-white {
   font-size: 20px;
   font-weight: 600;
-  color: $primary-white;
+  letter-spacing: 0.5px;
+  color: $text-alt;
 }
 
 .mid-header-white {
   font-size: 16px;
   font-weight: 600;
-  color: $primary-white;
+  letter-spacing: 0.5px;
+  color: $text-alt;
+}
+
+.small-header-white {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: $text-alt;
+}
+
+.small-header-dark {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: $vilvet-color;
 }
 
 .mid-header-dark {
   font-size: 16px;
   font-weight: 600;
+  letter-spacing: 0.5px;
   color: $vilvet-color;
 }
 
 .mid-header-gray {
   font-size: 16px;
   font-weight: 600;
+  letter-spacing: 0.5px;
   color: $primary-gray;
 }
 
 .big-header-dark {
   font-size: 20px;
   font-weight: 600;
+  letter-spacing: 0.5px;
   color: $vilvet-color;
 }
 
@@ -33,19 +52,19 @@
 .small-text-white {
   font-size: 12px;
   font-weight: 500;
-  color: $primary-white;
+  color: $very-light-gray;
+}
+
+.mid-text-white {
+  font-size: 14px;
+  font-weight: 500;
+  color: $very-light-gray;
 }
 
 .small-text {
   font-size: 12px;
   font-weight: 500;
   color: $primary-gray;
-}
-
-.mid-text-white {
-  font-size: 14px;
-  font-weight: 500;
-  color: $primary-white;
 }
 
 .mid-text {

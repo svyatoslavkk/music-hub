@@ -23,3 +23,10 @@
   @include flex-center-styles;
   background-color: transparent;
 }
+
+.circle-btn {
+  @include flex-center-styles;
+  border-radius: 2rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #e4e0e8bb;
+}
