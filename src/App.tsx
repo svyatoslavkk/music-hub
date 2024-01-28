@@ -7,19 +7,22 @@ import Explore from "./pages/explore/Explore";
 import Favorites from "./pages/favorites/Favorites";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import { MusicProvider } from "./context/MusicContext";
 
 export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Main />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
+        <MusicProvider>
+          <Routes>
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </MusicProvider>
       </BrowserRouter>
     </Provider>
   );

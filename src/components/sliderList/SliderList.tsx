@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { Song } from "../../types/types";
-import { collection, getDocs } from "firebase/firestore";
-import { database } from "../../firebase/firebase";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useSelector } from "react-redux";
 import "@splidejs/react-splide/css";
 import DropItem from "../dropItem/DropItem";
+import { useMusicContext } from "../../context/MusicContext";
 
 interface SliderListProps {
   header: string;
@@ -13,28 +11,7 @@ interface SliderListProps {
 
 export default function SliderList({ header }: SliderListProps) {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const [fetchMusic, setFetchMusic] = useState([]);
-  const musicCollectionRef = collection(database, "Music Data");
-
-  const getMusicData = async () => {
-    try {
-      const musicDocSnapshot = await getDocs(musicCollectionRef);
-      const musicDoc = musicDocSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      const musicArray = musicDoc[0]?.data?.[0]?.popularMusic || [];
-      setFetchMusic(musicArray);
-    } catch (error) {
-      console.error("Error getting posts document:", error);
-    }
-  };
-
-  console.log("fetchMusic", fetchMusic);
-
-  useEffect(() => {
-    getMusicData();
-  }, []);
+  const { fetchMusic } = useMusicContext();
 
   return (
     <>
