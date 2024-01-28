@@ -14,14 +14,22 @@
     right: 6px;
     display: flex;
   }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 6px;
+    display: flex;
+  }
 }
 
 .auth-input {
   @include button-styles;
   gap: 0.5rem;
-  background-color: $primary-white;
+  background-color: $component-alt;
+  color: $text-alt;
   padding: 0.5rem 0.5rem 0.5rem 2.25rem;
   &::placeholder {
-    color: $primary-gray;
+    color: #E0E0E077;
   }
 }

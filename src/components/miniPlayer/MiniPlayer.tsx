@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { playPause } from "../../redux/slices/playerSlice";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
+import { Artist } from "../../types/types";
 
 export default function MiniPlayer() {
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
@@ -13,7 +14,6 @@ export default function MiniPlayer() {
   const img =
     "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36";
   const track = "Blinding Lights";
-  const artists = "The Weeknd";
 
   const handlePlayPause = () => {
     if (!isActive) return;
@@ -29,9 +29,7 @@ export default function MiniPlayer() {
   useEffect(() => {
     if (ref.current) {
       if (!isPlaying) {
-        ref.current.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
+        ref.current.play();
       }
     }
   }, [isPlaying]);
@@ -52,17 +50,21 @@ export default function MiniPlayer() {
     <div className="mini-player">
       <div className="flex-content">
         <img
-          src={activeSong?.url ? activeSong?.url : img}
+          src={activeSong?.image ? activeSong?.image : img}
           className="small-circle-img"
-          alt={activeSong?.track ? activeSong?.track : track}
+          alt={activeSong?.title ? activeSong?.title : track}
         />
         <div className="text">
           <h3 className="small-header-white">
-            {activeSong?.track ? activeSong?.track : track}
+            {activeSong?.title ? activeSong?.title : track}
           </h3>
-          <span className="small-text-white">
-            {activeSong?.artists ? activeSong?.artists : artists}
-          </span>
+          {activeSong &&
+            activeSong.artists &&
+            activeSong.artists.map((artist: Artist) => (
+              <span key={artist.id} className="small-text-white">
+                {artist.name}
+              </span>
+            ))}
         </div>
       </div>
       <button className="blur-circle-btn" onClick={handlePlayPause}>
