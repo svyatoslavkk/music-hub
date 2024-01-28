@@ -58,13 +58,16 @@ export default function MiniPlayer() {
           <h3 className="small-header-white">
             {activeSong?.title ? activeSong?.title : track}
           </h3>
-          {activeSong &&
-            activeSong.artists &&
-            activeSong.artists.map((artist: Artist) => (
-              <span key={artist.id} className="small-text-white">
-                {artist.name}
-              </span>
-            ))}
+          <div className="flex-content">
+            {activeSong &&
+              activeSong.artists &&
+              activeSong.artists.map((artist: Artist, index: number) => (
+                <span key={artist.id} className="small-text-white">
+                  {artist.name}
+                  {index < activeSong.artists.length - 1 ? "," : ""}
+                </span>
+              ))}
+          </div>
         </div>
       </div>
       <button className="blur-circle-btn" onClick={handlePlayPause}>

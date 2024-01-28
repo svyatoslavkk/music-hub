@@ -31,11 +31,14 @@ export default function DropItem({
         <div className="info">
           <div className="text">
             <h3 className="small-header-white">{song.title}</h3>
-            {song.artists.map((artist: Artist) => (
-              <span key={artist.id} className="small-text-white">
-                {artist.name}
-              </span>
-            ))}
+            <div className="flex-content">
+              {song.artists.map((artist: Artist, index: number) => (
+                <span key={artist.id} className="small-text-white">
+                  {artist.name}
+                  {index < song.artists.length - 1 ? "," : ""}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
         <span className="btn">
