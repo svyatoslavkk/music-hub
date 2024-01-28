@@ -6,6 +6,7 @@
   height: 160px;
   border-radius: 0.5rem;
   overflow: hidden;
+  cursor: pointer;
   .drop-item-overlay {
     position: absolute;
     bottom: 0;
@@ -30,4 +31,15 @@
       text-overflow: ellipsis;
     }
   }
+  .btn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.drop-item:hover .btn {
+  display: flex;
 }

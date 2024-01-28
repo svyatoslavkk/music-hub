@@ -1,0 +1,10 @@
+.header {
+  @include flex-between-styles;
+  padding: 1rem;
+  background-color: $background-alt;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  left: 0;
+  z-index: 990;
+}

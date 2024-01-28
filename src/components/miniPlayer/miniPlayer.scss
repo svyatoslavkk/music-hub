@@ -1,0 +1,26 @@
+.mini-player {
+  position: fixed;
+  bottom: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  backdrop-filter: blur(10px);
+  background-color: #ffffff22;
+  padding: 0.25rem;
+  z-index: 900;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  .flex-content {
+    max-width: 80%;
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

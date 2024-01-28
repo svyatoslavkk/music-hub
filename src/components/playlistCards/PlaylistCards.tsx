@@ -42,7 +42,7 @@ export default function PlaylistCards() {
         aria-labelledby="basic-example-heading"
       >
         {plCardsContent.map((el) => (
-          <SplideSlide>
+          <SplideSlide key={el.name}>
             <div className="pl-card" style={{ backgroundColor: el.bgClr }}>
               <div className="pl-card-info" style={{ padding: 8 }}>
                 <span className="small-text-white">{el.number} tracks</span>

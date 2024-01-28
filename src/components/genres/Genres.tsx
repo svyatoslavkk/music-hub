@@ -22,8 +22,8 @@ export default function Genres() {
   return (
     <section className="genres">
       {genresList.map((item) => (
-        <div className="genre">
-          <span className="mid-header-gray">{item.genre}</span>
+        <div className="genre" key={item.genre}>
+          <span className="small-header-white">{item.genre}</span>
         </div>
       ))}
     </section>

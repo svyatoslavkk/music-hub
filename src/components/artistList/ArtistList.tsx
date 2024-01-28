@@ -20,18 +20,6 @@ export default function ArtistList({ header }: ArtistListProps) {
       img: "https://m.media-amazon.com/images/M/MV5BOWRiMzRlZGUtNjA1Zi00OGJlLTg3Y2QtYjQ3MDNhOTQ1OWVjXkEyXkFqcGdeQXVyODY0NzcxNw@@._V1_FMjpg_UX1000_.jpg",
       name: "Dua Lipa",
     },
-    {
-      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/The_Weeknd_Portrait_by_Brian_Ziff.jpg/220px-The_Weeknd_Portrait_by_Brian_Ziff.jpg",
-      name: "The Weeknd",
-    },
-    {
-      img: "https://cdns-images.dzcdn.net/images/artist/a538ec3bf7d84faf8ff85457ef8cbe12/500x500.jpg",
-      name: "kizaru",
-    },
-    {
-      img: "https://m.media-amazon.com/images/M/MV5BOWRiMzRlZGUtNjA1Zi00OGJlLTg3Y2QtYjQ3MDNhOTQ1OWVjXkEyXkFqcGdeQXVyODY0NzcxNw@@._V1_FMjpg_UX1000_.jpg",
-      name: "Dua Lipa",
-    },
   ];
 
   return (
@@ -52,7 +40,7 @@ export default function ArtistList({ header }: ArtistListProps) {
         aria-labelledby="basic-example-heading"
       >
         {artists.map((drop) => (
-          <SplideSlide>
+          <SplideSlide key={drop.name}>
             <ArtistItem drop={drop} />
           </SplideSlide>
         ))}

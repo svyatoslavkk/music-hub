@@ -60,11 +60,11 @@ export default function NavBar() {
     <nav className="nav-bar">
       {navEls.map((el) => (
         <Link
+          key={el.name}
           to={el.link}
-          className={`nav-bar-el flex-content ${location.pathname === el.link ? "active-icon" : ""}`}
+          className={`blur-circle-btn flex-content ${location.pathname === el.link ? "active-icon" : ""}`}
         >
           {el.icon}
-          {/* <span className="small-header-dark" style={{ color: location.pathname === el.link ? '#f0f2f8' : '#190b14' }}>{el.name}</span> */}
         </Link>
       ))}
     </nav>
