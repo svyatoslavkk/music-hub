@@ -48,6 +48,18 @@ export default function MiniPlayer() {
 
   return (
     <div className="mini-player">
+      <div className="progressbar">
+        <svg className="progressbar__svg">
+          <circle
+            cx="29"
+            cy="29"
+            r="25"
+            className="progressbar__svg-circle circle-js shadow-js"
+          >
+            {" "}
+          </circle>
+        </svg>
+      </div>
       <div className="flex-content">
         <img
           src={activeSong?.image ? activeSong?.image : img}

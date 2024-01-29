@@ -24,3 +24,57 @@
     white-space: nowrap;
   }
 }
+
+////////////////////////
+
+$color-black: hsl(0, 0%, 5%);
+$color-color: hsl(0, 0%, 100%);
+
+$color-js: hsl(0, 100%, 50%);
+
+$porcent-js: 92;
+
+@function strokeDashoffset($num) {
+	@return 162 - (162 * $num) / 100;
+}
+
+.progressbar {
+  position: absolute;
+  top: 37px;
+  left: -1px;
+	width: 20px;
+	height: 20px;
+	transform: rotate(-90deg);
+}
+
+.progressbar__svg {
+	position: relative;
+}
+
+.progressbar__svg-circle {
+	fill: none;
+	stroke-width: 4;
+	stroke-dasharray: 162;
+	stroke-dashoffset: 162;
+	stroke: #e4e0e8bb;
+	stroke-linecap: round;
+}
+
+// .shadow {
+// 	&-js {
+// 		filter: drop-shadow(0 0 2px $color-js);
+// 	}
+// }
+
+.circle {
+	&-js {
+		animation: anim_circle-js 1s ease-in-out forwards;
+	}
+}
+
+@keyframes anim_circle-js {
+	to {
+		stroke-dashoffset: strokeDashoffset($porcent-js);
+	}
+}
+

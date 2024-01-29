@@ -74,6 +74,13 @@ img {
   z-index: 200;
 }
 
+.center-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .large-sq-img {
   width: 160px;
   height: 160px;

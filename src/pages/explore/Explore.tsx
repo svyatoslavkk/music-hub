@@ -7,19 +7,19 @@ import { useMusicContext } from "../../context/MusicContext";
 import NavBar from "../../components/navBar/NavBar";
 import MiniPlayer from "../../components/miniPlayer/MiniPlayer";
 import Header from "../../components/header/Header";
+import Loader from "../../components/loader/Loader";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import { formatMillisecondsToMMSS } from "../../utils/formatMillisecondsToMMSS";
 import { ArtistAlt, SongAlt } from "../../types/types";
 
 export default function Explore() {
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
   const { allMusic } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
-
-  console.log("allMusic", allMusic);
 
   const {
     data: exploreTracks,
@@ -88,7 +88,8 @@ export default function Explore() {
           />
         </div>
         <div className="column-content">
-          {searchQuery.length >= 3 &&
+          {!isLoading &&
+            searchQuery.length >= 3 &&
             filteredAllMusic.map((song: SongAlt, i: number) => (
               <div key={i} className="track-item">
                 <div className="left flex-content">
@@ -170,6 +171,11 @@ export default function Explore() {
         <MiniPlayer />
         <NavBar />
       </div>
+      {isLoading && (
+        <div className="center-loader">
+          <Loader />
+        </div>
+      )}
     </>
   );
 }

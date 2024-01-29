@@ -24,7 +24,10 @@ export const MusicProvider: React.FC<any> = ({ children }) => {
         id: doc.id,
         ...doc.data(),
       }));
-      const musicArray = musicDoc[0]?.data?.[0]?.popularMusic || [];
+      const targetMusic = musicDoc.find(
+        (item) => item.id === "Ma7QsebecH8zxAYi5hd0",
+      );
+      const musicArray = targetMusic?.data?.[0]?.popularMusic || [];
       setFetchMusic(musicArray);
     } catch (error) {
       console.error("Error getting posts document:", error);
