@@ -3,3 +3,32 @@
   padding: 1rem;
   margin-top: 75px;
 }
+
+.track-item {
+  width: 100%;
+  backdrop-filter: blur(10px);
+  background-color: #ffffff22;
+  padding: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  .left {
+    max-width: 73%;
+    overflow: hidden;
+    .small-header-white {
+      white-space: nowrap;
+    }
+    .small-text-white {
+      white-space: nowrap;
+    }
+  }
+  .right {
+    min-width: 22%;
+  }
+}
+
+.fav-icon {
+  display: flex;
+}

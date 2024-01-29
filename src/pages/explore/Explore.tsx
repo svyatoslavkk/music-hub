@@ -3,16 +3,23 @@ import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
+import { useMusicContext } from "../../context/MusicContext";
 import NavBar from "../../components/navBar/NavBar";
 import MiniPlayer from "../../components/miniPlayer/MiniPlayer";
 import Header from "../../components/header/Header";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
+import { formatMillisecondsToMMSS } from "../../utils/formatMillisecondsToMMSS";
+import { ArtistAlt, SongAlt } from "../../types/types";
 
 export default function Explore() {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
+  const { allMusic } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
+
+  console.log("allMusic", allMusic);
 
   const {
     data: exploreTracks,
@@ -24,6 +31,19 @@ export default function Explore() {
     offset: "0",
     limit: "5",
     numberOfTopResults: "5",
+  });
+
+  const filteredAllMusic = allMusic.filter((song: SongAlt) => {
+    const lowerCaseSearchQuery = debouncedSearchQuery.toLowerCase();
+    const lowerCaseSongName = song.name.toLowerCase();
+    const matchesSongName = lowerCaseSongName.includes(lowerCaseSearchQuery);
+
+    const matchesArtistName = song.artists.some((artist: ArtistAlt) => {
+      const lowerCaseArtistName = artist.profile.name.toLowerCase();
+      return lowerCaseArtistName.includes(lowerCaseSearchQuery);
+    });
+
+    return matchesSongName || matchesArtistName;
   });
 
   const handleInputChange = (e: any) => {
@@ -52,12 +72,6 @@ export default function Explore() {
     }
   };
 
-  if (exploreTracksFetching) {
-    return <p className="small-header-white">Loading...</p>;
-  }
-
-  console.log(exploreTracks.tracks.items);
-
   return (
     <>
       <Header />
@@ -73,7 +87,41 @@ export default function Explore() {
             onChange={handleInputChange}
           />
         </div>
-        <div>
+        <div className="column-content">
+          {searchQuery.length >= 3 &&
+            filteredAllMusic.map((song: SongAlt, i: number) => (
+              <div key={i} className="track-item">
+                <div className="left flex-content">
+                  <img
+                    src={song?.img}
+                    className="small-circle-img"
+                    alt="Track"
+                  />
+                  <div>
+                    <h3 className="small-header-white">{song?.name}</h3>
+                    <div className="flex-content">
+                      {song?.artists.map((artist: ArtistAlt, index: number) => (
+                        <span className="small-text-white">
+                          {artist?.profile?.name}
+                          {index < song?.artists.length - 1 ? "," : ""}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="right flex-content">
+                  <span className="fav-icon">
+                    <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d8" }} />
+                  </span>
+                  <p className="small-text-white">
+                    {formatMillisecondsToMMSS(song?.duration)}
+                  </p>
+                </div>
+              </div>
+            ))}
+        </div>
+
+        {/* <div>
           {exploreTracks.tracks.items.map((hit: any, i: any) => {
             const song = hit?.data;
             return (
@@ -117,7 +165,8 @@ export default function Explore() {
               </div>
             );
           })}
-        </div>
+        </div> */}
+
         <MiniPlayer />
         <NavBar />
       </div>
