@@ -2,9 +2,9 @@ import Genres from "../../components/genres/Genres";
 import SliderList from "../../components/sliderList/SliderList";
 import ArtistList from "../../components/artistList/ArtistList";
 import NavBar from "../../components/navBar/NavBar";
-import MiniPlayer from "../../components/miniPlayer/MiniPlayer";
 import PlaylistCards from "../../components/playlistCards/PlaylistCards";
 import Header from "../../components/header/Header";
+import Player from "../../components/Player/Player";
 
 export default function Main() {
   const popularHeader = "Popular";
@@ -18,7 +18,7 @@ export default function Main() {
         <Genres />
         <SliderList header={popularHeader} />
         <ArtistList header={artistHeader} />
-        <MiniPlayer />
+        <Player />
         <NavBar />
       </div>
     </>

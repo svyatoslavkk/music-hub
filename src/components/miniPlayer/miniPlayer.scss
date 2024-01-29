@@ -12,9 +12,13 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 2.5rem;
-  overflow: hidden;
+  z-index: 900;
   .flex-content {
     max-width: 80%;
+  }
+  .buttons {
+    @include flex-between-styles;
+    gap: 1rem;
   }
   .text {
     display: flex;
@@ -22,6 +26,13 @@
     gap: 0rem;
     overflow: hidden;
     white-space: nowrap;
+  }
+  .expand-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 60px;
+    z-index: -100;
   }
 }
 
@@ -32,10 +43,10 @@ $color-color: hsl(0, 0%, 100%);
 
 $color-js: hsl(0, 100%, 50%);
 
-$porcent-js: 92;
+$porcent-js: 50;
 
 @function strokeDashoffset($num) {
-	@return 162 - (162 * $num) / 100;
+	@return 155 - (155 * $num) / 100;
 }
 
 .progressbar {
@@ -54,9 +65,9 @@ $porcent-js: 92;
 .progressbar__svg-circle {
 	fill: none;
 	stroke-width: 4;
-	stroke-dasharray: 162;
-	stroke-dashoffset: 162;
-	stroke: #e4e0e8bb;
+	stroke-dasharray: 155;
+	stroke-dashoffset: 155;
+	stroke: $interactive-alt;
 	stroke-linecap: round;
 }
 
