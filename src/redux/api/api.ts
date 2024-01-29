@@ -22,7 +22,13 @@ export const api = createApi({
         },
       }),
     }),
+    exploreTracks: builder.query({
+      query: (params) => ({
+        url: `search/`,
+        params,
+      }),
+    }),
   }),
 });
 
-export const { useGetTopTracksQuery } = api;
+export const { useGetTopTracksQuery, useExploreTracksQuery } = api;
