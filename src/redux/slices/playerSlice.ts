@@ -31,8 +31,10 @@ const playerSlice = createSlice({
 
       if (action.payload?.fetchMusic) {
         state.currentSongs = action.payload.fetchMusic;
-      } else if (action.payload?.fetchMusic) {
-        state.currentSongs = action.payload?.fetchMusic;
+      } else if (action.payload?.allMusic) {
+        state.currentSongs = action.payload?.allMusic;
+      } else if (action.payload?.filteredAllMusic) {
+        state.currentSongs = action.payload?.filteredAllMusic;
       } else {
         state.currentSongs = action.payload.data;
       }

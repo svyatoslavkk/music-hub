@@ -13,10 +13,18 @@
   align-items: center;
   border-radius: 2.5rem;
   justify-content: space-between;
+  overflow: hidden;
   z-index: 900;
   .track-info {
     @include flex-between-styles;
     width: 100%;
+    .text {
+      .small-header-white,
+      .small-text-white {
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
   }
   .buttons {
     @include flex-between-styles;

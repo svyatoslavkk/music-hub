@@ -82,6 +82,9 @@ export default function Player() {
           currentIndex={currentIndex}
           currentSongs={currentSongs}
           handlePlayPause={handlePlayPause}
+          value={appTime}
+          min={0}
+          max={duration}
         />
       )}
       <audio

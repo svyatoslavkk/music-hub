@@ -1,25 +1,30 @@
 import { useExploreTracksQuery } from "../../redux/api/api";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import { useMusicContext } from "../../context/MusicContext";
 import NavBar from "../../components/navBar/NavBar";
-import MiniPlayer from "../../components/miniPlayer/MiniPlayer";
+import Player from "../../components/Player/Player";
 import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
+import TrackListItem from "../../components/trackListItem/TrackListItem";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import { formatMillisecondsToMMSS } from "../../utils/formatMillisecondsToMMSS";
 import { ArtistAlt, SongAlt } from "../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { playPause, setActiveSong } from "../../redux/slices/playerSlice";
 
 export default function Explore() {
+  const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
+    useSelector((state) => state.player);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
   const { allMusic } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
+  const dispatch = useDispatch();
+  const ref = useRef<HTMLAudioElement>(null);
 
   const {
     data: exploreTracks,
@@ -72,6 +77,26 @@ export default function Explore() {
     }
   };
 
+  useEffect(() => {
+    if (ref.current) {
+      if (!isPlaying) {
+        ref.current.play();
+      }
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (ref.current && isPlaying) {
+      ref.current.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (currentSongs.length) {
+      dispatch(playPause(true));
+    }
+  }, [currentIndex]);
+
   return (
     <>
       <Header />
@@ -90,35 +115,16 @@ export default function Explore() {
         <div className="column-content">
           {!isLoading &&
             searchQuery.length >= 3 &&
+            filteredAllMusic &&
             filteredAllMusic.map((song: SongAlt, i: number) => (
-              <div key={i} className="track-item">
-                <div className="left flex-content">
-                  <img
-                    src={song?.img}
-                    className="small-circle-img"
-                    alt="Track"
-                  />
-                  <div>
-                    <h3 className="small-header-white">{song?.name}</h3>
-                    <div className="flex-content">
-                      {song?.artists.map((artist: ArtistAlt, index: number) => (
-                        <span className="small-text-white">
-                          {artist?.profile?.name}
-                          {index < song?.artists.length - 1 ? "," : ""}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="right flex-content">
-                  <span className="fav-icon">
-                    <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d8" }} />
-                  </span>
-                  <p className="small-text-white">
-                    {formatMillisecondsToMMSS(song?.duration)}
-                  </p>
-                </div>
-              </div>
+              <TrackListItem
+                key={song.id}
+                song={song}
+                filteredAllMusic={filteredAllMusic}
+                isPlaying={isPlaying}
+                activeSong={activeSong}
+                i={i}
+              />
             ))}
         </div>
 
@@ -168,7 +174,7 @@ export default function Explore() {
           })}
         </div> */}
 
-        <MiniPlayer />
+        <Player />
         <NavBar />
       </div>
       {isLoading && (

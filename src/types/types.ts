@@ -24,6 +24,7 @@ export type Artist = {
 
 export type ArtistAlt = {
   profile: {
+    uid: string;
     name: string;
   };
 };

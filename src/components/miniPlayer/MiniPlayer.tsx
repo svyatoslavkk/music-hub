@@ -1,7 +1,6 @@
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import { Artist, PlayerProps } from "../../types/types";
 
 export default function MiniPlayer({
@@ -12,13 +11,16 @@ export default function MiniPlayer({
   currentIndex,
   currentSongs,
   handlePlayPause,
+  value,
+  min,
+  max,
 }: PlayerProps) {
-  const reserveImg =
-    "https://images.genius.com/1d88f9c0c8623d60cf6d85ad3b38a6de.999x999x1.png";
-
   return (
     <>
-      <div className="mini-player">
+      <div
+        className="mini-player"
+        style={{ "--progress-value": 100, "--max-value": 200 }}
+      >
         <div className="progressbar">
           <svg className="progressbar__svg">
             <circle
@@ -31,29 +33,32 @@ export default function MiniPlayer({
             </circle>
           </svg>
         </div>
-        <div className="flex-content">
+        <div className="left flex-content">
           <img
-            src={activeSong?.image ? activeSong?.image : reserveImg}
+            src={activeSong?.image || activeSong?.img}
             className="small-circle-img"
-            alt={activeSong?.title ? activeSong?.title : "Track"}
+            alt={activeSong?.title || activeSong?.name}
           />
           <div className="text">
             <h3 className="small-header-white">
-              {activeSong?.title ? activeSong?.title : "Artist"}
+              {activeSong?.title || activeSong?.name}
             </h3>
             <div className="flex-content">
               {activeSong &&
                 activeSong.artists &&
-                activeSong.artists.map((artist: Artist, index: number) => (
-                  <span key={artist.id} className="small-text-white">
-                    {artist.name}
+                activeSong.artists?.map((artist: Artist, index: number) => (
+                  <span
+                    key={artist?.id || artist?.profile.uid}
+                    className="small-text-white"
+                  >
+                    {artist.name || artist?.profile.name}
                     {index < activeSong.artists.length - 1 ? "," : ""}
                   </span>
                 ))}
             </div>
           </div>
         </div>
-        <div className="buttons">
+        <div className="right">
           <button className="transparent-btn" onClick={onToggle}>
             <ExpandLessRoundedIcon
               sx={{ color: "#d0d2d8" }}

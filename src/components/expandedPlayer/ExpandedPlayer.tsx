@@ -35,20 +35,23 @@ export default function ExpandedPlayer({
           <div></div>
           <div className="flex-content">
             <img
-              src={activeSong?.image ? activeSong?.image : img}
+              src={activeSong?.image || activeSong?.img}
               className="small-circle-img"
-              alt={activeSong?.title ? activeSong?.title : track}
+              alt={activeSong?.title || activeSong?.name}
             />
             <div className="text">
               <h3 className="small-header-white">
-                {activeSong?.title ? activeSong?.title : track}
+                {activeSong?.title || activeSong?.name}
               </h3>
               <div className="flex-content">
                 {activeSong &&
                   activeSong.artists &&
                   activeSong.artists.map((artist: Artist, index: number) => (
-                    <span key={artist.id} className="small-text-white">
-                      {artist.name}
+                    <span
+                      key={artist?.id || artist?.profile.uid}
+                      className="small-text-white"
+                    >
+                      {artist.name || artist?.profile.name}
                       {index < activeSong.artists.length - 1 ? "," : ""}
                     </span>
                   ))}
