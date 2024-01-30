@@ -44,10 +44,10 @@ export default function MiniPlayer({
                 activeSong.artists &&
                 activeSong.artists?.map((artist: Artist, index: number) => (
                   <span
-                    key={artist?.id || artist?.profile.uid}
+                    key={artist?.id || artist?.profile?.uri}
                     className="small-text-white"
                   >
-                    {artist.name || artist?.profile.name}
+                    {artist?.name || artist?.profile?.name}
                     {index < activeSong.artists.length - 1 ? "," : ""}
                   </span>
                 ))}

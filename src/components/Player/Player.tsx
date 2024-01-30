@@ -56,43 +56,49 @@ export default function Player() {
   }, [currentIndex]);
 
   return (
-    <div>
-      {isExpanded ? (
-        <ExpandedPlayer
-          onToggle={togglePlayerView}
-          isPlaying={isPlaying}
-          isActive={isActive}
-          activeSong={activeSong}
-          currentIndex={currentIndex}
-          currentSongs={currentSongs}
-          handlePlayPause={handlePlayPause}
-          value={appTime}
-          min={0}
-          max={duration}
-          onInput={(event: any) => setSeekTime(event.target.value)}
-          setSeekTime={setSeekTime}
-          appTime={appTime}
+    <>
+      <div>
+        {isExpanded ? (
+          <ExpandedPlayer
+            onToggle={togglePlayerView}
+            isPlaying={isPlaying}
+            isActive={isActive}
+            activeSong={activeSong}
+            currentIndex={currentIndex}
+            currentSongs={currentSongs}
+            handlePlayPause={handlePlayPause}
+            value={appTime}
+            min={0}
+            max={duration}
+            onInput={(event: any) => setSeekTime(event.target.value)}
+            setSeekTime={setSeekTime}
+            appTime={appTime}
+          />
+        ) : (
+          <MiniPlayer
+            onToggle={togglePlayerView}
+            isPlaying={isPlaying}
+            isActive={isActive}
+            activeSong={activeSong}
+            currentIndex={currentIndex}
+            currentSongs={currentSongs}
+            handlePlayPause={handlePlayPause}
+            value={appTime}
+            min={0}
+            max={duration}
+          />
+        )}
+        <audio
+          src={activeSong?.soundFile}
+          ref={ref}
+          onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
+          onLoadedData={(event: any) => setDuration(event.target.duration)}
         />
-      ) : (
-        <MiniPlayer
-          onToggle={togglePlayerView}
-          isPlaying={isPlaying}
-          isActive={isActive}
-          activeSong={activeSong}
-          currentIndex={currentIndex}
-          currentSongs={currentSongs}
-          handlePlayPause={handlePlayPause}
-          value={appTime}
-          min={0}
-          max={duration}
-        />
-      )}
-      <audio
-        src={activeSong?.soundFile}
-        ref={ref}
-        onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
-        onLoadedData={(event: any) => setDuration(event.target.duration)}
-      />
-    </div>
+      </div>
+      <div
+        className="bottom-overlay"
+        style={{ height: isExpanded ? 300 : 160 }}
+      ></div>
+    </>
   );
 }

@@ -15,17 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { playPause } from "../../redux/slices/playerSlice";
 
 export default function Explore() {
-  const { activeSong, currentSongs, currentIndex, isPlaying } = useSelector(
-    (state) => state.player,
-  );
+  const { activeSong, isPlaying } = useSelector((state) => state.player);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
   const { allMusic } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
-  const dispatch = useDispatch();
-  const ref = useRef<HTMLAudioElement>(null);
 
   const {
     data: exploreTracks,
@@ -77,26 +73,6 @@ export default function Explore() {
       console.error("Invalid song object:", song);
     }
   };
-
-  useEffect(() => {
-    if (ref.current) {
-      if (!isPlaying) {
-        ref.current.play();
-      }
-    }
-  }, [isPlaying]);
-
-  useEffect(() => {
-    if (ref.current && isPlaying) {
-      ref.current.pause();
-    }
-  }, [isPlaying]);
-
-  useEffect(() => {
-    if (currentSongs.length) {
-      dispatch(playPause(true));
-    }
-  }, [currentIndex]);
 
   return (
     <>

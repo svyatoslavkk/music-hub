@@ -115,7 +115,10 @@ export default function TrackListItem({
           <h3 className="small-header-white">{song?.name}</h3>
           <div className="flex-content">
             {song?.artists.map((artist: ArtistAlt, index: number) => (
-              <span key={artist?.profile?.uid} className="small-text-white">
+              <span
+                key={artist?.id || artist?.profile?.uri}
+                className="small-text-white"
+              >
                 {artist?.profile?.name || artist?.name}
                 {index < song?.artists.length - 1 ? "," : ""}
               </span>
