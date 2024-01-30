@@ -17,10 +17,7 @@ export default function MiniPlayer({
 }: PlayerProps) {
   return (
     <>
-      <div
-        className="mini-player"
-        style={{ "--progress-value": 100, "--max-value": 200 }}
-      >
+      <div className="mini-player">
         <div className="progressbar">
           <svg className="progressbar__svg">
             <circle
@@ -28,6 +25,9 @@ export default function MiniPlayer({
               cy="29"
               r="25"
               className="progressbar__svg-circle circle-js shadow-js"
+              style={{
+                strokeDashoffset: 155 - (155 * ((value / max) * 100)) / 100,
+              }}
             >
               {" "}
             </circle>

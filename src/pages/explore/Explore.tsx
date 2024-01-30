@@ -12,11 +12,12 @@ import TrackListItem from "../../components/trackListItem/TrackListItem";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { ArtistAlt, SongAlt } from "../../types/types";
 import { useDispatch, useSelector } from "react-redux";
-import { playPause, setActiveSong } from "../../redux/slices/playerSlice";
+import { playPause } from "../../redux/slices/playerSlice";
 
 export default function Explore() {
-  const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
-    useSelector((state) => state.player);
+  const { activeSong, currentSongs, currentIndex, isPlaying } = useSelector(
+    (state) => state.player,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);

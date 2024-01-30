@@ -11,16 +11,16 @@ export default function Main() {
   const artistHeader = "Artists";
 
   return (
-    <>
+    <div className="container">
       <Header />
+      <NavBar />
       <div className="main">
         <PlaylistCards />
         <Genres />
         <SliderList header={popularHeader} />
         <ArtistList header={artistHeader} />
         <Player />
-        <NavBar />
       </div>
-    </>
+    </div>
   );
 }

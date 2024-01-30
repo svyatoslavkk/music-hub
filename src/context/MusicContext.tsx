@@ -1,11 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
-import { database } from "../firebase/firebase";
+import { app, database } from "../firebase/firebase";
+import { Song, SongAlt } from "../types/types";
 
 const MusicContext = createContext<
   | {
-      fetchMusic: any[];
-      allMusic: any[];
+      user: any;
+      users: any[];
+      setUsers: any;
+      fireData: any[];
+      fetchMusic: Song[];
+      allMusic: SongAlt[];
+      fetchData: () => Promise<void>;
       getMusicData: () => Promise<void>;
       getAllMusic: () => Promise<void>;
     }
@@ -13,9 +20,37 @@ const MusicContext = createContext<
 >(undefined);
 
 export const MusicProvider: React.FC<any> = ({ children }) => {
+  const [user, setUser] = useState<any>(null);
+  const [users, setUsers] = useState<any[]>([]);
+  const [fireData, setFireData] = useState<any[]>([]);
   const [fetchMusic, setFetchMusic] = useState([]);
   const [allMusic, setAllMusic] = useState([]);
+  const collectionRef = collection(database, "Users Data");
   const musicCollectionRef = collection(database, "Music Data");
+
+  const getUsers = async () => {
+    try {
+      const snapshot = await getDocs(collectionRef);
+      const userList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(userList);
+    } catch (error) {
+      console.error("Error getting users:", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await getDocs(collectionRef);
+      setFireData(
+        response.docs.map((data) => ({ ...data.data(), id: data.id })),
+      );
+    } catch (error) {
+      console.error("Error getting data:", error);
+    }
+  };
 
   const getMusicData = async () => {
     try {
@@ -52,13 +87,42 @@ export const MusicProvider: React.FC<any> = ({ children }) => {
   };
 
   useEffect(() => {
+    getUsers();
     getMusicData();
     getAllMusic();
   }, []);
 
+  useEffect(() => {
+    let token = sessionStorage.getItem("Token");
+    if (token) {
+      fetchData();
+
+      const auth = getAuth(app);
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, []);
+
   return (
     <MusicContext.Provider
-      value={{ fetchMusic, allMusic, getMusicData, getAllMusic }}
+      value={{
+        user,
+        users,
+        setUsers,
+        fireData,
+        fetchData,
+        fetchMusic,
+        allMusic,
+        getMusicData,
+        getAllMusic,
+      }}
     >
       {children}
     </MusicContext.Provider>

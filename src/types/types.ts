@@ -23,10 +23,12 @@ export type Artist = {
 };
 
 export type ArtistAlt = {
+  name?: string;
   profile: {
-    uid: string;
+    uri: string;
     name: string;
   };
+  uri?: string;
 };
 
 export interface PlayerProps {

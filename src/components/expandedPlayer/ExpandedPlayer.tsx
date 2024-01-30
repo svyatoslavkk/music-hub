@@ -3,6 +3,7 @@ import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import { Artist } from "../../types/types";
 import { PlayerProps } from "../../types/types";
 
@@ -21,10 +22,6 @@ export default function ExpandedPlayer({
   setSeekTime,
   appTime,
 }: PlayerProps) {
-  const img =
-    "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36";
-  const track = "Blinding Lights";
-
   const getTime = (time: number) =>
     `${Math.floor(time / 60)}:${`0${Math.floor(time % 60)}`.slice(-2)}`;
 
@@ -58,14 +55,12 @@ export default function ExpandedPlayer({
               </div>
             </div>
           </div>
-          <button className="transparent-btn" onClick={onToggle}>
-            <ExpandMoreRoundedIcon
-              sx={{ color: "#d0d2d8" }}
-              fontSize="medium"
-            />
-          </button>
+          <div></div>
         </div>
         <div className="buttons">
+          <button className="transparent-btn">
+            <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d8" }} />
+          </button>
           <button className="blur-circle-btn">
             <SkipPreviousRoundedIcon sx={{ color: "#d0d2d8" }} />
           </button>
@@ -81,6 +76,12 @@ export default function ExpandedPlayer({
           </button>
           <button className="blur-circle-btn">
             <SkipNextRoundedIcon sx={{ color: "#d0d2d8" }} />
+          </button>
+          <button className="transparent-btn" onClick={onToggle}>
+            <ExpandMoreRoundedIcon
+              sx={{ color: "#d0d2d8" }}
+              fontSize="medium"
+            />
           </button>
         </div>
         <label className="line-bar">

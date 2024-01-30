@@ -26,7 +26,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -64,6 +64,10 @@ img {
   @include column-content-styles;
 }
 
+.container {
+  display: flex;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -74,7 +78,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 200;
+  z-index: 1000;
 }
 
 .center-loader {
@@ -99,5 +103,11 @@ img {
 .small-circle-img {
   width: 48px;
   height: 48px;
+  border-radius: 50%;
+}
+
+.tiny-circle-img {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
 }
