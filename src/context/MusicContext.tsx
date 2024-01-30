@@ -2,31 +2,40 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { app, database } from "../firebase/firebase";
-import { Song, SongAlt } from "../types/types";
+import { Playlist, Song, SongAlt, User } from "../types/types";
 
 const MusicContext = createContext<
   | {
-      user: any;
-      users: any[];
+      user: User;
+      users: User[];
       setUsers: any;
       fireData: any[];
       fetchMusic: Song[];
       allMusic: SongAlt[];
+      welcomePlaylists: Playlist[];
+      isExpanded: boolean;
       fetchData: () => Promise<void>;
       getMusicData: () => Promise<void>;
       getAllMusic: () => Promise<void>;
+      getPlaylists: () => Promise<void>;
+      togglePlayerView: () => Promise<void>;
     }
   | undefined
 >(undefined);
 
 export const MusicProvider: React.FC<any> = ({ children }) => {
-  const [user, setUser] = useState<any>(null);
-  const [users, setUsers] = useState<any[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
   const [fireData, setFireData] = useState<any[]>([]);
   const [fetchMusic, setFetchMusic] = useState([]);
   const [allMusic, setAllMusic] = useState([]);
+
+  const [welcomePlaylists, setWelcomePlaylists] = useState([]);
+
+  const [isExpanded, setIsExpanded] = useState(false);
   const collectionRef = collection(database, "Users Data");
   const musicCollectionRef = collection(database, "Music Data");
+  const playlistsCollectionRef = collection(database, "Playlist Data");
 
   const getUsers = async () => {
     try {
@@ -86,10 +95,32 @@ export const MusicProvider: React.FC<any> = ({ children }) => {
     }
   };
 
+  const getPlaylists = async () => {
+    try {
+      const playlistDocSnapshot = await getDocs(playlistsCollectionRef);
+      const playlistDoc = playlistDocSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      const targetMusic = playlistDoc.find(
+        (item) => item.id === "Rf5DvjfzNQey8DYUyTwX",
+      );
+      const playlistsArray = targetMusic?.welcomePlaylists || [];
+      setWelcomePlaylists(playlistsArray);
+    } catch (error) {
+      console.error("Error getting posts document:", error);
+    }
+  };
+
+  const togglePlayerView = async () => {
+    setIsExpanded((prevIsExpanded) => !prevIsExpanded);
+  };
+
   useEffect(() => {
     getUsers();
     getMusicData();
     getAllMusic();
+    getPlaylists();
   }, []);
 
   useEffect(() => {
@@ -120,8 +151,12 @@ export const MusicProvider: React.FC<any> = ({ children }) => {
         fetchData,
         fetchMusic,
         allMusic,
+        welcomePlaylists,
+        isExpanded,
         getMusicData,
         getAllMusic,
+        getPlaylists,
+        togglePlayerView,
       }}
     >
       {children}

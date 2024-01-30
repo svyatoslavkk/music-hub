@@ -14,18 +14,18 @@
   border-radius: 2.5rem;
   overflow: hidden;
   .active-icon {
-    backdrop-filter: blur(50px);
-    background-color: #ddd;
-    color: $icon-alt;
+    @include active-icon-styles;
   }
 }
 
 @media (min-width: 624px) {
   .nav-bar {
+    position: relative;
     top: 0px;
     left: 0%;
     transform: translateX(0%);
-    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
     height: 100vh;
     flex-direction: column;
     gap: 3rem;

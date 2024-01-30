@@ -1,5 +1,14 @@
 import { SetStateAction } from "react";
 
+export type User = {
+  avatar: string;
+  docId: string;
+  email: string;
+  favTracks: SongAlt[];
+  uid: string;
+  userName: string;
+};
+
 export type Song = {
   id: string;
   title: string;
@@ -15,6 +24,7 @@ export type SongAlt = {
   soundFile: string;
   img: string;
   duration: number;
+  playlist: string;
 };
 
 export type Artist = {
@@ -29,6 +39,13 @@ export type ArtistAlt = {
     name: string;
   };
   uri?: string;
+};
+
+export type Playlist = {
+  description: string;
+  id: string;
+  image: string;
+  name: string;
 };
 
 export interface PlayerProps {

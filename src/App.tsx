@@ -5,6 +5,7 @@ import Login from "./pages/login/Login";
 import Main from "./pages/main/Main";
 import Explore from "./pages/explore/Explore";
 import Favorites from "./pages/favorites/Favorites";
+import Playlist from "./pages/playlist/Playlist";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { MusicProvider } from "./context/MusicContext";
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/" element={<Main />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/:playlistId" element={<Playlist />} />
           </Routes>
         </MusicProvider>
       </BrowserRouter>

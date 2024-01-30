@@ -1,5 +1,5 @@
 import { useExploreTracksQuery } from "../../redux/api/api";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
@@ -11,15 +11,14 @@ import Loader from "../../components/loader/Loader";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { ArtistAlt, SongAlt } from "../../types/types";
-import { useDispatch, useSelector } from "react-redux";
-import { playPause } from "../../redux/slices/playerSlice";
+import { useSelector } from "react-redux";
 
 export default function Explore() {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
-  const { allMusic } = useMusicContext();
+  const { allMusic, isExpanded } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
 
@@ -75,9 +74,10 @@ export default function Explore() {
   };
 
   return (
-    <>
+    <div className="container">
       <Header />
-      <div className="explore">
+      <NavBar />
+      <div className="explore" style={{ marginBottom: isExpanded ? 230 : 110 }}>
         <div className="auth-input-section">
           <span className="search-icon">
             <SearchRoundedIcon sx={{ color: "#d0d2d8" }} />
@@ -106,7 +106,7 @@ export default function Explore() {
         </div>
 
         {/* <div>
-          {exploreTracks.tracks.items.map((hit: any, i: any) => {
+          {exploreTracks && exploreTracks?.tracks?.items?.map((hit: any, i: any) => {
             const song = hit?.data;
             return (
               <div
@@ -152,13 +152,12 @@ export default function Explore() {
         </div> */}
 
         <Player />
-        <NavBar />
       </div>
       {isLoading && (
         <div className="center-loader">
           <Loader />
         </div>
       )}
-    </>
+    </div>
   );
 }

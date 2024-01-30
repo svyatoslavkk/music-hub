@@ -35,7 +35,7 @@ export default function ExpandedPlayer({
               <h3 className="small-header-white">
                 {activeSong?.title || activeSong?.name}
               </h3>
-              <div className="flex-content">
+              <div style={{ display: "flex", gap: 4 }}>
                 {activeSong &&
                   activeSong.artists &&
                   activeSong.artists.map((artist: Artist, index: number) => (

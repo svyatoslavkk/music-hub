@@ -1,29 +1,34 @@
 import plImgFirst from "../../assets/pl_image_first.jpg";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import plImgSecond from "../../assets/pl_image_second.jpg";
-import plImgThird from "../../assets/pl_image_third.jpg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+import { Link } from "react-router-dom";
+import { useMusicContext } from "../../context/MusicContext";
 
 export default function PlaylistCards() {
+  const { welcomePlaylists } = useMusicContext();
+  const id = welcomePlaylists.map((el) => {
+    el.id;
+  });
+  console.log("welcomePlaylists", welcomePlaylists);
+
   const plCardsContent = [
     {
+      playlistId: welcomePlaylists[1].id,
       number: 17,
       name: "Chill Mix",
       img: plImgFirst,
       bgClr: "#FD9C02",
+      link: `/${welcomePlaylists[1].id}`,
     },
     {
+      playlistId: welcomePlaylists[0].id,
       number: 21,
       name: "Gamer Mix",
       img: plImgSecond,
       bgClr: "#DC225A",
-    },
-    {
-      number: 16,
-      name: "Future Mix",
-      img: plImgThird,
-      bgClr: "#234EFF",
+      link: `/${welcomePlaylists[0].id}`,
     },
   ];
 
@@ -43,7 +48,11 @@ export default function PlaylistCards() {
       >
         {plCardsContent.map((el) => (
           <SplideSlide key={el.name}>
-            <div className="pl-card" style={{ backgroundColor: el.bgClr }}>
+            <Link
+              to={el.link}
+              className="pl-card"
+              style={{ backgroundColor: el.bgClr, textDecoration: "none" }}
+            >
               <div className="pl-card-info" style={{ padding: 8 }}>
                 <span className="small-text-white">{el.number} tracks</span>
                 <h3 className="big-header-white">{el.name}</h3>
@@ -53,7 +62,7 @@ export default function PlaylistCards() {
                 </button>
               </div>
               <img className="pl-card-img" src={el.img} alt="Pl Img" />
-            </div>
+            </Link>
           </SplideSlide>
         ))}
       </Splide>

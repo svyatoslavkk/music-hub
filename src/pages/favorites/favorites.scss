@@ -26,9 +26,12 @@
     justify-content: space-between;
   }
   .content {
+    @include flex-center-styles;
     display: flex;
     gap: 1rem;
-    @include flex-center-styles;
+    .mid-circle-img {
+      @include active-icon-styles;
+    }
   }
   .add-content {
     display: flex;

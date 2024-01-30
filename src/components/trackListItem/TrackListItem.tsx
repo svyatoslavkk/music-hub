@@ -113,14 +113,18 @@ export default function TrackListItem({
         )}
         <div>
           <h3 className="small-header-white">{song?.name}</h3>
-          <div className="flex-content">
+          <div style={{ display: "flex", gap: 4 }}>
             {song?.artists.map((artist: ArtistAlt, index: number) => (
               <span
                 key={artist?.id || artist?.profile?.uri}
                 className="small-text-white"
               >
                 {artist?.profile?.name || artist?.name}
-                {index < song?.artists.length - 1 ? "," : ""}
+                {index < song?.artists.length - 1 ? (
+                  <span className="small-text-white">,</span>
+                ) : (
+                  ""
+                )}
               </span>
             ))}
           </div>
@@ -129,7 +133,7 @@ export default function TrackListItem({
       <div className="right flex-content">
         {isFavoriteSong ? (
           <button className="transparent-btn" onClick={handleAddToFavorites}>
-            <FavoriteRoundedIcon sx={{ color: "#ff4444" }} />
+            <FavoriteRoundedIcon sx={{ color: "#dfbf60" }} />
           </button>
         ) : (
           <button className="transparent-btn" onClick={handleAddToFavorites}>

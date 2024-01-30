@@ -3,14 +3,15 @@ import { useState, useEffect, useRef } from "react";
 import { playPause } from "../../redux/slices/playerSlice";
 import MiniPlayer from "../miniPlayer/MiniPlayer";
 import ExpandedPlayer from "../expandedPlayer/ExpandedPlayer";
+import { useMusicContext } from "../../context/MusicContext";
 
 export default function Player() {
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
     useSelector((state) => state.player);
+  const { isExpanded, togglePlayerView } = useMusicContext();
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
   const [appTime, setAppTime] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
   const ref = useRef<HTMLAudioElement>(null);
 
@@ -22,10 +23,6 @@ export default function Player() {
     } else {
       dispatch(playPause(true));
     }
-  };
-
-  const togglePlayerView = () => {
-    setIsExpanded((prevIsExpanded) => !prevIsExpanded);
   };
 
   /************************* FOR AUDIO TAG ***********************/

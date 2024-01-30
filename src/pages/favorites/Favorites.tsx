@@ -7,49 +7,49 @@ import { useSelector } from "react-redux";
 import { SongAlt } from "../../types/types";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 
 export default function Favorites() {
-  const { user, users } = useMusicContext();
+  const { user, users, isExpanded } = useMusicContext();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const myData = users.filter((data) => data.uid === user?.uid)[0];
   const filteredAllMusic = myData?.favTracks || [];
-  // const totalTimeTracks =
-  // favList?.reduce((totalTime, track) => {
-  //   return totalTime + track.duration;
-  // }, 0) / 60000 || 0;
-  const fake =
-    "https://png.pngtree.com/thumb_back/fh260/background/20230929/pngtree-group-of-shiny-red-and-blue-hearts-are-on-a-blue-image_13507809.png";
+  const totalTimeTracks: number =
+    filteredAllMusic?.reduce((totalTime: number, track: SongAlt) => {
+      return totalTime + track.duration;
+    }, 0) / 60000 || 0;
+
+  const plImage = (
+    <div className="mid-circle-img">
+      <FavoriteRoundedIcon fontSize="large" sx={{ color: "#190b14" }} />
+    </div>
+  );
+  const plTitle = "Favorite tracks";
+  const plDesc = "Playlist";
+  const stats = [
+    {
+      value: filteredAllMusic?.length,
+      key: "tracks",
+    },
+    {
+      value: totalTimeTracks.toFixed(0),
+      key: "min",
+    },
+  ];
 
   return (
     <>
-      <div className="favorites-header">
-        <header className="buttons">
-          <button className="blur-circle-btn">
-            <GridViewRoundedIcon sx={{ color: "#d0d2d8" }} />
-          </button>
-          <button className="blur-circle-btn">
-            <LogoutRoundedIcon sx={{ color: "#d0d2d8" }} />
-          </button>
-        </header>
-        <div className="content">
-          <img src={fake} className="mid-circle-img" />
-          <div>
-            <h3 className="mid-header-white">Favorite tracks</h3>
-            <span className="mid-text-white">Playlist</span>
-          </div>
-        </div>
-        <div className="add-content">
-          {/* <div className="column-content">
-            <h3 className="mid-header-white">{favList?.length}</h3>
-            <span className="mid-text-white">tracks</span>
-          </div> */}
-          {/* <div className="column-content">
-            <h3 className="mid-header-white">{totalTimeTracks.toFixed(0)}</h3>
-            <span className="mid-text-white">min</span>
-          </div> */}
-        </div>
-      </div>
-      <div className="favorites">
+      <ExpandedHeader
+        plImage={plImage}
+        plTitle={plTitle}
+        plDesc={plDesc}
+        stats={stats}
+      />
+      <div
+        className="favorites"
+        style={{ marginBottom: isExpanded ? 230 : 110 }}
+      >
         {filteredAllMusic && filteredAllMusic.length > 0 && (
           <div className="column-content">
             {filteredAllMusic.map((song: SongAlt, i: number) => (

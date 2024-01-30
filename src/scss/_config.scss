@@ -59,3 +59,12 @@ $icon-alt: #9E9E9E;
   gap: 0.25rem;
   align-items: center;
 }
+
+@mixin active-icon-styles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(50px);
+  background-color: #ddd;
+  color: $icon-alt;
+}

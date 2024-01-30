@@ -7,3 +7,9 @@
 .fav-icon {
   display: flex;
 }
+
+@media (min-width: 624px) {
+  .explore {
+    margin-top: 0;
+  }
+}
