@@ -10,12 +10,18 @@
   overflow: hidden;
   .left {
     position: relative;
-    max-width: 78%;
+    max-width: 77%;
     overflow: hidden;
+    .i {
+      display: flex;
+      justify-content: center;
+      min-width: 15px;
+      max-width: 15px;
+    }
     .play-pause-btn {
       position: absolute;
       top: 0;
-      left: 0;
+      left: 23px;
       display: none;
     }
     .small-header-white {
@@ -26,7 +32,7 @@
     }
   }
   .right {
-    min-width: 20%;
+    min-width: 22%;
     justify-content: flex-end;
     .small-text-white {
       width: 30px;

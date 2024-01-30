@@ -92,6 +92,9 @@ export default function TrackListItem({
   return (
     <div key={key} className="track-item">
       <div className="left flex-content">
+        <div className="i">
+          <span className="small-header-white">{i + 1}</span>
+        </div>
         <img src={song?.img} className="small-circle-img" alt="Track" />
         {isPlaying && activeSong?.title === song.name ? (
           <button

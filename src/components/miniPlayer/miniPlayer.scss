@@ -39,6 +39,12 @@
   }
 }
 
+@keyframes opacityAnim {
+  100% {
+    opacity: 1;
+  }
+}
+
 ////////////////////////
 
 $color-black: hsl(0, 0%, 5%);

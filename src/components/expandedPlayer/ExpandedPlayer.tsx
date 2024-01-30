@@ -10,17 +10,12 @@ import { PlayerProps } from "../../types/types";
 export default function ExpandedPlayer({
   onToggle,
   isPlaying,
-  isActive,
   activeSong,
-  currentIndex,
-  currentSongs,
   handlePlayPause,
   value,
   min,
   max,
-  onInput,
   setSeekTime,
-  appTime,
 }: PlayerProps) {
   const getTime = (time: number) =>
     `${Math.floor(time / 60)}:${`0${Math.floor(time % 60)}`.slice(-2)}`;

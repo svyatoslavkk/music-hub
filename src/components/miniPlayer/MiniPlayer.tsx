@@ -6,13 +6,9 @@ import { Artist, PlayerProps } from "../../types/types";
 export default function MiniPlayer({
   onToggle,
   isPlaying,
-  isActive,
   activeSong,
-  currentIndex,
-  currentSongs,
   handlePlayPause,
   value,
-  min,
   max,
 }: PlayerProps) {
   return (
