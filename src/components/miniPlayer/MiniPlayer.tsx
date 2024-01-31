@@ -42,13 +42,10 @@ export default function MiniPlayer({
             <div style={{ display: "flex", gap: 4 }}>
               {activeSong &&
                 activeSong.artists &&
-                activeSong.artists?.map((artist: Artist, index: number) => (
-                  <span
-                    key={artist?.id || artist?.profile?.uri}
-                    className="small-text-white"
-                  >
+                activeSong.artists?.map((artist: Artist, i: number) => (
+                  <span key={i} className="small-text-white">
                     {artist?.name || artist?.profile?.name}
-                    {index < activeSong.artists.length - 1 ? "," : ""}
+                    {i < activeSong.artists.length - 1 ? "," : ""}
                   </span>
                 ))}
             </div>

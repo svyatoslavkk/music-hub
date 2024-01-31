@@ -11,17 +11,16 @@ export default function Playlist() {
   const { playlistId } = useParams();
   const { isExpanded, welcomePlaylists, allMusic } = useMusicContext();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const chosenPl = welcomePlaylists?.filter((el) => el.id === playlistId)[0];
+
   const filteredAllMusic = allMusic.filter(
-    (song: SongAlt) => song.playlist === "Gamer Mix",
+    (song: SongAlt) => song.playlist === chosenPl?.name,
   );
+
   const totalTimeTracks: number =
     filteredAllMusic?.reduce((totalTime: number, track: SongAlt) => {
       return totalTime + track.duration;
     }, 0) / 60000 || 0;
-
-  const chosenPl = welcomePlaylists?.filter((el) => el.id === playlistId)[0];
-  console.log("chosenPl", chosenPl);
-  console.log("filteredAllMusic", filteredAllMusic);
 
   const plImage = (
     <img
@@ -42,6 +41,8 @@ export default function Playlist() {
       key: "min",
     },
   ];
+
+  console.log("welcomePlaylists", welcomePlaylists);
 
   return (
     <>

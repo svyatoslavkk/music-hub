@@ -1,26 +1,45 @@
 .playlist-cards {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .pl-card {
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-height: 190px;
+  height: 200px;
   border-radius: 0.99rem;
   overflow: hidden;
-}
-
-.pl-card-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.99rem;
-  transform: scale(1);
-  max-width: 175px;
-}
-
-.pl-card-info {
-  @include column-between-styles;
-  align-items: flex-start;
+  .play {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    z-index: 500;
+  }
+  .pl-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 100;
+  }
+  .pl-card-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.99rem;
+    transform: scale(1);
+  }
+  .pl-card-info {
+    @include column-between-styles;
+    align-items: flex-start;
+  }
 }

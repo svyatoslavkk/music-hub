@@ -16,7 +16,6 @@ export default function Main() {
       <NavBar />
       <div className="main">
         <PlaylistCards />
-        <Genres />
         <SliderList header={popularHeader} />
         <ArtistList header={artistHeader} />
         <Player />

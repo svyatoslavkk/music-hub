@@ -7,6 +7,7 @@ export type User = {
   favTracks: SongAlt[];
   uid: string;
   userName: string;
+  listeningStats: {};
 };
 
 export type Song = {

@@ -8,39 +8,49 @@ import { useMusicContext } from "../../context/MusicContext";
 
 export default function PlaylistCards() {
   const { welcomePlaylists } = useMusicContext();
-  const id = welcomePlaylists.map((el) => {
-    el.id;
-  });
-  console.log("welcomePlaylists", welcomePlaylists);
+
+  const firstPlaylist = welcomePlaylists[1] || {
+    id: "defaultId1",
+    name: "Default Playlist 1",
+  };
+  const secondPlaylist = welcomePlaylists[0] || {
+    id: "defaultId0",
+    name: "Default Playlist 0",
+  };
 
   const plCardsContent = [
     {
-      playlistId: welcomePlaylists[1].id,
+      playlistId: firstPlaylist.id,
       number: 17,
       name: "Chill Mix",
+      miniDesc: "Just relax and listen",
       img: plImgFirst,
       bgClr: "#FD9C02",
-      link: `/${welcomePlaylists[1].id}`,
+      link: `/${firstPlaylist.id}`,
     },
     {
-      playlistId: welcomePlaylists[0].id,
+      playlistId: secondPlaylist.id,
       number: 21,
       name: "Gamer Mix",
+      miniDesc: "Listen while you play",
       img: plImgSecond,
       bgClr: "#DC225A",
-      link: `/${welcomePlaylists[0].id}`,
+      link: `/${secondPlaylist.id}`,
     },
   ];
 
   return (
     <section className="playlist-cards">
+      <div>
+        <h2 className="mid-header-white">Playlists for You</h2>
+      </div>
       <Splide
         options={{
           perPage: 1,
           perMove: 1,
           type: "fade",
           rewind: true,
-          height: "13.7rem",
+          height: "14.3rem",
           pagination: true,
           gap: "0.5rem",
         }}
@@ -55,12 +65,28 @@ export default function PlaylistCards() {
             >
               <div className="pl-card-info" style={{ padding: 8 }}>
                 <span className="small-text-white">{el.number} tracks</span>
-                <h3 className="big-header-white">{el.name}</h3>
-                <button className="circle-btn">
-                  <PlayArrowRoundedIcon />
-                  <p className="small-text">Play</p>
-                </button>
+                <div className="play flex-content">
+                  <button
+                    className="blur-circle-btn"
+                    style={{ backgroundColor: "#d0d2d8" }}
+                  >
+                    <PlayArrowRoundedIcon
+                      sx={{ color: "#190b14" }}
+                      fontSize="medium"
+                    />
+                  </button>
+                  <div>
+                    <h3 className="mid-header-white">{el.name}</h3>
+                    <p className="small-text-white">{el.miniDesc}</p>
+                  </div>
+                </div>
               </div>
+              <div
+                className="pl-card-overlay"
+                style={{
+                  background: `linear-gradient(to top, ${el.bgClr}, ${el.bgClr}00)`,
+                }}
+              ></div>
               <img className="pl-card-img" src={el.img} alt="Pl Img" />
             </Link>
           </SplideSlide>

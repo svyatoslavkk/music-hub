@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { app, database } from "../firebase/firebase";
 import { Playlist, Song, SongAlt, User } from "../types/types";
 
@@ -49,6 +49,14 @@ export const MusicProvider: React.FC<any> = ({ children }) => {
       console.error("Error getting users:", error);
     }
   };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const myData =
+    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+  const userDocRef = myData ? myData.docId : null;
 
   const fetchData = async () => {
     try {
@@ -117,7 +125,6 @@ export const MusicProvider: React.FC<any> = ({ children }) => {
   };
 
   useEffect(() => {
-    getUsers();
     getMusicData();
     getAllMusic();
     getPlaylists();
