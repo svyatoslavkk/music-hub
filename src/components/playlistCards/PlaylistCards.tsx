@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from "react";
 import plImgFirst from "../../assets/pl_image_first.jpg";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import plImgSecond from "../../assets/pl_image_second.jpg";
+import plImgThird from "../../assets/pl_image_third.jpg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { Link } from "react-router-dom";
@@ -37,26 +39,79 @@ export default function PlaylistCards() {
       bgClr: "#DC225A",
       link: `/${secondPlaylist.id}`,
     },
+    {
+      playlistId: secondPlaylist.id,
+      number: 10,
+      name: "Dance Mix",
+      miniDesc: "For your energy",
+      img: plImgThird,
+      bgClr: "#234EFF",
+      link: `/${secondPlaylist.id}`,
+    },
   ];
+
+  const [splideOptions, setSplideOptions] = useState({
+    type: "slide",
+    perMove: 1,
+    height: "17.3rem",
+    pagination: true,
+    gap: "0.5rem",
+    arrows: false,
+    autoWidth: false,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 624) {
+        setSplideOptions({
+          type: "slide",
+          perMove: 1,
+          height: "14.3rem",
+          pagination: true,
+          gap: "0.5rem",
+          arrows: false,
+          autoWidth: false,
+        });
+      } else if (screenWidth >= 624 && screenWidth < 924) {
+        setSplideOptions({
+          type: "loop",
+          perMove: 1,
+          rewind: true,
+          height: "17.3rem",
+          pagination: true,
+          gap: "0.5rem",
+          arrows: false,
+          autoWidth: true,
+        });
+      } else {
+        setSplideOptions({
+          type: "loop",
+          perMove: 1,
+          rewind: true,
+          height: "18.0rem",
+          pagination: false,
+          gap: "0.5rem",
+          arrows: true,
+          autoWidth: true,
+        });
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <section className="playlist-cards">
       <div>
         <h2 className="big-header-white">Playlists for You</h2>
       </div>
-      <Splide
-        options={{
-          perPage: 1,
-          perMove: 1,
-          type: "fade",
-          rewind: true,
-          height: "14.3rem",
-          pagination: true,
-          gap: "0.5rem",
-          arrows: false,
-        }}
-        aria-labelledby="basic-example-heading"
-      >
+      <Splide options={splideOptions} aria-labelledby="basic-example-heading">
         {plCardsContent.map((el) => (
           <SplideSlide key={el.name}>
             <Link

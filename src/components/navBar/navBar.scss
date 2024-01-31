@@ -13,8 +13,21 @@
   align-items: center;
   border-radius: 2.5rem;
   overflow: hidden;
+  .upper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .lower {
+    display: none
+  }
   .active-icon {
     @include active-icon-styles;
+  }
+  .name {
+    display: none;
   }
 }
 
@@ -26,12 +39,39 @@
     transform: translateX(0%);
     width: 12%;
     height: 100vh;
+    padding: 3.25rem 0.5rem 3.25rem 0.5rem;
     flex-direction: column;
     gap: 3rem;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-radius: 0rem;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    background-color: #44444422;
+    .upper {
+      flex-direction: column;
+      gap: 3rem;
+    }
+    .lower {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 924px) {
+  .nav-bar {
+    width: 16%;
+    .name {
+      display: flex;
+    }
+    .blur-circle-btn {
+      border-radius: 1rem;
+      width: 100%;
+      justify-content: flex-start;
+    }
   }
 }
