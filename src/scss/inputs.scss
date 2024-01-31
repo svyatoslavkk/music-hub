@@ -21,6 +21,13 @@
     left: 6px;
     display: flex;
   }
+  .clear-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 6px;
+    display: flex;
+  }
 }
 
 .auth-input {

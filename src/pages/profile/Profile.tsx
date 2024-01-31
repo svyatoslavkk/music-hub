@@ -4,36 +4,32 @@ import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
 import { SongAlt } from "../../types/types";
-import { useParams } from "react-router-dom";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 
-export default function Playlist() {
-  const { playlistId } = useParams();
-  const { isExpanded, welcomePlaylists, allMusic } = useMusicContext();
+export default function Profile() {
+  const { user, users, isExpanded, welcomePlaylists, allMusic } =
+    useMusicContext();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const chosenPl = welcomePlaylists?.filter((el) => el.id === playlistId)[0];
-
-  const filteredAllMusic = allMusic.filter(
-    (song: SongAlt) => song.playlist === chosenPl?.name,
-  );
+  const myData =
+    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
 
   const totalTimeTracks: number =
-    filteredAllMusic?.reduce((totalTime: number, track: SongAlt) => {
+    myData?.favTracks?.reduce((totalTime: number, track: SongAlt) => {
       return totalTime + track.duration;
     }, 0) / 60000 || 0;
 
   const plImage = (
     <img
-      src={chosenPl?.image}
+      src={myData?.avatar}
       className="mid-circle-img"
-      alt={chosenPl?.name}
+      alt={myData?.userName}
     />
   );
-  const plTitle = chosenPl?.name;
-  const plDesc = chosenPl?.description;
+  const plTitle = myData?.userName;
+  const plDesc = myData?.email;
   const stats = [
     {
-      value: filteredAllMusic?.length,
+      value: myData?.favTracks?.length,
       key: "tracks",
     },
     {
@@ -54,20 +50,6 @@ export default function Playlist() {
         className="favorites"
         style={{ marginBottom: isExpanded ? 230 : 110 }}
       >
-        {filteredAllMusic && filteredAllMusic.length > 0 && (
-          <div className="column-content">
-            {filteredAllMusic.map((song: SongAlt, i: number) => (
-              <TrackListItem
-                key={song.id}
-                song={song}
-                filteredAllMusic={filteredAllMusic}
-                isPlaying={isPlaying}
-                activeSong={activeSong}
-                i={i}
-              />
-            ))}
-          </div>
-        )}
         <Player />
         <NavBar />
       </div>

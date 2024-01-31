@@ -1,13 +1,11 @@
 .genres {
-  @include flex-content-styles;
-  justify-content: center;
-  flex-wrap: wrap;
   width: 100%;
 }
 
 .genre {
   background-color: $component-alt;
   display: flex;
+  justify-content: center;
   padding: 0.5rem 0.75rem;
   border-radius: 0.99rem;
   white-space: nowrap;

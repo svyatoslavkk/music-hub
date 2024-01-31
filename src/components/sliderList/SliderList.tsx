@@ -1,7 +1,7 @@
 import { Song } from "../../types/types";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import { useSelector } from "react-redux";
 import "@splidejs/react-splide/css";
+import { useSelector } from "react-redux";
 import DropItem from "../dropItem/DropItem";
 import { useMusicContext } from "../../context/MusicContext";
 

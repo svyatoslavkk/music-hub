@@ -11,6 +11,8 @@ export default function MiniPlayer({
   value,
   max,
 }: PlayerProps) {
+  const fakeImg =
+    "https://static.vecteezy.com/system/resources/previews/000/630/395/non_2x/play-button-icon-design-illustration-vector.jpg";
   return (
     <>
       <div className="mini-player">
@@ -31,23 +33,23 @@ export default function MiniPlayer({
         </div>
         <div className="left flex-content">
           <img
-            src={activeSong?.image || activeSong?.img}
+            src={activeSong?.image || activeSong?.img || fakeImg}
             className="small-circle-img"
-            alt={activeSong?.title || activeSong?.name}
+            alt={activeSong?.title || activeSong?.name || "Track"}
           />
           <div className="text">
             <h3 className="small-header-white">
-              {activeSong?.title || activeSong?.name}
+              {activeSong?.title || activeSong?.name || "Track"}
             </h3>
             <div style={{ display: "flex", gap: 4 }}>
-              {activeSong &&
+              {(activeSong &&
                 activeSong.artists &&
                 activeSong.artists?.map((artist: Artist, i: number) => (
                   <span key={i} className="small-text-white">
                     {artist?.name || artist?.profile?.name}
                     {i < activeSong.artists.length - 1 ? "," : ""}
                   </span>
-                ))}
+                ))) || <span className="small-text-white">Artist</span>}
             </div>
           </div>
         </div>

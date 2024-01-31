@@ -1,5 +1,5 @@
 import { useExploreTracksQuery } from "../../redux/api/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
@@ -10,8 +10,10 @@ import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { ArtistAlt, SongAlt } from "../../types/types";
 import { useSelector } from "react-redux";
+import Genres from "../../components/genres/Genres";
 
 export default function Explore() {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -21,6 +23,18 @@ export default function Explore() {
   const { allMusic, isExpanded } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
+
+  const uniqueArtistsSet = new Set();
+  allMusic.forEach((song) => {
+    if (song.artists && Array.isArray(song.artists)) {
+      song.artists.forEach((artist) => {
+        if (artist.profile) {
+          uniqueArtistsSet.add(artist.profile.name);
+        }
+      });
+    }
+  });
+  const uniqueArtistsArray = [...uniqueArtistsSet];
 
   const {
     data: exploreTracks,
@@ -49,6 +63,14 @@ export default function Explore() {
 
   const handleInputChange = (e: any) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleGenreClick = (genre) => {
+    setSearchQuery(genre);
+  };
+
+  const handleClearClick = () => {
+    setSearchQuery("");
   };
 
   const handleAddToFavorites = async (song: any) => {
@@ -88,7 +110,19 @@ export default function Explore() {
             value={searchQuery}
             onChange={handleInputChange}
           />
+          <button
+            className="clear-icon transparent-btn"
+            onClick={handleClearClick}
+          >
+            <ClearRoundedIcon sx={{ color: "#d0d2d8" }} />
+          </button>
         </div>
+        {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
+          <Genres
+            uniqueArtistsArray={uniqueArtistsArray}
+            handleGenreClick={handleGenreClick}
+          />
+        )}
         <div className="column-content">
           {!isLoading &&
             searchQuery.length >= 3 &&
