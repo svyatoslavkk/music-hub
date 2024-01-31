@@ -43,3 +43,16 @@
 .drop-item:hover .btn {
   display: flex;
 }
+
+@media (min-width: 624px) {
+  .drop-item {
+    background-color: #ffffff22;
+    padding: 0.5rem;
+    max-width: 176px;
+    height: 176px;
+    .info {
+      bottom: 14px;
+      left: 14px;
+    }
+  }
+}

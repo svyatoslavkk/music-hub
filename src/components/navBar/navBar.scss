@@ -7,7 +7,7 @@
   backdrop-filter: blur(10px);
   background-color: #ffffff22;
   padding: 0.25rem;
-  z-index: 900;
+  z-index: 1500;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,6 +19,9 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    .logo {
+      display: none;
+    }
   }
   .lower {
     display: none
@@ -65,6 +68,11 @@
 @media (min-width: 924px) {
   .nav-bar {
     width: 16%;
+    .upper {
+      .logo {
+        display: flex;
+      }
+    }
     .name {
       display: flex;
     }

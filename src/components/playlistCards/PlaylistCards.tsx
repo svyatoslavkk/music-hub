@@ -67,6 +67,7 @@ export default function PlaylistCards() {
         setSplideOptions({
           type: "slide",
           perMove: 1,
+          rewind: true,
           height: "14.3rem",
           pagination: true,
           gap: "0.5rem",
@@ -80,7 +81,7 @@ export default function PlaylistCards() {
           rewind: true,
           height: "17.3rem",
           pagination: true,
-          gap: "0.5rem",
+          gap: "1rem",
           arrows: false,
           autoWidth: true,
         });
@@ -91,7 +92,7 @@ export default function PlaylistCards() {
           rewind: true,
           height: "18.0rem",
           pagination: false,
-          gap: "0.5rem",
+          gap: "1.25rem",
           arrows: true,
           autoWidth: true,
         });

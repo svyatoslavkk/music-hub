@@ -1,7 +1,11 @@
 .explore {
-  @include default-container-styles;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
   padding: 1rem;
   margin-top: 75px;
+  overflow-y: auto;
 }
 
 .fav-icon {
@@ -11,5 +15,14 @@
 @media (min-width: 624px) {
   .explore {
     margin-top: 0;
+    width: 88%;
+    margin-left: 12%;
+  }
+}
+
+@media (min-width: 924px) {
+  .explore {
+    margin-left: 16%;
+    width: 84%;
   }
 }

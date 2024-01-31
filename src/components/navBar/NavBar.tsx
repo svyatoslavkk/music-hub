@@ -60,6 +60,9 @@ export default function NavBar() {
   return (
     <nav className="nav-bar">
       <div className="upper">
+        <h1 className="logo" style={{ color: "#d0d2d8" }}>
+          MUSIC HUB
+        </h1>
         {navEls.map((el) => (
           <Link
             key={el.name}

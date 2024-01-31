@@ -54,10 +54,6 @@ export default function Main() {
       <div className="main" style={marginBottomStyle}>
         <PlaylistCards />
         <SliderList music={fetchMusic} header={popularHeader} />
-        <ArtistList header={artistHeader} />
-        <SliderList music={newestMusic} header={newestHeader} />
-        <SliderList music={newestMusic} header={newestHeader} />
-        <SliderList music={newestMusic} header={newestHeader} />
         <SliderList music={newestMusic} header={newestHeader} />
         <Player />
       </div>
