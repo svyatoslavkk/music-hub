@@ -20,17 +20,18 @@
 
 @media (min-width: 624px) {
   .nav-bar {
-    position: relative;
+    position: fixed;
     top: 0px;
     left: 0%;
     transform: translateX(0%);
-    min-width: 80px;
-    max-width: 80px;
+    width: 12%;
     height: 100vh;
     flex-direction: column;
     gap: 3rem;
     justify-content: center;
     align-items: center;
     border-radius: 0rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 }

@@ -7,7 +7,7 @@ import { Artist } from "../../types/types";
 export default function DropItem({
   key,
   song,
-  fetchMusic,
+  music,
   isPlaying,
   activeSong,
   i,
@@ -19,22 +19,26 @@ export default function DropItem({
   };
 
   const handlePlayClick = () => {
-    dispatch(setActiveSong({ song, fetchMusic, i }));
+    dispatch(setActiveSong({ song, music, i }));
     dispatch(playPause(true));
   };
 
   return (
     <>
       <div className="drop-item" key={key}>
-        <img className="large-sq-img" src={song.image} alt={song.title} />
+        <img
+          className="large-sq-img"
+          src={song?.image || song.img}
+          alt={song.title}
+        />
         <div className="drop-item-overlay"></div>
         <div className="info">
           <div className="text">
-            <h3 className="small-header-white">{song.title}</h3>
+            <h3 className="small-header-white">{song?.title || song?.name}</h3>
             <div className="flex-content">
-              {song.artists.map((artist: Artist, index: number) => (
+              {song?.artists.map((artist: Artist, index: number) => (
                 <span key={artist.id} className="small-text-white">
-                  {artist.name}
+                  {artist?.name || artist?.profile?.name}
                   {index < song.artists.length - 1 ? "," : ""}
                 </span>
               ))}

@@ -131,3 +131,9 @@ img {
   height: 24px;
   border-radius: 50%;
 }
+
+@media (min-width: 624px) {
+  .container {
+    overflow-y: auto;
+  }
+}

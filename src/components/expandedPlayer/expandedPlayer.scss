@@ -59,3 +59,11 @@
     }
   }
 }
+
+@media (min-width: 624px) {
+  .expanded-player {
+    bottom: 15px;
+    left: 18%;
+    transform: translateX(0%);
+  }
+}

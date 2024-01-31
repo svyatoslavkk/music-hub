@@ -37,6 +37,8 @@ const playerSlice = createSlice({
         state.currentSongs = action.payload?.filteredAllMusic;
       } else if (action.payload?.favList) {
         state.currentSongs = action.payload?.favList;
+      } else if (action.payload?.music) {
+        state.currentSongs = action.payload?.music;
       } else {
         state.currentSongs = action.payload.data;
       }

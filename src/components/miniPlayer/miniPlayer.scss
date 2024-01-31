@@ -79,9 +79,11 @@ $porcent-js: 50;
 	stroke-linecap: round;
 }
 
-// @keyframes anim_circle-js {
-// 	to {
-// 		stroke-dashoffset: strokeDashoffset($porcent-js);
-// 	}
-// }
+@media (min-width: 624px) {
+  .mini-player {
+    bottom: 15px;
+    left: 18%;
+    transform: translateX(0%);
+  }
+}
 

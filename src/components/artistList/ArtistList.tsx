@@ -25,7 +25,7 @@ export default function ArtistList({ header }: ArtistListProps) {
   return (
     <section className="slider-list">
       <div>
-        <h2 className="mid-header-white">{header}</h2>
+        <h2 className="big-header-white">{header}</h2>
       </div>
       <Splide
         options={{

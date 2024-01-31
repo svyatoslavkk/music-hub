@@ -42,7 +42,7 @@ export default function PlaylistCards() {
   return (
     <section className="playlist-cards">
       <div>
-        <h2 className="mid-header-white">Playlists for You</h2>
+        <h2 className="big-header-white">Playlists for You</h2>
       </div>
       <Splide
         options={{
@@ -53,6 +53,7 @@ export default function PlaylistCards() {
           height: "14.3rem",
           pagination: true,
           gap: "0.5rem",
+          arrows: false,
         }}
         aria-labelledby="basic-example-heading"
       >

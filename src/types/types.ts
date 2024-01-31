@@ -26,6 +26,7 @@ export type SongAlt = {
   img: string;
   duration: number;
   playlist: string;
+  release_date: string;
 };
 
 export type Artist = {
