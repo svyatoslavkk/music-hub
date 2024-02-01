@@ -5,6 +5,7 @@ import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
 import { SongAlt } from "../../types/types";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
+import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 
 export default function Profile() {
   const { user, users, isExpanded, welcomePlaylists, allMusic } =
@@ -53,6 +54,7 @@ export default function Profile() {
         <Player />
         <NavBar />
       </div>
+      <ColorOverlay />
     </>
   );
 }

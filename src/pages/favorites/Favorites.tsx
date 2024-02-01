@@ -9,6 +9,7 @@ import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
+import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 
 export default function Favorites() {
   const { user, users, isExpanded } = useMusicContext();
@@ -67,6 +68,7 @@ export default function Favorites() {
         <Player />
         <NavBar />
       </div>
+      <ColorOverlay />
     </>
   );
 }

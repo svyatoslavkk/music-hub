@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(10px);
+  background-color: #44444488;
   width: 100%;
   margin: 0 auto;
 }

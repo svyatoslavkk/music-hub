@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SliderList from "../../components/sliderList/SliderList";
-import ArtistList from "../../components/artistList/ArtistList";
 import NavBar from "../../components/navBar/NavBar";
 import PlaylistCards from "../../components/playlistCards/PlaylistCards";
 import Header from "../../components/header/Header";
@@ -10,6 +10,11 @@ import HeaderDesktop from "../../components/headerDesktop/HeaderDesktop";
 import HashTags from "../../components/hashTags/HashTags";
 import GridBlock from "../../components/gridBlock/GridBlock";
 import Popular from "../../components/popular/Popular";
+import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
+import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import PlayerDesktop from "../../components/shared/playerDesktop/PlayerDesktop";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -17,7 +22,6 @@ export default function Main() {
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const popularHeader = "Popular";
-  const artistHeader = "Artists";
   const newestHeader = "Newest";
 
   const plImage = myData?.avatar;
@@ -38,7 +42,7 @@ export default function Main() {
   const marginBottomStyle =
     windowWidth > 624
       ? { marginBottom: isExpanded ? 165 : 45 }
-      : { marginBottom: isExpanded ? 230 : 110 };
+      : { marginBottom: isExpanded ? 242 : 124 };
 
   const sortedMusic = allMusic.sort((a, b) => {
     const dateA = new Date(
@@ -58,21 +62,44 @@ export default function Main() {
   const newestMusic = sortedMusic.slice(0, 10);
 
   return (
-    <div className="container">
-      <Header />
-      <NavBar />
-      <div className="main" style={marginBottomStyle}>
-        <HeaderDesktop plImage={plImage} plTitle={plTitle} plDesc={plDesc} />
-        <PlaylistCards />
-        <div className="desktop">
-          <HashTags />
-          <Popular music={fetchMusic} />
-          <GridBlock music={newestMusic} />
+    <>
+      <div className="container">
+        <NavBar />
+        <div className="main" style={marginBottomStyle}>
+          <Header />
+          <header className="test-header">
+            <Link to="/" className="small-blur-circle-btn">
+              <GridViewRoundedIcon
+                fontSize="medium"
+                sx={{ color: "#d0d2d8" }}
+              />
+            </Link>
+            <div className="explore-input-block">
+              <span className="explore-icon">
+                <SearchRoundedIcon
+                  fontSize="medium"
+                  sx={{ color: "#d0d2d8" }}
+                />
+              </span>
+              <input className="explore-input" placeholder="Explore..." />
+            </div>
+            <button className="small-blur-circle-btn">
+              <LogoutRoundedIcon fontSize="medium" sx={{ color: "#d0d2d8" }} />
+            </button>
+          </header>
+          <PlaylistCards />
+          <PlayerDesktop />
+          <div className="desktop">
+            <HashTags />
+            <Popular music={fetchMusic} />
+            <GridBlock music={newestMusic} />
+          </div>
+          <SliderList music={fetchMusic} header={popularHeader} />
+          <SliderList music={newestMusic} header={newestHeader} />
+          <Player />
         </div>
-        <SliderList music={fetchMusic} header={popularHeader} />
-        <SliderList music={newestMusic} header={newestHeader} />
-        <Player />
       </div>
-    </div>
+      <ColorOverlay />
+    </>
   );
 }

@@ -1,0 +1,97 @@
+.player-desktop {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  backdrop-filter: blur(10px);
+  background-color: #ffffff22;
+  border-radius: 1.99rem;
+  .image {
+    border-radius: 1.99rem;
+    width: 175px;
+    height: 175px;
+  }
+  .controller {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    width: 100%;
+    .buttons {
+      display: flex;
+      gap: 2rem;
+      .play-pause {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+    
+  .line-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    cursor: pointer;
+    .input-range {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      background: rgb(82, 82, 82);
+      overflow: hidden;
+      border-radius: 999px;
+      -webkit-transition: height .1s;
+      -o-transition: height .1s;
+      transition: height .1s;
+      cursor: inherit;
+    }
+    .input-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 0;
+      height: 0;
+      -webkit-box-shadow: -2000px 0 0 2000px $interactive-alt;
+      box-shadow: -2000px 0 0 2000px $interactive-alt;
+    }
+  }
+  }
+  .volume {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    transform: rotateZ(-90deg) translateX(75%);
+    max-width: 50px;
+    .volume-btn {
+      display: flex;
+      background: transparent;
+      transform: rotateZ(90deg);
+    }
+    .volume-trigger {
+      display: flex;
+      align-items: center;
+      .volume-range {
+        writing-mode: bt-lr;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        height: 8px;
+        width: 100px;
+        background: rgb(82, 82, 82);
+        overflow: hidden;
+        border-radius: 999px;
+        -webkit-transition: height .1s;
+        -o-transition: height .1s;
+        transition: height .1s;
+        cursor: pointer;
+      }
+      .volume-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 0;
+        height: 0;
+        -webkit-box-shadow: -200px 0 0 200px $text-alt;
+        box-shadow: -200px 0 0 200px $text-alt;
+      }
+    }
+  }
+}

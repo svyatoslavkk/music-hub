@@ -39,3 +39,12 @@
   backdrop-filter: blur(50px);
   background-color: #dddddd22;
 }
+
+.small-blur-circle-btn {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 50%;
+  text-decoration: none;
+  backdrop-filter: blur(50px);
+  background-color: #dddddd22;
+}

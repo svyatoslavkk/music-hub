@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { SongAlt } from "../../types/types";
 import { useParams } from "react-router-dom";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
+import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 
 export default function Playlist() {
   const { playlistId } = useParams();
@@ -71,6 +72,7 @@ export default function Playlist() {
         <Player />
         <NavBar />
       </div>
+      <ColorOverlay />
     </>
   );
 }

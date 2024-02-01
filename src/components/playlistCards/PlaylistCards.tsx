@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import plImgFirst from "../../assets/pl_image_first.jpg";
+import { useEffect, useState } from "react";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-import plImgSecond from "../../assets/pl_image_second.jpg";
-import plImgThird from "../../assets/pl_image_third.jpg";
-import plImgFifth from "../../assets/pl_image_fifth.jpg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { Link } from "react-router-dom";
+import plImgFirst from "../../assets/pl_image_first.jpg";
+import plImgSecond from "../../assets/pl_image_second.jpg";
+import plImgThird from "../../assets/pl_image_third.jpg";
+import plImgFifth from "../../assets/pl_image_fifth.jpg";
 import { useMusicContext } from "../../context/MusicContext";
 
 export default function PlaylistCards() {

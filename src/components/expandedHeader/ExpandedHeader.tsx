@@ -6,10 +6,10 @@ export default function ExpandedHeader({ plImage, plTitle, plDesc, stats }) {
   return (
     <header className="favorites-header">
       <div className="buttons">
-        <button className="blur-circle-btn">
+        <button className="small-blur-circle-btn">
           <GridViewRoundedIcon sx={{ color: "#d0d2d8" }} />
         </button>
-        <button className="blur-circle-btn">
+        <button className="small-blur-circle-btn">
           <LogoutRoundedIcon sx={{ color: "#d0d2d8" }} />
         </button>
       </div>

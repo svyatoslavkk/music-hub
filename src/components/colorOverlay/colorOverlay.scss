@@ -1,0 +1,78 @@
+.test-overlay {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(20, 20, 20);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -20000;
+  opacity: 0.4;
+  .circle-1,
+  .circle-2,
+  .circle-3,
+  .circle-4,
+  .circle-5,
+  .circle-6,
+  .circle-7,
+  .circle-8 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .circle-1 {
+    background-color: #671765;
+    width: 440px;
+    height: 440px;
+    bottom: -45px;
+    left: -45px;
+  }
+  .circle-2 {
+    background-color: #285324;
+    width: 380px;
+    height: 380px;
+    bottom: -105px;
+    left: 260px;
+  }
+  .circle-3 {
+    background-color: #ff543d;
+    width: 350px;
+    height: 350px;
+    top: -75px;
+    right: -75px;
+  }
+  .circle-4 {
+    background-color: #476770;
+    width: 380px;
+    height: 380px;
+    top: -45px;
+    right: 225px;
+  }
+  .circle-5 {
+    background-color: #3a5e39;
+    width: 480px;
+    height: 480px;
+    bottom: -75px;
+    right: 5px;
+  }
+  .circle-6 {
+    background-color: #711b45;
+    width: 395px;
+    height: 395px;
+    bottom: -55px;
+    right: 375px;
+  }
+  .circle-7 {
+    background-color: #6f3263;
+    width: 455px;
+    height: 455px;
+    top: -85px;
+    left: -55px;
+  }
+  .circle-8 {
+    background-color: #7b1212;
+    width: 555px;
+    height: 555px;
+    top: -145px;
+    left: 255px;
+  }
+}

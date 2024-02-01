@@ -15,6 +15,7 @@ import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { ArtistAlt, SongAlt } from "../../types/types";
 import { useSelector } from "react-redux";
 import Genres from "../../components/genres/Genres";
+import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 
 export default function Explore() {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -104,50 +105,54 @@ export default function Explore() {
   }, [hashFromQuery]);
 
   return (
-    <div className="container">
-      <Header />
-      <NavBar />
-      <div className="explore" style={{ marginBottom: isExpanded ? 230 : 110 }}>
-        <div className="auth-input-section">
-          <span className="search-icon">
-            <SearchRoundedIcon sx={{ color: "#d0d2d8" }} />
-          </span>
-          <input
-            className="auth-input"
-            placeholder="Explore"
-            value={searchQuery}
-            onChange={handleInputChange}
-          />
-          <button
-            className="clear-icon transparent-btn"
-            onClick={handleClearClick}
-          >
-            <ClearRoundedIcon sx={{ color: "#d0d2d8" }} />
-          </button>
-        </div>
-        {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
-          <Genres
-            uniqueArtistsArray={uniqueArtistsArray}
-            handleGenreClick={handleGenreClick}
-          />
-        )}
-        <div className="column-content">
-          {!isLoading &&
-            searchQuery.length >= 3 &&
-            filteredAllMusic &&
-            filteredAllMusic.map((song: SongAlt, i: number) => (
-              <TrackListItem
-                key={song.id}
-                song={song}
-                filteredAllMusic={filteredAllMusic}
-                isPlaying={isPlaying}
-                activeSong={activeSong}
-                i={i}
-              />
-            ))}
-        </div>
+    <>
+      <div className="container">
+        <Header />
+        <NavBar />
+        <div
+          className="explore"
+          style={{ marginBottom: isExpanded ? 230 : 110 }}
+        >
+          <div className="auth-input-section">
+            <span className="search-icon">
+              <SearchRoundedIcon sx={{ color: "#d0d2d8" }} />
+            </span>
+            <input
+              className="auth-input"
+              placeholder="Explore"
+              value={searchQuery}
+              onChange={handleInputChange}
+            />
+            <button
+              className="clear-icon transparent-btn"
+              onClick={handleClearClick}
+            >
+              <ClearRoundedIcon sx={{ color: "#d0d2d8" }} />
+            </button>
+          </div>
+          {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
+            <Genres
+              uniqueArtistsArray={uniqueArtistsArray}
+              handleGenreClick={handleGenreClick}
+            />
+          )}
+          <div className="column-content">
+            {!isLoading &&
+              searchQuery.length >= 3 &&
+              filteredAllMusic &&
+              filteredAllMusic.map((song: SongAlt, i: number) => (
+                <TrackListItem
+                  key={song.id}
+                  song={song}
+                  filteredAllMusic={filteredAllMusic}
+                  isPlaying={isPlaying}
+                  activeSong={activeSong}
+                  i={i}
+                />
+              ))}
+          </div>
 
-        {/* <div>
+          {/* <div>
           {exploreTracks && exploreTracks?.tracks?.items?.map((hit: any, i: any) => {
             const song = hit?.data;
             return (
@@ -193,13 +198,15 @@ export default function Explore() {
           })}
         </div> */}
 
-        <Player />
-      </div>
-      {isLoading && (
-        <div className="center-loader">
-          <Loader />
+          <Player />
         </div>
-      )}
-    </div>
+        {isLoading && (
+          <div className="center-loader">
+            <Loader />
+          </div>
+        )}
+      </div>
+      <ColorOverlay />
+    </>
   );
 }

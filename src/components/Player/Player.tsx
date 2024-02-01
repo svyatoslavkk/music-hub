@@ -149,6 +149,7 @@ export default function Player() {
             max={duration}
           />
         )}
+
         <audio
           src={activeSong?.soundFile}
           ref={ref}

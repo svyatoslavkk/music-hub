@@ -1,9 +1,9 @@
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import { Link, useLocation } from "react-router-dom";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { Link, useLocation } from "react-router-dom";
 
 export default function NavBar() {
   const location = useLocation();

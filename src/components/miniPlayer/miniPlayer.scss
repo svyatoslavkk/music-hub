@@ -82,8 +82,14 @@ $porcent-js: 50;
 @media (min-width: 624px) {
   .mini-player {
     bottom: 15px;
-    left: 18%;
+    left: 16%;
     transform: translateX(0%);
+  }
+}
+
+@media (min-width: 924px) {
+  .mini-player {
+    left: 18%;
   }
 }
 
