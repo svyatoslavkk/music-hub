@@ -35,6 +35,7 @@ export default function SliderList({ music, header }: SliderListProps) {
           pagination: false,
           gap: "0.5rem",
           autoWidth: true,
+          arrows: true,
         });
       } else if (screenWidth >= 624) {
         setSplideOptions({
@@ -45,6 +46,7 @@ export default function SliderList({ music, header }: SliderListProps) {
           pagination: false,
           gap: "0.5rem",
           autoWidth: true,
+          arrows: true,
         });
       }
     };

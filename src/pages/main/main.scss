@@ -6,6 +6,9 @@
   padding: 1rem;
   margin-top: 75px;
   overflow-y: auto;
+  .desktop {
+    display: none;
+  }
 }
 
 @media (min-width: 624px) {
@@ -20,5 +23,9 @@
   .main {
     margin-left: 16%;
     width: 84%;
+    .desktop {
+      display: flex;
+      gap: 1.5rem;
+    }
   }
 }

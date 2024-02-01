@@ -1,0 +1,14 @@
+.grid-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 360px;
+}
+
+.grid-list{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+  width: 360px;
+}

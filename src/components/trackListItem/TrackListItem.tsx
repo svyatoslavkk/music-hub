@@ -96,7 +96,11 @@ export default function TrackListItem({
         <div className="i">
           <span className="small-header-white">{i + 1}</span>
         </div>
-        <img src={song?.img} className="small-circle-img" alt="Track" />
+        <img
+          src={song?.img || song?.image}
+          className="small-circle-img"
+          alt="Track"
+        />
         {isPlaying && activeSong?.title === song.name ? (
           <button
             className="play-pause-btn blur-circle-btn"
@@ -113,7 +117,7 @@ export default function TrackListItem({
           </button>
         )}
         <div>
-          <h3 className="small-header-white">{song?.name}</h3>
+          <h3 className="small-header-white">{song?.name || song?.title}</h3>
           <div style={{ display: "flex", gap: 4 }}>
             {song?.artists.map((artist: ArtistAlt, i: number) => (
               <span key={i} className="small-text-white">

@@ -1,5 +1,6 @@
 import { useExploreTracksQuery } from "../../redux/api/api";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
@@ -23,6 +24,9 @@ export default function Explore() {
   const { allMusic, isExpanded } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const hashFromQuery = searchParams.get("hash") || "";
 
   const uniqueArtistsSet = new Set();
   allMusic.forEach((song) => {
@@ -94,6 +98,10 @@ export default function Explore() {
       console.error("Invalid song object:", song);
     }
   };
+
+  useEffect(() => {
+    setSearchQuery(hashFromQuery);
+  }, [hashFromQuery]);
 
   return (
     <div className="container">

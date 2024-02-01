@@ -3,6 +3,7 @@ import plImgFirst from "../../assets/pl_image_first.jpg";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import plImgSecond from "../../assets/pl_image_second.jpg";
 import plImgThird from "../../assets/pl_image_third.jpg";
+import plImgFifth from "../../assets/pl_image_fifth.jpg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { Link } from "react-router-dom";
@@ -46,6 +47,15 @@ export default function PlaylistCards() {
       miniDesc: "For your energy",
       img: plImgThird,
       bgClr: "#234EFF",
+      link: `/${secondPlaylist.id}`,
+    },
+    {
+      playlistId: secondPlaylist.id,
+      number: 10,
+      name: "Pop Mix",
+      miniDesc: "Keep trends",
+      img: plImgFifth,
+      bgClr: "#c53937",
       link: `/${secondPlaylist.id}`,
     },
   ];

@@ -40,3 +40,22 @@
     color: #E0E0E077;
   }
 }
+
+@media (min-width: 624px) {
+  .auth-input-section {
+    width: 100%;
+    .search-icon {
+      left: 9px;
+    }
+    .clear-icon {
+      right: 9px;
+    }
+  }
+  .auth-input {
+    padding: 1.1rem 0.5rem 1.1rem 2.25rem;
+    font-size: 16px;
+    &::placeholder {
+      font-size: 16px;
+    }
+  }
+}

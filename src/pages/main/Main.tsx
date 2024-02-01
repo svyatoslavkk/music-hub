@@ -6,13 +6,23 @@ import PlaylistCards from "../../components/playlistCards/PlaylistCards";
 import Header from "../../components/header/Header";
 import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
+import HeaderDesktop from "../../components/headerDesktop/HeaderDesktop";
+import HashTags from "../../components/hashTags/HashTags";
+import GridBlock from "../../components/gridBlock/GridBlock";
+import Popular from "../../components/popular/Popular";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { fetchMusic, allMusic, isExpanded } = useMusicContext();
+  const { user, users, fetchMusic, allMusic, isExpanded } = useMusicContext();
+  const myData =
+    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const popularHeader = "Popular";
   const artistHeader = "Artists";
   const newestHeader = "Newest";
+
+  const plImage = myData?.avatar;
+  const plTitle = myData?.userName;
+  const plDesc = myData?.email;
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -52,7 +62,13 @@ export default function Main() {
       <Header />
       <NavBar />
       <div className="main" style={marginBottomStyle}>
+        <HeaderDesktop plImage={plImage} plTitle={plTitle} plDesc={plDesc} />
         <PlaylistCards />
+        <div className="desktop">
+          <HashTags />
+          <Popular music={fetchMusic} />
+          <GridBlock music={newestMusic} />
+        </div>
         <SliderList music={fetchMusic} header={popularHeader} />
         <SliderList music={newestMusic} header={newestHeader} />
         <Player />

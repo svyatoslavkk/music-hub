@@ -4,8 +4,7 @@ import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import { Artist } from "../../types/types";
-import { PlayerProps } from "../../types/types";
+import { Artist, PlayerProps } from "../../types/types";
 
 export default function ExpandedPlayer({
   onToggle,

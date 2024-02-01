@@ -10,23 +10,26 @@ import Profile from "./pages/profile/Profile";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { MusicProvider } from "./context/MusicContext";
+import { UserProvider } from "./context/UserContext";
 
 export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <MusicProvider>
-          <Routes>
-            <Route path="/welcome" element={<Welcome />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Main />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/:playlistId" element={<Playlist />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </MusicProvider>
+        <UserProvider>
+          <MusicProvider>
+            <Routes>
+              <Route path="/welcome" element={<Welcome />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Main />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/:playlistId" element={<Playlist />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </MusicProvider>
+        </UserProvider>
       </BrowserRouter>
     </Provider>
   );
