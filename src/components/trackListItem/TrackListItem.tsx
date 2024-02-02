@@ -15,6 +15,10 @@ import {
   collection,
 } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
+import {
+  isFavoriteSong,
+  handleAddToFavorites,
+} from "../../utils/favoritesUtils";
 
 export default function TrackListItem({
   key,
@@ -31,54 +35,9 @@ export default function TrackListItem({
   const userDocRef = myData ? doc(collectionRef, myData.docId) : null;
   const dispatch = useDispatch();
 
-  const isFavoriteSong = myData?.favTracks.some(
-    (favTrack: SongAlt) => favTrack.id === song.id,
-  );
-
-  const handleAddToFavorites = async () => {
-    if (userDocRef) {
-      const favoriteMusicData = {
-        id: song?.id,
-        img: song?.img,
-        name: song?.name,
-        soundFile: song?.soundFile,
-        duration: song?.duration,
-        artists: song?.artists.map((artist: ArtistAlt) => ({
-          name: artist?.profile?.name || artist?.name,
-          uri: artist?.profile?.uri || artist?.uri,
-        })),
-      };
-      try {
-        if (isFavoriteSong) {
-          await updateDoc(userDocRef, {
-            favTracks: arrayRemove(favoriteMusicData),
-          });
-        } else {
-          await updateDoc(userDocRef, {
-            favTracks: arrayUnion(favoriteMusicData),
-          });
-        }
-
-        setUsers((prevUsers) => {
-          const updatedUsers = [...prevUsers];
-          const userIndex = updatedUsers.findIndex((u) => u.uid === user?.uid);
-          if (userIndex !== -1) {
-            const updatedUserData = {
-              ...myData,
-              favTracks: isFavoriteSong
-                ? myData.favTracks.filter(
-                    (favTrack: SongAlt) => favTrack.id !== favoriteMusicData.id,
-                  )
-                : [...myData.favTracks, favoriteMusicData],
-            };
-            updatedUsers[userIndex] = updatedUserData;
-          }
-          return updatedUsers;
-        });
-      } catch (error) {
-        console.error("Error updating favorites:", error);
-      }
-    }
+  const isFavorite = isFavoriteSong(myData, song);
+  const handleFavorites = () => {
+    handleAddToFavorites(userDocRef, myData, user, song, setUsers);
   };
 
   const handlePauseClick = () => {
@@ -146,12 +105,12 @@ export default function TrackListItem({
             </div>
           ) : null}
         </div>
-        {isFavoriteSong ? (
-          <button className="transparent-btn" onClick={handleAddToFavorites}>
+        {isFavorite ? (
+          <button className="transparent-btn" onClick={handleFavorites}>
             <FavoriteRoundedIcon sx={{ color: "#dfbf60" }} />
           </button>
         ) : (
-          <button className="transparent-btn" onClick={handleAddToFavorites}>
+          <button className="transparent-btn" onClick={handleFavorites}>
             <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d899" }} />
           </button>
         )}

@@ -1,12 +1,26 @@
 import React from "react";
+import { useMusicContext } from "../../../context/MusicContext";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  collection,
+} from "firebase/firestore";
+import { database } from "../../../firebase/firebase";
+import { Artist, PlayerProps } from "../../../types/types";
+import {
+  handleAddToFavorites,
+  isFavoriteSong,
+} from "../../../utils/favoritesUtils";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import LoopRoundedIcon from "@mui/icons-material/LoopRounded";
 import VolumeUpRoundedIcon from "@mui/icons-material/VolumeUpRounded";
-import { Artist, PlayerProps } from "../../../types/types";
 
 export default function PlayerDesktop({
   onToggle,
@@ -31,10 +45,20 @@ export default function PlayerDesktop({
   volume,
   setVolume,
 }: PlayerProps) {
+  const { user, users, setUsers } = useMusicContext();
+  const collectionRef = collection(database, "Users Data");
+  const myData =
+    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+  const userDocRef = myData ? doc(collectionRef, myData.docId) : null;
   const fake =
     "https://i.scdn.co/image/ab67616100005174f2db81b3312a1f167fc54096";
   const getTime = (time: number) =>
     `${Math.floor(time / 60)}:${`0${Math.floor(time % 60)}`.slice(-2)}`;
+  const isFavorite = isFavoriteSong(myData, activeSong);
+  const handleFavorites = () => {
+    handleAddToFavorites(userDocRef, myData, user, activeSong, setUsers);
+  };
+
   return (
     <div className="player-desktop">
       <img
@@ -59,9 +83,15 @@ export default function PlayerDesktop({
           </h3>
         </div>
         <div className="buttons">
-          <button className="transparent-btn">
-            <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d8" }} />
-          </button>
+          {isFavorite ? (
+            <button className="transparent-btn" onClick={handleFavorites}>
+              <FavoriteRoundedIcon sx={{ color: "#dfbf60" }} />
+            </button>
+          ) : (
+            <button className="transparent-btn" onClick={handleFavorites}>
+              <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d899" }} />
+            </button>
+          )}
           <div className="play-pause">
             <button className="blur-circle-btn" onClick={handlePrevSong}>
               <SkipPreviousRoundedIcon sx={{ color: "#d0d2d8" }} />
