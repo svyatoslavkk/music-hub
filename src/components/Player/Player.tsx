@@ -4,9 +4,17 @@ import { nextSong, prevSong, playPause } from "../../redux/slices/playerSlice";
 import MiniPlayer from "../miniPlayer/MiniPlayer";
 import ExpandedPlayer from "../expandedPlayer/ExpandedPlayer";
 import { useMusicContext } from "../../context/MusicContext";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { app, database } from "../../firebase/firebase";
 import PlayerDesktop from "../shared/playerDesktop/PlayerDesktop";
+import { ArtistAlt, User } from "../../types/types";
+import { MAX_RECENT_TRACKS } from "../../constants/constants";
 
 export default function Player() {
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
@@ -22,7 +30,7 @@ export default function Player() {
   const dispatch = useDispatch();
   const ref = useRef<HTMLAudioElement>(null);
   const collectionRef = collection(database, "Users Data");
-  const myData =
+  const myData: User =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const userDocRef = myData ? myData.docId : null;
 
@@ -60,6 +68,48 @@ export default function Player() {
     } else {
       dispatch(prevSong(currentIndex - 1));
     }
+  };
+
+  const handleTrackCompletion = async () => {
+    if (userDocRef && activeSong) {
+      const listenedTrackData = {
+        id: activeSong?.id,
+        name: activeSong?.name,
+        soundFile: activeSong?.soundFile,
+        duration: activeSong?.duration,
+        artists: activeSong?.artists.map((artist: ArtistAlt) => ({
+          name: artist?.profile?.name || artist?.name,
+          uri: artist?.profile?.uri || artist?.uri,
+        })),
+      };
+
+      const currentArray = myData?.recentTracks;
+
+      const isThere = myData?.recentTracks.some(
+        (song) => song?.id === listenedTrackData?.id,
+      );
+      console.log("isThere", isThere);
+
+      if (currentArray.length >= MAX_RECENT_TRACKS) {
+        currentArray.shift();
+      }
+      currentArray.push(listenedTrackData);
+
+      try {
+        if (!isThere) {
+          await updateDoc(doc(collectionRef, userDocRef), {
+            recentTracks: currentArray,
+          });
+        }
+      } catch (error) {
+        console.error("Error updating listenedTracks:", error);
+      }
+    }
+  };
+
+  const handleEnded = () => {
+    handleNextSong();
+    handleTrackCompletion();
   };
 
   // const getCurrentDate = async () => {
@@ -211,7 +261,7 @@ export default function Player() {
         src={activeSong?.soundFile}
         ref={ref}
         loop={repeat}
-        onEnded={handleNextSong}
+        onEnded={handleEnded}
         onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
         onLoadedData={(event: any) => setDuration(event.target.duration)}
       />

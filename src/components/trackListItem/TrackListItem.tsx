@@ -50,7 +50,14 @@ export default function TrackListItem({
   };
 
   return (
-    <div key={song?.id} className="track-item">
+    <div
+      key={song?.id}
+      className="track-item"
+      style={{
+        backgroundColor:
+          isPlaying && activeSong?.id === song?.id ? "#ffd14744" : "#ffffff22",
+      }}
+    >
       <div className="left flex-content">
         <div className="i">
           <span className="small-header-white">{i + 1}</span>
@@ -60,9 +67,7 @@ export default function TrackListItem({
           className="small-circle-img"
           alt="Track"
         />
-        {(isPlaying && activeSong?.name) ||
-        activeSong?.title === song?.name ||
-        song.title ? (
+        {isPlaying && activeSong?.id === song?.id ? (
           <button
             className="play-pause-btn blur-circle-btn"
             onClick={handlePauseClick}
@@ -95,9 +100,7 @@ export default function TrackListItem({
       </div>
       <div className="right flex-content">
         <div className="music-anim-wrapper">
-          {(!isPlaying && activeSong?.name) ||
-          activeSong?.title === song?.name ||
-          song.title ? (
+          {isPlaying && activeSong?.id === song?.id ? (
             <div className="music-anim">
               {Array.from({ length: 5 }, (_, index) => (
                 <span key={index}></span>

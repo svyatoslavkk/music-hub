@@ -54,7 +54,7 @@ export default function DropItem({
           </div>
         </div>
         <span className="btn">
-          {isPlaying && activeSong?.title === song.title ? (
+          {isPlaying && activeSong?.id === song?.id ? (
             <button className="transparent-btn">
               <PauseRoundedIcon sx={{ color: "#d0d2d8" }} fontSize="large" />
             </button>

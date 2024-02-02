@@ -22,3 +22,5 @@ export const slides = [
     soundFile: doja,
   },
 ];
+
+export const MAX_RECENT_TRACKS = 8;
