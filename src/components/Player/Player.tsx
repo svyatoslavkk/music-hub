@@ -148,44 +148,8 @@ export default function Player() {
 
   return (
     <>
-      <div>
-        {isExpanded ? (
-          <ExpandedPlayer
-            onToggle={togglePlayerView}
-            isPlaying={isPlaying}
-            isActive={isActive}
-            repeat={repeat}
-            setRepeat={setRepeat}
-            shuffle={shuffle}
-            setShuffle={setShuffle}
-            activeSong={activeSong}
-            currentIndex={currentIndex}
-            currentSongs={currentSongs}
-            handlePlayPause={handlePlayPause}
-            handlePrevSong={handlePrevSong}
-            handleNextSong={handleNextSong}
-            value={appTime}
-            min={0}
-            max={duration}
-            onInput={(event: any) => setSeekTime(event.target.value)}
-            setSeekTime={setSeekTime}
-            appTime={appTime}
-          />
-        ) : (
-          <MiniPlayer
-            onToggle={togglePlayerView}
-            isPlaying={isPlaying}
-            isActive={isActive}
-            activeSong={activeSong}
-            currentIndex={currentIndex}
-            currentSongs={currentSongs}
-            handlePlayPause={handlePlayPause}
-            value={appTime}
-            min={0}
-            max={duration}
-          />
-        )}
-        <PlayerDesktop
+      {isExpanded ? (
+        <ExpandedPlayer
           onToggle={togglePlayerView}
           isPlaying={isPlaying}
           isActive={isActive}
@@ -205,22 +169,56 @@ export default function Player() {
           onInput={(event: any) => setSeekTime(event.target.value)}
           setSeekTime={setSeekTime}
           appTime={appTime}
-          volume={volume}
-          setVolume={setVolume}
         />
-        <audio
-          src={activeSong?.soundFile}
-          ref={ref}
-          loop={repeat}
-          onEnded={handleNextSong}
-          onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
-          onLoadedData={(event: any) => setDuration(event.target.duration)}
+      ) : (
+        <MiniPlayer
+          onToggle={togglePlayerView}
+          isPlaying={isPlaying}
+          isActive={isActive}
+          activeSong={activeSong}
+          currentIndex={currentIndex}
+          currentSongs={currentSongs}
+          handlePlayPause={handlePlayPause}
+          value={appTime}
+          min={0}
+          max={duration}
         />
-      </div>
-      <div
+      )}
+      <PlayerDesktop
+        onToggle={togglePlayerView}
+        isPlaying={isPlaying}
+        isActive={isActive}
+        repeat={repeat}
+        setRepeat={setRepeat}
+        shuffle={shuffle}
+        setShuffle={setShuffle}
+        activeSong={activeSong}
+        currentIndex={currentIndex}
+        currentSongs={currentSongs}
+        handlePlayPause={handlePlayPause}
+        handlePrevSong={handlePrevSong}
+        handleNextSong={handleNextSong}
+        value={appTime}
+        min={0}
+        max={duration}
+        onInput={(event: any) => setSeekTime(event.target.value)}
+        setSeekTime={setSeekTime}
+        appTime={appTime}
+        volume={volume}
+        setVolume={setVolume}
+      />
+      <audio
+        src={activeSong?.soundFile}
+        ref={ref}
+        loop={repeat}
+        onEnded={handleNextSong}
+        onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
+        onLoadedData={(event: any) => setDuration(event.target.duration)}
+      />
+      {/* <div
         className="bottom-overlay"
         style={{ height: isExpanded ? 300 : 160 }}
-      ></div>
+      ></div> */}
     </>
   );
 }

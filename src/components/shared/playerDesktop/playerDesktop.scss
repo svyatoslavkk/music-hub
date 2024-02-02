@@ -1,14 +1,11 @@
 .player-desktop {
-  position: fixed;
-  bottom: 8px;
-  right: 8px;
   display: none;
   gap: 1rem;
   backdrop-filter: blur(20px);
   background-color: #44444422;
   border-radius: 1.99rem;
   max-height: 175px;
-  width: 85.5%;
+  width: 100%;
   z-index: 20000;
   .image {
     border-radius: 1.99rem;
@@ -64,9 +61,9 @@
     align-items: center;
     justify-content: flex-end;
     gap: 0.5rem;
-    transform: rotateZ(-90deg) translateX(75%);
+    transform: rotateZ(-90deg) translateX(-40%);
     max-width: 50px;
-    max-height: 175px;
+    max-height: 50px;
     .volume-btn {
       display: flex;
       background: transparent;
@@ -102,13 +99,14 @@
 
 @media (min-width: 624px) {
   .player-desktop {
+    width: 100%;
     display: flex;
   }
 }
 
 @media (min-width: 924px) {
   .player-desktop {
-    width: 82.5%;
+    width: 100%;
   }
 }
 
