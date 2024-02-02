@@ -94,7 +94,6 @@ export default function Player() {
       const isThere = myData?.recentTracks.some(
         (song) => song?.id === listenedTrackData?.id,
       );
-      console.log("isThere", isThere);
 
       if (currentArray.length >= MAX_RECENT_TRACKS) {
         currentArray.shift();
@@ -113,7 +112,7 @@ export default function Player() {
     }
   };
 
-  const handleEnded = () => {
+  const handleEnded = async () => {
     handleNextSong();
     handleTrackCompletion();
   };
@@ -268,7 +267,16 @@ export default function Player() {
         ref={ref}
         loop={repeat}
         onEnded={handleEnded}
-        onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
+        onTimeUpdate={(event: any) => {
+          const currentTime = event.target.currentTime.toFixed(0);
+          const duration = event.target.duration.toFixed(0);
+          const fixedDuration = (duration * 0.98).toFixed(0);
+          if (currentTime === fixedDuration) {
+            console.log("SUCCESS");
+            handleTrackCompletion();
+          }
+          setAppTime(event.target.currentTime);
+        }}
         onLoadedData={(event: any) => setDuration(event.target.duration)}
       />
       {/* <div
