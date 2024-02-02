@@ -68,12 +68,12 @@ export default function PlayerDesktop({
             </button>
             <button className="blur-circle-btn" onClick={handlePlayPause}>
               {isPlaying ? (
+                <PauseRoundedIcon sx={{ color: "#d0d2d8" }} fontSize="medium" />
+              ) : (
                 <PlayArrowRoundedIcon
                   sx={{ color: "#d0d2d8" }}
                   fontSize="medium"
                 />
-              ) : (
-                <PauseRoundedIcon sx={{ color: "#d0d2d8" }} fontSize="medium" />
               )}
             </button>
             <button className="blur-circle-btn" onClick={handleNextSong}>

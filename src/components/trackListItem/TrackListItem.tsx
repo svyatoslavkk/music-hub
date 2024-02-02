@@ -135,6 +135,17 @@ export default function TrackListItem({
         </div>
       </div>
       <div className="right flex-content">
+        <div className="music-anim-wrapper">
+          {(!isPlaying && activeSong?.name) ||
+          activeSong?.title === song?.name ||
+          song.title ? (
+            <div className="music-anim">
+              {Array.from({ length: 5 }, (_, index) => (
+                <span key={index}></span>
+              ))}
+            </div>
+          ) : null}
+        </div>
         {isFavoriteSong ? (
           <button className="transparent-btn" onClick={handleAddToFavorites}>
             <FavoriteRoundedIcon sx={{ color: "#dfbf60" }} />

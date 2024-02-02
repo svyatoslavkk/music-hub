@@ -47,14 +47,14 @@ export default function Main() {
 
   const sortedMusic = allMusic.sort((a, b) => {
     const dateA = new Date(
-      parseInt(a.release_date.split("-")[2]),
-      parseInt(a.release_date.split("-")[1]) - 1,
-      parseInt(a.release_date.split("-")[0]),
+      parseInt(a?.release_date?.split("-")[2]),
+      parseInt(a?.release_date?.split("-")[1]) - 1,
+      parseInt(a?.release_date?.split("-")[0]),
     );
     const dateB = new Date(
-      parseInt(b.release_date.split("-")[2]),
-      parseInt(b.release_date.split("-")[1]) - 1,
-      parseInt(b.release_date.split("-")[0]),
+      parseInt(b?.release_date?.split("-")[2]),
+      parseInt(b?.release_date?.split("-")[1]) - 1,
+      parseInt(b?.release_date?.split("-")[0]),
     );
 
     return dateB - dateA;
@@ -67,18 +67,20 @@ export default function Main() {
       <div className="container">
         <NavBar />
         <div className="main" style={marginBottomStyle}>
-          <div className="test-header-wrapper">
-            <TestHeader />
+          <div>
+            <div className="test-header-wrapper">
+              <TestHeader />
+            </div>
+            <PlaylistCards />
+            {/* <div className="desktop">
+              <HashTags />
+              <Popular music={fetchMusic} />
+              <GridBlock music={newestMusic} />
+            </div> */}
+            <SliderList music={fetchMusic} header={popularHeader} />
+            <SliderList music={newestMusic} header={newestHeader} />
+            <SliderList music={newestMusic} header={newestHeader} />
           </div>
-          <PlaylistCards />
-          {/* <div className="desktop">
-            <HashTags />
-            <Popular music={fetchMusic} />
-            <GridBlock music={newestMusic} />
-          </div> */}
-          <SliderList music={fetchMusic} header={popularHeader} />
-          <SliderList music={newestMusic} header={newestHeader} />
-          <SliderList music={newestMusic} header={newestHeader} />
           <div className="player-wrapper">
             <Player />
           </div>

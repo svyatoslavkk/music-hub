@@ -25,7 +25,7 @@ export default function Genres({
         };
 
         const newRandomArtists: string[] = [];
-        for (let i = 0; i < 7 && artistsCopy.length > 0; i++) {
+        for (let i = 0; i < 10 && artistsCopy.length > 0; i++) {
           const randomIndex = getRandomInt(artistsCopy.length);
           const randomArtist = artistsCopy.splice(randomIndex, 1)[0];
           newRandomArtists.push(randomArtist);

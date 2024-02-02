@@ -54,8 +54,8 @@ export default function Explore() {
     q: debouncedSearchQuery,
     type: "multi",
     offset: "0",
-    limit: "5",
-    numberOfTopResults: "5",
+    limit: "15",
+    numberOfTopResults: "15",
   });
 
   const filteredAllMusic = allMusic.filter((song: SongAlt) => {
@@ -130,36 +130,36 @@ export default function Explore() {
       <div className="container">
         <NavBar />
         <div className="explore" style={marginBottomStyle}>
-          <Header />
-          <div className="test-header-wrapper">
-            <TestHeader
-              value={searchQuery}
-              onChange={handleInputChange}
-              onClearClick={handleClearClick}
-            />
-          </div>
-          {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
-            <Genres
-              uniqueArtistsArray={uniqueArtistsArray}
-              handleGenreClick={handleGenreClick}
-            />
-          )}
-          <div className="column-content">
-            {searchQuery.length > 2 &&
-              filteredAllMusic &&
-              filteredAllMusic.map((song: SongAlt, i: number) => (
-                <TrackListItem
-                  key={song.id}
-                  song={song}
-                  filteredAllMusic={filteredAllMusic}
-                  isPlaying={isPlaying}
-                  activeSong={activeSong}
-                  i={i}
-                />
-              ))}
-          </div>
+          <div>
+            <div className="test-header-wrapper">
+              <TestHeader
+                value={searchQuery}
+                onChange={handleInputChange}
+                onClearClick={handleClearClick}
+              />
+            </div>
+            {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
+              <Genres
+                uniqueArtistsArray={uniqueArtistsArray}
+                handleGenreClick={handleGenreClick}
+              />
+            )}
+            <div className="column-content">
+              {searchQuery.length > 2 &&
+                filteredAllMusic &&
+                filteredAllMusic.map((song: SongAlt, i: number) => (
+                  <TrackListItem
+                    key={song.id}
+                    song={song}
+                    filteredAllMusic={filteredAllMusic}
+                    isPlaying={isPlaying}
+                    activeSong={activeSong}
+                    i={i}
+                  />
+                ))}
+            </div>
 
-          {/* <div>
+            {/* <div>
           {exploreTracks && exploreTracks?.tracks?.items?.map((hit: any, i: any) => {
             const song = hit?.data;
             return (
@@ -204,6 +204,7 @@ export default function Explore() {
             );
           })}
         </div> */}
+          </div>
           <div className="player-wrapper">
             <Player />
           </div>

@@ -53,28 +53,30 @@ export default function Playlist() {
   return (
     <div className="container">
       <div className="favorites" style={marginBottomStyle}>
-        <div className="expanded-header-wrapper">
-          <ExpandedHeader
-            plImage={plImage}
-            plTitle={plTitle}
-            plDesc={plDesc}
-            stats={stats}
-          />
-        </div>
-        {filteredAllMusic && filteredAllMusic.length > 0 && (
-          <div className="column-content">
-            {filteredAllMusic.map((song: SongAlt, i: number) => (
-              <TrackListItem
-                key={song.id}
-                song={song}
-                filteredAllMusic={filteredAllMusic}
-                isPlaying={isPlaying}
-                activeSong={activeSong}
-                i={i}
-              />
-            ))}
+        <div>
+          <div className="expanded-header-wrapper">
+            <ExpandedHeader
+              plImage={plImage}
+              plTitle={plTitle}
+              plDesc={plDesc}
+              stats={stats}
+            />
           </div>
-        )}
+          {filteredAllMusic && filteredAllMusic.length > 0 && (
+            <div className="column-content">
+              {filteredAllMusic.map((song: SongAlt, i: number) => (
+                <TrackListItem
+                  key={song.id}
+                  song={song}
+                  filteredAllMusic={filteredAllMusic}
+                  isPlaying={isPlaying}
+                  activeSong={activeSong}
+                  i={i}
+                />
+              ))}
+            </div>
+          )}
+        </div>
         <div className="player-wrapper">
           <Player />
         </div>

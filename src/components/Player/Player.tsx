@@ -26,6 +26,12 @@ export default function Player() {
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const userDocRef = myData ? myData.docId : null;
 
+  useEffect(() => {
+    if (currentSongs.length) {
+      dispatch(playPause(true));
+    }
+  }, [currentIndex]);
+
   const handlePlayPause = () => {
     if (!isActive) return;
 
@@ -101,13 +107,13 @@ export default function Player() {
   // };
 
   /************************* FOR AUDIO TAG ***********************/
-  useEffect(() => {
-    if (ref.current) {
-      if (!isPlaying) {
-        ref.current.play();
-      }
+  if (ref.current) {
+    if (isPlaying) {
+      ref.current.play();
+    } else {
+      ref.current.pause();
     }
-  }, [isPlaying]);
+  }
 
   useEffect(() => {
     if (ref.current && isPlaying) {
@@ -126,12 +132,6 @@ export default function Player() {
       ref.current.volume = volume;
     }
   }, [volume]);
-
-  useEffect(() => {
-    if (currentSongs.length) {
-      dispatch(playPause(true));
-    }
-  }, [currentIndex]);
 
   // useEffect(() => {
   //   getTotalListenings();

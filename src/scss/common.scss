@@ -88,6 +88,10 @@ img {
   z-index: 20000;
 }
 
+.music-anim-wrapper {
+  display: none;
+}
+
 .center-loader {
   position: absolute;
   top: 50%;
@@ -153,6 +157,9 @@ img {
   }
   .test-header-wrapper {
     width: calc(100% - 80px);
+  }
+  .music-anim-wrapper {
+    display: flex;
   }
 }
 

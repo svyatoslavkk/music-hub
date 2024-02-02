@@ -20,6 +20,10 @@ export default function PlaylistCards() {
     id: "defaultId0",
     name: "Default Playlist 0",
   };
+  const thirdPlaylist = welcomePlaylists[2] || {
+    id: "defaultId2",
+    name: "Default Playlist 2",
+  };
 
   const plCardsContent = [
     {
@@ -41,13 +45,13 @@ export default function PlaylistCards() {
       link: `/${secondPlaylist.id}`,
     },
     {
-      playlistId: secondPlaylist.id,
+      playlistId: thirdPlaylist.id,
       number: 10,
       name: "Dance Mix",
       miniDesc: "For your energy",
       img: plImgThird,
       bgClr: "#234EFF",
-      link: `/${secondPlaylist.id}`,
+      link: `/${thirdPlaylist.id}`,
     },
     {
       playlistId: secondPlaylist.id,
