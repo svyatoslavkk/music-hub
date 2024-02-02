@@ -7,8 +7,10 @@ import { SongAlt } from "../../types/types";
 import { useParams } from "react-router-dom";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
+import useWindowSize from "../../components/hooks/useWindowSize";
 
 export default function Playlist() {
+  const windowSize = useWindowSize();
   const { playlistId } = useParams();
   const { isExpanded, welcomePlaylists, allMusic } = useMusicContext();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -43,18 +45,22 @@ export default function Playlist() {
     },
   ];
 
+  const marginBottomStyle =
+    windowSize.width > 624
+      ? { marginBottom: isExpanded ? 183 : 183 }
+      : { marginBottom: isExpanded ? 248 : 130 };
+
   return (
-    <>
-      <ExpandedHeader
-        plImage={plImage}
-        plTitle={plTitle}
-        plDesc={plDesc}
-        stats={stats}
-      />
-      <div
-        className="favorites"
-        style={{ marginBottom: isExpanded ? 230 : 110 }}
-      >
+    <div className="container">
+      <div className="favorites" style={marginBottomStyle}>
+        <div className="expanded-header-wrapper">
+          <ExpandedHeader
+            plImage={plImage}
+            plTitle={plTitle}
+            plDesc={plDesc}
+            stats={stats}
+          />
+        </div>
         {filteredAllMusic && filteredAllMusic.length > 0 && (
           <div className="column-content">
             {filteredAllMusic.map((song: SongAlt, i: number) => (
@@ -69,10 +75,12 @@ export default function Playlist() {
             ))}
           </div>
         )}
-        <Player />
+        <div className="player-wrapper">
+          <Player />
+        </div>
         <NavBar />
       </div>
       <ColorOverlay />
-    </>
+    </div>
   );
 }

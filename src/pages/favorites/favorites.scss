@@ -1,22 +1,40 @@
 .favorites {
-  @include default-container-styles;
-  gap: 1rem;
-  margin-top: 226px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 240px;
   .column-content {
     padding: 0.5rem;
   }
 }
 
+.expanded-header-wrapper {
+  position: fixed;
+  top: 0px;
+  right: 0;
+  width: calc(100% - 0px);
+  max-width: 100%;
+  padding: 0 0.5rem;
+  border-radius: 1.99rem;
+  z-index: 20000;
+}
+
 @media (min-width: 624px) {
   .favorites {
-    width: 88%;
-    margin-left: 12%;
+    margin-left: 80px;
+    width: 100%;
+  }
+  .expanded-header-wrapper {
+    width: calc(100% - 80px);
   }
 }
 
 @media (min-width: 924px) {
   .favorites {
-    margin-left: 16%;
-    width: 84%;
+    margin-left: 200px;
+    width: 100%;
+  }
+  .expanded-header-wrapper {
+    width: calc(100% - 200px);
   }
 }

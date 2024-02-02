@@ -6,6 +6,7 @@ import { Artist, PlayerProps } from "../../types/types";
 export default function MiniPlayer({
   onToggle,
   isPlaying,
+  isActive,
   activeSong,
   handlePlayPause,
   value,
@@ -16,21 +17,23 @@ export default function MiniPlayer({
   return (
     <>
       <div className="mini-player">
-        <div className="progressbar">
-          <svg className="progressbar__svg">
-            <circle
-              cx="29"
-              cy="29"
-              r="25"
-              className="progressbar__svg-circle circle-js shadow-js"
-              style={{
-                strokeDashoffset: 155 - (155 * ((value / max) * 100)) / 100,
-              }}
-            >
-              {" "}
-            </circle>
-          </svg>
-        </div>
+        {isActive && (
+          <div className="progressbar">
+            <svg className="progressbar__svg">
+              <circle
+                cx="29"
+                cy="29"
+                r="25"
+                className="progressbar__svg-circle circle-js shadow-js"
+                style={{
+                  strokeDashoffset: 155 - (155 * ((value / max) * 100)) / 100,
+                }}
+              >
+                {" "}
+              </circle>
+            </svg>
+          </div>
+        )}
         <div className="left flex-content">
           <img
             src={activeSong?.image || activeSong?.img || fakeImg}

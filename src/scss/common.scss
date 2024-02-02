@@ -77,6 +77,17 @@ img {
   z-index: -1;
 }
 
+.test-header-wrapper {
+  position: fixed;
+  top: 8px;
+  right: 0;
+  width: calc(100% - 0px);
+  max-width: 100%;
+  padding: 0 0.5rem;
+  border-radius: 1.99rem;
+  z-index: 20000;
+}
+
 .center-loader {
   position: absolute;
   top: 50%;
@@ -139,5 +150,14 @@ img {
   }
   .bottom-overlay {
     display: none;
+  }
+  .test-header-wrapper {
+    width: calc(100% - 80px);
+  }
+}
+
+@media (min-width: 924px) {
+  .test-header-wrapper {
+    width: calc(100% - 200px);
   }
 }

@@ -67,8 +67,9 @@ export default function Main() {
       <div className="container">
         <NavBar />
         <div className="main" style={marginBottomStyle}>
-          <Header />
-          <TestHeader />
+          <div className="test-header-wrapper">
+            <TestHeader />
+          </div>
           <PlaylistCards />
           {/* <div className="desktop">
             <HashTags />
@@ -77,9 +78,12 @@ export default function Main() {
           </div> */}
           <SliderList music={fetchMusic} header={popularHeader} />
           <SliderList music={newestMusic} header={newestHeader} />
+          <SliderList music={newestMusic} header={newestHeader} />
+          <div className="player-wrapper">
+            <Player />
+          </div>
         </div>
       </div>
-      <Player />
       <ColorOverlay />
     </>
   );

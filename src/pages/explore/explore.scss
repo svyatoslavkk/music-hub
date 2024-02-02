@@ -3,9 +3,9 @@
   flex-direction: column;
   width: 100%;
   gap: 1rem;
-  padding: 1rem;
-  margin-top: 75px;
+  padding: 0.5rem;
   overflow-y: auto;
+  margin-top: 64px;
 }
 
 .fav-icon {
@@ -14,15 +14,14 @@
 
 @media (min-width: 624px) {
   .explore {
-    margin-top: 0;
-    width: 88%;
-    margin-left: 12%;
+    margin-left: 80px;
+    width: 100%;
   }
 }
 
 @media (min-width: 924px) {
   .explore {
-    margin-left: 16%;
-    width: 84%;
+    margin-left: 200px;
+    width: 100%;
   }
 }

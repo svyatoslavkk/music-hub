@@ -60,10 +60,10 @@ $porcent-js: 50;
 
 .progressbar {
   position: absolute;
-  top: 37px;
+  top: 35px;
   left: -1px;
-	width: 20px;
-	height: 20px;
+	width: 22px;
+	height: 22px;
 	transform: rotate(-90deg);
 }
 
@@ -73,7 +73,7 @@ $porcent-js: 50;
 
 .progressbar__svg-circle {
 	fill: none;
-	stroke-width: 4;
+	stroke-width: 2;
 	stroke-dasharray: 155;
 	stroke: $interactive-alt;
 	stroke-linecap: round;

@@ -22,6 +22,7 @@ import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
 
 export default function Explore() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -104,24 +105,39 @@ export default function Explore() {
     }
   };
 
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  const marginBottomStyle =
+    windowWidth > 624
+      ? { marginBottom: isExpanded ? 184 : 184 }
+      : { marginBottom: isExpanded ? 248 : 130 };
+
   useEffect(() => {
     setSearchQuery(hashFromQuery);
   }, [hashFromQuery]);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
       <div className="container">
         <NavBar />
-        <div
-          className="explore"
-          style={{ marginBottom: isExpanded ? 230 : 110 }}
-        >
+        <div className="explore" style={marginBottomStyle}>
           <Header />
-          <TestHeader
-            value={searchQuery}
-            onChange={handleInputChange}
-            onClearClick={handleClearClick}
-          />
+          <div className="test-header-wrapper">
+            <TestHeader
+              value={searchQuery}
+              onChange={handleInputChange}
+              onClearClick={handleClearClick}
+            />
+          </div>
           {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
             <Genres
               uniqueArtistsArray={uniqueArtistsArray}
@@ -188,8 +204,9 @@ export default function Explore() {
             );
           })}
         </div> */}
-
-          <Player />
+          <div className="player-wrapper">
+            <Player />
+          </div>
         </div>
         {isLoading && (
           <div className="center-loader">

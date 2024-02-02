@@ -23,9 +23,17 @@ export default function DropItem({
     dispatch(playPause(true));
   };
 
+  const handleItemClick = () => {
+    if (isPlaying && activeSong?.title === song.title) {
+      handlePauseClick();
+    } else {
+      handlePlayClick();
+    }
+  };
+
   return (
     <>
-      <div className="drop-item" key={key}>
+      <div className="drop-item" key={key} onClick={handleItemClick}>
         <img
           className="large-sq-img"
           src={song?.image || song.img}
@@ -47,11 +55,11 @@ export default function DropItem({
         </div>
         <span className="btn">
           {isPlaying && activeSong?.title === song.title ? (
-            <button className="transparent-btn" onClick={handlePauseClick}>
+            <button className="transparent-btn">
               <PauseRoundedIcon sx={{ color: "#d0d2d8" }} fontSize="large" />
             </button>
           ) : (
-            <button className="transparent-btn" onClick={handlePlayClick}>
+            <button className="transparent-btn">
               <PlayArrowRoundedIcon
                 sx={{ color: "#d0d2d8" }}
                 fontSize="large"
