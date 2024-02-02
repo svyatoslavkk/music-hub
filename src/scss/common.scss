@@ -54,6 +54,12 @@ img {
   width: 100%;
 }
 
+.container-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .overlay {
   position: absolute;
   top: 0;

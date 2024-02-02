@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import SliderList from "../../components/sliderList/SliderList";
-import NavBar from "../../components/navBar/NavBar";
 import PlaylistCards from "../../components/playlistCards/PlaylistCards";
-import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
@@ -15,7 +13,7 @@ export default function Main() {
   const recentMusic = myData?.recentTracks || [];
   const popularHeader = "Popular";
   const newestHeader = "Newest";
-  const recentHeader = "Recent Tracks";
+  const recentHeader = "Recently Listened";
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -53,9 +51,8 @@ export default function Main() {
   return (
     <>
       <div className="container">
-        <NavBar />
         <div className="main" style={marginBottomStyle}>
-          <div>
+          <div className="container-gap">
             <div className="test-header-wrapper">
               <TestHeader />
             </div>
@@ -70,9 +67,6 @@ export default function Main() {
             {recentMusic.length >= 4 && (
               <SliderList music={recentMusic} header={recentHeader} />
             )}
-          </div>
-          <div className="player-wrapper">
-            <Player />
           </div>
         </div>
       </div>

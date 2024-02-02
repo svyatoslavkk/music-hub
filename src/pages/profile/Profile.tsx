@@ -1,5 +1,3 @@
-import NavBar from "../../components/navBar/NavBar";
-import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
@@ -50,7 +48,6 @@ export default function Profile() {
 
   return (
     <div className="container">
-      <NavBar />
       <div className="favorites" style={marginBottomStyle}>
         <div>
           <div className="expanded-header-wrapper">
@@ -75,9 +72,6 @@ export default function Profile() {
               ))}
             </div>
           )}
-        </div>
-        <div className="player-wrapper">
-          <Player />
         </div>
       </div>
       <ColorOverlay />

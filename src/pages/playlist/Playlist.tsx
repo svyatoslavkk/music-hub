@@ -1,5 +1,3 @@
-import NavBar from "../../components/navBar/NavBar";
-import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
@@ -80,10 +78,6 @@ export default function Playlist() {
             </div>
           )}
         </div>
-        <div className="player-wrapper">
-          <Player />
-        </div>
-        <NavBar />
       </div>
       <ColorOverlay />
     </div>

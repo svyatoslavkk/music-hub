@@ -11,6 +11,7 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { MusicProvider } from "./context/MusicContext";
 import { UserProvider } from "./context/UserContext";
+import RootLayout from "./_root/RootLayout";
 
 export default function App() {
   return (
@@ -22,11 +23,14 @@ export default function App() {
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/" element={<Main />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/:playlistId" element={<Playlist />} />
-              <Route path="/profile" element={<Profile />} />
+
+              <Route element={<RootLayout />}>
+                <Route path="/" element={<Main />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/:playlistId" element={<Playlist />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
             </Routes>
           </MusicProvider>
         </UserProvider>

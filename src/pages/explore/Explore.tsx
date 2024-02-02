@@ -6,15 +6,8 @@ import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import { useMusicContext } from "../../context/MusicContext";
-import NavBar from "../../components/navBar/NavBar";
-import Player from "../../components/Player/Player";
-import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { ArtistAlt, SongAlt } from "../../types/types";
 import { useSelector } from "react-redux";
 import Genres from "../../components/genres/Genres";
@@ -128,7 +121,6 @@ export default function Explore() {
   return (
     <>
       <div className="container">
-        <NavBar />
         <div className="explore" style={marginBottomStyle}>
           <div>
             <div className="test-header-wrapper">
@@ -204,9 +196,6 @@ export default function Explore() {
             );
           })}
         </div> */}
-          </div>
-          <div className="player-wrapper">
-            <Player />
           </div>
         </div>
         {isLoading && (
