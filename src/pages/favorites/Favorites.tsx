@@ -1,19 +1,19 @@
 import NavBar from "../../components/navBar/NavBar";
-import Header from "../../components/header/Header";
 import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
 import { SongAlt } from "../../types/types";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
+import { RootState } from "../../redux/slices/playerSlice";
 
 export default function Favorites() {
   const { user, users, isExpanded } = useMusicContext();
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activeSong, isPlaying } = useSelector(
+    (state: RootState) => state.player,
+  );
   const myData = users.filter((data) => data.uid === user?.uid)[0];
   const filteredAllMusic = myData?.favTracks || [];
   const totalTimeTracks: number =
@@ -49,7 +49,7 @@ export default function Favorites() {
       />
       <div
         className="favorites"
-        style={{ marginBottom: isExpanded ? 230 : 110 }}
+        style={{ marginBottom: isExpanded ? 230 : 115 }}
       >
         {filteredAllMusic && filteredAllMusic.length > 0 && (
           <div className="column-content">

@@ -15,6 +15,7 @@ import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import PlayerDesktop from "../../components/shared/playerDesktop/PlayerDesktop";
+import TestHeader from "../../components/shared/testHeader/TestHeader";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -41,8 +42,8 @@ export default function Main() {
 
   const marginBottomStyle =
     windowWidth > 624
-      ? { marginBottom: isExpanded ? 165 : 45 }
-      : { marginBottom: isExpanded ? 242 : 124 };
+      ? { marginBottom: isExpanded ? 184 : 184 }
+      : { marginBottom: isExpanded ? 248 : 130 };
 
   const sortedMusic = allMusic.sort((a, b) => {
     const dateA = new Date(
@@ -67,38 +68,18 @@ export default function Main() {
         <NavBar />
         <div className="main" style={marginBottomStyle}>
           <Header />
-          <header className="test-header">
-            <Link to="/" className="small-blur-circle-btn">
-              <GridViewRoundedIcon
-                fontSize="medium"
-                sx={{ color: "#d0d2d8" }}
-              />
-            </Link>
-            <div className="explore-input-block">
-              <span className="explore-icon">
-                <SearchRoundedIcon
-                  fontSize="medium"
-                  sx={{ color: "#d0d2d8" }}
-                />
-              </span>
-              <input className="explore-input" placeholder="Explore..." />
-            </div>
-            <button className="small-blur-circle-btn">
-              <LogoutRoundedIcon fontSize="medium" sx={{ color: "#d0d2d8" }} />
-            </button>
-          </header>
+          <TestHeader />
           <PlaylistCards />
-          <PlayerDesktop />
-          <div className="desktop">
+          {/* <div className="desktop">
             <HashTags />
             <Popular music={fetchMusic} />
             <GridBlock music={newestMusic} />
-          </div>
+          </div> */}
           <SliderList music={fetchMusic} header={popularHeader} />
           <SliderList music={newestMusic} header={newestHeader} />
-          <Player />
         </div>
       </div>
+      <Player />
       <ColorOverlay />
     </>
   );

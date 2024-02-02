@@ -1,5 +1,6 @@
 import { useExploreTracksQuery } from "../../redux/api/api";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
@@ -12,10 +13,13 @@ import Loader from "../../components/loader/Loader";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { ArtistAlt, SongAlt } from "../../types/types";
 import { useSelector } from "react-redux";
 import Genres from "../../components/genres/Genres";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
+import TestHeader from "../../components/shared/testHeader/TestHeader";
 
 export default function Explore() {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -107,29 +111,17 @@ export default function Explore() {
   return (
     <>
       <div className="container">
-        <Header />
         <NavBar />
         <div
           className="explore"
           style={{ marginBottom: isExpanded ? 230 : 110 }}
         >
-          <div className="auth-input-section">
-            <span className="search-icon">
-              <SearchRoundedIcon sx={{ color: "#d0d2d8" }} />
-            </span>
-            <input
-              className="auth-input"
-              placeholder="Explore"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
-            <button
-              className="clear-icon transparent-btn"
-              onClick={handleClearClick}
-            >
-              <ClearRoundedIcon sx={{ color: "#d0d2d8" }} />
-            </button>
-          </div>
+          <Header />
+          <TestHeader
+            value={searchQuery}
+            onChange={handleInputChange}
+            onClearClick={handleClearClick}
+          />
           {(searchQuery.length < 3 || filteredAllMusic.length === 0) && (
             <Genres
               uniqueArtistsArray={uniqueArtistsArray}
@@ -137,8 +129,7 @@ export default function Explore() {
             />
           )}
           <div className="column-content">
-            {!isLoading &&
-              searchQuery.length >= 3 &&
+            {searchQuery.length > 2 &&
               filteredAllMusic &&
               filteredAllMusic.map((song: SongAlt, i: number) => (
                 <TrackListItem

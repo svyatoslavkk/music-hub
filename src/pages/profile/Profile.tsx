@@ -13,9 +13,9 @@ export default function Profile() {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
-
+  const filteredAllMusic = myData?.favTracks || [];
   const totalTimeTracks: number =
-    myData?.favTracks?.reduce((totalTime: number, track: SongAlt) => {
+    filteredAllMusic?.reduce((totalTime: number, track: SongAlt) => {
       return totalTime + track.duration;
     }, 0) / 60000 || 0;
 
@@ -51,6 +51,20 @@ export default function Profile() {
         className="favorites"
         style={{ marginBottom: isExpanded ? 230 : 110 }}
       >
+        {filteredAllMusic && filteredAllMusic.length > 0 && (
+          <div className="column-content">
+            {filteredAllMusic.map((song: SongAlt, i: number) => (
+              <TrackListItem
+                key={song.id}
+                song={song}
+                filteredAllMusic={filteredAllMusic}
+                isPlaying={isPlaying}
+                activeSong={activeSong}
+                i={i}
+              />
+            ))}
+          </div>
+        )}
         <Player />
         <NavBar />
       </div>

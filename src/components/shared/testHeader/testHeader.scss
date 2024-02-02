@@ -1,0 +1,17 @@
+.test-header {
+  display: none;
+}
+
+@media (min-width: 624px) {
+  .test-header {
+    display: none;
+    @include flex-between-styles;
+    gap: 2rem;
+    padding: 0.5rem;
+    background-color: #44444488;
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    width: 100%;
+    z-index: 990;
+  }
+}

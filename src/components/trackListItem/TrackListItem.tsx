@@ -91,7 +91,7 @@ export default function TrackListItem({
   };
 
   return (
-    <div key={key} className="track-item">
+    <div key={song?.id} className="track-item">
       <div className="left flex-content">
         <div className="i">
           <span className="small-header-white">{i + 1}</span>
@@ -101,7 +101,9 @@ export default function TrackListItem({
           className="small-circle-img"
           alt="Track"
         />
-        {isPlaying && activeSong?.title === song.name ? (
+        {(isPlaying && activeSong?.name) ||
+        activeSong?.title === song?.name ||
+        song.title ? (
           <button
             className="play-pause-btn blur-circle-btn"
             onClick={handlePauseClick}

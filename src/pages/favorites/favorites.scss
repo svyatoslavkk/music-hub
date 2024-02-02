@@ -1,9 +1,9 @@
 .favorites {
   @include default-container-styles;
   gap: 1rem;
-  margin-top: 218px;
+  margin-top: 226px;
   .column-content {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 }
 

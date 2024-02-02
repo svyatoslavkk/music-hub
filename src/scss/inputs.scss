@@ -57,10 +57,18 @@
     }
   }
   .explore-icon {
+    display: flex;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     left: 8px;
+  }
+  .clear-icon {
     display: flex;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
   }
 }

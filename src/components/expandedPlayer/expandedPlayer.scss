@@ -36,24 +36,11 @@
     gap: 0.5rem;
     width: 90%;
     cursor: pointer;
-    .input-range {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
+    .input-range.seek {
       width: 100%;
       height: 8px;
-      background: rgb(82, 82, 82);
-      overflow: hidden;
-      border-radius: 999px;
-      -webkit-transition: height .1s;
-      -o-transition: height .1s;
-      transition: height .1s;
-      cursor: inherit;
     }
-    .input-range::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 0;
-      height: 0;
+    .input-range.seek::-webkit-slider-thumb {
       -webkit-box-shadow: -2000px 0 0 2000px $interactive-alt;
       box-shadow: -2000px 0 0 2000px $interactive-alt;
     }
@@ -62,8 +49,6 @@
 
 @media (min-width: 624px) {
   .expanded-player {
-    bottom: 15px;
-    left: 18%;
-    transform: translateX(0%);
+    display: none;
   }
 }

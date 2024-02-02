@@ -1,10 +1,15 @@
 .player-desktop {
-  position: relative;
-  display: flex;
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  display: none;
   gap: 1rem;
-  backdrop-filter: blur(10px);
-  background-color: #ffffff22;
+  backdrop-filter: blur(20px);
+  background-color: #44444422;
   border-radius: 1.99rem;
+  max-height: 175px;
+  width: 85.5%;
+  z-index: 20000;
   .image {
     border-radius: 1.99rem;
     width: 175px;
@@ -25,7 +30,6 @@
         gap: 1rem;
       }
     }
-    
   .line-bar {
     display: flex;
     align-items: center;
@@ -62,6 +66,7 @@
     gap: 0.5rem;
     transform: rotateZ(-90deg) translateX(75%);
     max-width: 50px;
+    max-height: 175px;
     .volume-btn {
       display: flex;
       background: transparent;
@@ -71,7 +76,6 @@
       display: flex;
       align-items: center;
       .volume-range {
-        writing-mode: bt-lr;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -95,3 +99,16 @@
     }
   }
 }
+
+@media (min-width: 624px) {
+  .player-desktop {
+    display: flex;
+  }
+}
+
+@media (min-width: 924px) {
+  .player-desktop {
+    width: 82.5%;
+  }
+}
+

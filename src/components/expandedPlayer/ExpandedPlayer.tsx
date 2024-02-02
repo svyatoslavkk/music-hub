@@ -10,7 +10,13 @@ export default function ExpandedPlayer({
   onToggle,
   isPlaying,
   activeSong,
+  repeat,
+  setRepeat,
+  shuffle,
+  setShuffle,
   handlePlayPause,
+  handlePrevSong,
+  handleNextSong,
   value,
   min,
   max,
@@ -54,20 +60,19 @@ export default function ExpandedPlayer({
           <button className="transparent-btn">
             <FavoriteBorderRoundedIcon sx={{ color: "#d0d2d8" }} />
           </button>
-          <button className="blur-circle-btn">
+          <button className="blur-circle-btn" onClick={handlePrevSong}>
             <SkipPreviousRoundedIcon sx={{ color: "#d0d2d8" }} />
           </button>
-          <button className="blur-circle-btn" onClick={handlePlayPause}>
-            {isPlaying ? (
-              <PlayArrowRoundedIcon
-                sx={{ color: "#d0d2d8" }}
-                fontSize="medium"
-              />
-            ) : (
+          {isPlaying ? (
+            <button className="blur-circle-btn" onClick={handlePlayPause}>
               <PauseRoundedIcon sx={{ color: "#d0d2d8" }} fontSize="medium" />
-            )}
-          </button>
-          <button className="blur-circle-btn">
+            </button>
+          ) : (
+            <button className="blur-circle-btn" onClick={handlePlayPause}>
+              <PlayArrowRoundedIcon sx={{ color: "#d0d2d8" }} />
+            </button>
+          )}
+          <button className="blur-circle-btn" onClick={handleNextSong}>
             <SkipNextRoundedIcon sx={{ color: "#d0d2d8" }} />
           </button>
           <button className="transparent-btn" onClick={onToggle}>
@@ -83,7 +88,7 @@ export default function ExpandedPlayer({
           </span>
           <input
             type="range"
-            className="input-range"
+            className="input-range seek"
             value={value}
             min={min}
             max={max}
