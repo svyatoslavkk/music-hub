@@ -1,20 +1,10 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SliderList from "../../components/sliderList/SliderList";
 import NavBar from "../../components/navBar/NavBar";
 import PlaylistCards from "../../components/playlistCards/PlaylistCards";
-import Header from "../../components/header/Header";
 import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
-import HeaderDesktop from "../../components/headerDesktop/HeaderDesktop";
-import HashTags from "../../components/hashTags/HashTags";
-import GridBlock from "../../components/gridBlock/GridBlock";
-import Popular from "../../components/popular/Popular";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import PlayerDesktop from "../../components/shared/playerDesktop/PlayerDesktop";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
 
 export default function Main() {
@@ -22,12 +12,10 @@ export default function Main() {
   const { user, users, fetchMusic, allMusic, isExpanded } = useMusicContext();
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+  const recentMusic = myData?.recentTracks || [];
   const popularHeader = "Popular";
   const newestHeader = "Newest";
-
-  const plImage = myData?.avatar;
-  const plTitle = myData?.userName;
-  const plDesc = myData?.email;
+  const recentHeader = "Recent Tracks";
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -79,7 +67,9 @@ export default function Main() {
             </div> */}
             <SliderList music={fetchMusic} header={popularHeader} />
             <SliderList music={newestMusic} header={newestHeader} />
-            <SliderList music={newestMusic} header={newestHeader} />
+            {recentMusic.length >= 4 && (
+              <SliderList music={recentMusic} header={recentHeader} />
+            )}
           </div>
           <div className="player-wrapper">
             <Player />

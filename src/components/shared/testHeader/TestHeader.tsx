@@ -6,8 +6,8 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 interface TestHeaderProps {
-  value: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onClearClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 

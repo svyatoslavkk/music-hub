@@ -1,7 +1,5 @@
 .favorites {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  @include default-container-styles;
   margin-top: 240px;
   .column-content {
     padding: 0.5rem;

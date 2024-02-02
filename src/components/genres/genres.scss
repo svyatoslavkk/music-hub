@@ -3,10 +3,8 @@
 }
 
 .genre {
+  @include flex-nowrap-text-styles;
   background-color: #44444488;
-  display: flex;
-  justify-content: center;
   padding: 0.5rem 0.75rem;
   border-radius: 0.99rem;
-  white-space: nowrap;
 }

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Song } from "../../types/types";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useSelector } from "react-redux";
 import DropItem from "../dropItem/DropItem";
+import { RootState } from "../../redux/slices/playerSlice";
 
 interface SliderListProps {
   music: Song[];
@@ -11,7 +12,9 @@ interface SliderListProps {
 }
 
 export default function SliderList({ music, header }: SliderListProps) {
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activeSong, isPlaying } = useSelector(
+    (state: RootState) => state.player,
+  );
 
   const [splideOptions, setSplideOptions] = useState({
     type: "slide",

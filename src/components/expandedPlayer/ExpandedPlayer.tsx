@@ -1,11 +1,5 @@
 import { useMusicContext } from "../../context/MusicContext";
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  collection,
-} from "firebase/firestore";
+import { doc, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import {
   handleAddToFavorites,

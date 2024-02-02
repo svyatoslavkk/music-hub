@@ -1,6 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { nextSong, prevSong, playPause } from "../../redux/slices/playerSlice";
+import {
+  nextSong,
+  prevSong,
+  playPause,
+  RootState,
+} from "../../redux/slices/playerSlice";
 import MiniPlayer from "../miniPlayer/MiniPlayer";
 import ExpandedPlayer from "../expandedPlayer/ExpandedPlayer";
 import { useMusicContext } from "../../context/MusicContext";
@@ -18,7 +23,7 @@ import { MAX_RECENT_TRACKS } from "../../constants/constants";
 
 export default function Player() {
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
-    useSelector((state) => state.player);
+    useSelector((state: RootState) => state.player);
   const { user, users, isExpanded, togglePlayerView } = useMusicContext();
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
@@ -74,6 +79,7 @@ export default function Player() {
     if (userDocRef && activeSong) {
       const listenedTrackData = {
         id: activeSong?.id,
+        img: activeSong?.img,
         name: activeSong?.name,
         soundFile: activeSong?.soundFile,
         duration: activeSong?.duration,

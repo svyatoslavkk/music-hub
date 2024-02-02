@@ -1,9 +1,5 @@
 .main {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 0.5rem;
+  @include default-container-styles;
   padding: 0.5rem;
   margin-top: 64px;
   overflow-y: auto;

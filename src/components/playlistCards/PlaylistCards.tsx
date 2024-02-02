@@ -8,6 +8,7 @@ import plImgSecond from "../../assets/pl_image_second.jpg";
 import plImgThird from "../../assets/pl_image_third.jpg";
 import plImgFifth from "../../assets/pl_image_fifth.jpg";
 import { useMusicContext } from "../../context/MusicContext";
+import { SplideOptions } from "../../types/interfaces";
 
 export default function PlaylistCards() {
   const { welcomePlaylists } = useMusicContext();
@@ -24,11 +25,15 @@ export default function PlaylistCards() {
     id: "defaultId2",
     name: "Default Playlist 2",
   };
+  const fourthPlaylist = welcomePlaylists[3] || {
+    id: "defaultId3",
+    name: "Default Playlist 3",
+  };
 
   const plCardsContent = [
     {
       playlistId: firstPlaylist.id,
-      number: 17,
+      number: 12,
       name: "Chill Mix",
       miniDesc: "Just relax and listen",
       img: plImgFirst,
@@ -37,7 +42,7 @@ export default function PlaylistCards() {
     },
     {
       playlistId: secondPlaylist.id,
-      number: 21,
+      number: 16,
       name: "Gamer Mix",
       miniDesc: "Listen while you play",
       img: plImgSecond,
@@ -46,7 +51,7 @@ export default function PlaylistCards() {
     },
     {
       playlistId: thirdPlaylist.id,
-      number: 10,
+      number: 13,
       name: "Dance Mix",
       miniDesc: "For your energy",
       img: plImgThird,
@@ -54,17 +59,17 @@ export default function PlaylistCards() {
       link: `/${thirdPlaylist.id}`,
     },
     {
-      playlistId: secondPlaylist.id,
-      number: 10,
+      playlistId: fourthPlaylist.id,
+      number: 12,
       name: "Pop Mix",
       miniDesc: "Keep trends",
       img: plImgFifth,
       bgClr: "#c53937",
-      link: `/${secondPlaylist.id}`,
+      link: `/${fourthPlaylist.id}`,
     },
   ];
 
-  const [splideOptions, setSplideOptions] = useState({
+  const [splideOptions, setSplideOptions] = useState<SplideOptions>({
     type: "slide",
     perMove: 1,
     height: "17.3rem",

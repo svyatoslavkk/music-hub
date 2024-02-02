@@ -15,10 +15,11 @@ $icon-alt: #9E9E9E;
 
 
 @mixin default-container-styles {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 @mixin button-styles {
@@ -67,4 +68,22 @@ $icon-alt: #9E9E9E;
   backdrop-filter: blur(50px);
   background-color: #ddd;
   color: $icon-alt;
+}
+
+@mixin flex-nowrap-text-styles {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin dark-blur-styles {
+  backdrop-filter: blur(10px);
+  background-color: #44444422;
+}
+
+@mixin mid-blur-styles {
+  backdrop-filter: blur(10px);
+  background-color: #44444488;
 }

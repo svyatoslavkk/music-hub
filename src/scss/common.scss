@@ -92,35 +92,22 @@ img {
   display: none;
 }
 
+.player-wrapper {
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  width: calc(100% - 200px);
+  max-width: 100%;
+  padding: 0.5rem;
+  border-radius: 1.99rem;
+  z-index: 20000;
+}
+
 .center-loader {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.large-sq-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 0.5rem;
-}
-
-.mid-circle-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-}
-
-.small-circle-img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-}
-
-.tiny-circle-img {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
 }
 
 .input-range {
@@ -161,10 +148,16 @@ img {
   .music-anim-wrapper {
     display: flex;
   }
+  .player-wrapper {
+    width: calc(100% - 80px);
+  }
 }
 
 @media (min-width: 924px) {
   .test-header-wrapper {
+    width: calc(100% - 200px);
+  }
+  .player-wrapper {
     width: calc(100% - 200px);
   }
 }

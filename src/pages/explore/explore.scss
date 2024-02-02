@@ -1,8 +1,5 @@
 .explore {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1rem;
+  @include default-container-styles;
   padding: 0.5rem;
   overflow-y: auto;
   margin-top: 64px;

@@ -3,17 +3,11 @@ import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { formatMillisecondsToMMSS } from "../../utils/formatMillisecondsToMMSS";
-import { ArtistAlt, SongAlt } from "../../types/types";
+import { ArtistAlt } from "../../types/types";
 import { useDispatch } from "react-redux";
 import { playPause, setActiveSong } from "../../redux/slices/playerSlice";
 import { useMusicContext } from "../../context/MusicContext";
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  collection,
-} from "firebase/firestore";
+import { doc, collection } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import {
   isFavoriteSong,

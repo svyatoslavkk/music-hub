@@ -36,7 +36,7 @@ export default function DropItem({
       <div className="drop-item" key={key} onClick={handleItemClick}>
         <img
           className="large-sq-img"
-          src={song?.image || song.img}
+          src={song?.image || song?.img}
           alt={song.title}
         />
         <div className="drop-item-overlay"></div>

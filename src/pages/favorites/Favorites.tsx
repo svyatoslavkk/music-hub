@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import NavBar from "../../components/navBar/NavBar";
 import Player from "../../components/Player/Player";
 import { useMusicContext } from "../../context/MusicContext";
@@ -9,7 +8,7 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import { RootState } from "../../redux/slices/playerSlice";
-import useWindowSize from "../../components/hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 
 export default function Favorites() {
   const windowSize = useWindowSize();

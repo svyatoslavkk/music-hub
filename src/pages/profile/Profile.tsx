@@ -6,13 +6,15 @@ import { useSelector } from "react-redux";
 import { SongAlt } from "../../types/types";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
-import useWindowSize from "../../components/hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
+import { RootState } from "../../redux/slices/playerSlice";
 
 export default function Profile() {
   const windowSize = useWindowSize();
-  const { user, users, isExpanded, welcomePlaylists, allMusic } =
-    useMusicContext();
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { user, users, isExpanded } = useMusicContext();
+  const { activeSong, isPlaying } = useSelector(
+    (state: RootState) => state.player,
+  );
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const filteredAllMusic = myData?.favTracks || [];

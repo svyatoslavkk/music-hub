@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import TinyLoader from "../loader/TinyLoader";
@@ -6,9 +7,9 @@ export default function ExpandedHeader({ plImage, plTitle, plDesc, stats }) {
   return (
     <header className="favorites-header">
       <div className="buttons">
-        <button className="small-blur-circle-btn">
+        <Link to="/" className="small-blur-circle-btn">
           <GridViewRoundedIcon sx={{ color: "#d0d2d8" }} />
-        </button>
+        </Link>
         <button className="small-blur-circle-btn">
           <LogoutRoundedIcon sx={{ color: "#d0d2d8" }} />
         </button>

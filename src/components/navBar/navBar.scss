@@ -1,4 +1,5 @@
 .nav-bar {
+  @include flex-between-styles;
   position: fixed;
   bottom: 8px;
   left: 50%;
@@ -8,16 +9,11 @@
   background-color: #ffffff22;
   padding: 0.25rem;
   border-radius: 2.5rem;
-  z-index: 1500;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   overflow: hidden;
+  z-index: 1500;
   .upper {
-    display: flex;
+    @include flex-between-styles;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
     .logo {
       display: none;
@@ -46,8 +42,6 @@
     padding: 2rem 0.5rem 2rem 0.5rem;
     flex-direction: column;
     gap: 3rem;
-    justify-content: space-between;
-    align-items: center;
     border-radius: 0rem;
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
@@ -57,10 +51,8 @@
       gap: 3rem;
     }
     .lower {
-      display: flex;
+      @include flex-between-styles;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
       width: 100%;
     }
   }
