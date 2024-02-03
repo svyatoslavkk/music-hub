@@ -77,6 +77,7 @@ export default function Player() {
   };
 
   const handleTrackCompletion = async () => {
+    const currentDate = new Date();
     if (userDocRef && activeSong) {
       const listenedTrackData = {
         id: activeSong?.id,
@@ -90,7 +91,25 @@ export default function Player() {
         })),
       };
 
+      const songTimesData = {
+        id: activeSong?.id,
+        img: activeSong?.img,
+        name: activeSong?.name,
+        soundFile: activeSong?.soundFile,
+        duration: activeSong?.duration,
+        artists: activeSong?.artists.map((artist: ArtistAlt) => ({
+          name: artist?.profile?.name || artist?.name,
+          uri: artist?.profile?.uri || artist?.uri,
+        })),
+        count: {
+          date: currentDate,
+          count: 1,
+        },
+      };
+
       const currentArray = myData?.recentTracks;
+      const listenedTimesArray = myData?.listenedTimes;
+      console.log("listenedTimesArray", listenedTimesArray);
 
       const isThere = myData?.recentTracks.some(
         (song) => song?.id === listenedTrackData?.id,
@@ -100,6 +119,7 @@ export default function Player() {
         currentArray.shift();
       }
       currentArray.push(listenedTrackData);
+      listenedTimesArray.push(songTimesData);
 
       try {
         if (!isThere) {
@@ -107,6 +127,9 @@ export default function Player() {
             recentTracks: currentArray,
           });
         }
+        await updateDoc(doc(collectionRef, userDocRef), {
+          listenedTimes: listenedTimesArray,
+        });
       } catch (error) {
         console.error("Error updating listenedTracks:", error);
       }
@@ -135,50 +158,6 @@ export default function Player() {
     }
   };
 
-  // const getCurrentDate = async () => {
-  //   const currentDate = new Date();
-  //   const day = currentDate.getDate();
-  //   const month = currentDate.getMonth() + 1;
-  //   const year = currentDate.getFullYear();
-  //   return `${day}-${month < 10 ? `0${month}` : month}-${year}`;
-  // };
-
-  // const getTotalListenings = async () => {
-  //   try {
-  //     const currentDate = await getCurrentDate();
-
-  //     if (myData !== null && !myData.listeningStats) {
-  //       await updateDoc(doc(collectionRef, myData?.docId), {
-  //         listeningStats: {
-  //           ...myData?.listeningStats,
-  //           [currentDate]: 0,
-  //         },
-  //       });
-  //     };
-
-  //   } catch (err: any) {
-  //     console.error("getTotalListenings error:", err.message);
-  //   }
-  // }
-
-  // const updateListeningStats = async (newCount: number) => {
-  //   try {
-  //     const currentDate = await getCurrentDate();
-  //     const listeningStats = (myData && myData.listeningStats) || {};
-  //     if (listeningStats[currentDate] !== undefined) {
-  //       listeningStats[currentDate] += newCount;
-  //       await updateDoc(doc(collectionRef, myData?.docId), {
-  //         listeningStats: {
-  //           ...(myData?.listeningStats || {}),
-  //           [currentDate]: listeningStats[currentDate],
-  //         },
-  //       });
-  //     }
-  //   } catch (err: any) {
-  //     console.error("updateListeningStats error:", err.message);
-  //   }
-  // };
-
   /************************* FOR AUDIO TAG ***********************/
   if (ref.current) {
     if (isPlaying) {
@@ -205,19 +184,6 @@ export default function Player() {
       ref.current.volume = volume;
     }
   }, [volume]);
-
-  // useEffect(() => {
-  //   getTotalListenings();
-  //   let intervalId: NodeJS.Timeout;
-  //   if (!isPlaying) {
-  //     intervalId = setInterval(() => {
-  //       updateListeningStats(10);
-  //     }, 10000);
-  //   }
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [isPlaying, start]);
 
   return (
     <>
@@ -288,10 +254,6 @@ export default function Player() {
         onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
         onLoadedData={(event: any) => setDuration(event.target.duration)}
       />
-      {/* <div
-        className="bottom-overlay"
-        style={{ height: isExpanded ? 300 : 160 }}
-      ></div> */}
     </>
   );
 }

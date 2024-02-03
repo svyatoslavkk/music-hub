@@ -1,4 +1,6 @@
-export default function Chart() {
+import { Artist, ArtistAlt } from "../../types/types";
+
+export default function Chart({ topFiveSongsDetails }) {
   const fakeArray = [
     {
       times: 65,
@@ -37,26 +39,37 @@ export default function Chart() {
   return (
     <section className="chart">
       <div>
-        <h2 className="big-header-white">Most listenable this week</h2>
+        <h2 className="big-header-white">Most listenable last week</h2>
       </div>
       <div className="stats">
-        {sorted.map((item) => (
+        {topFiveSongsDetails.map((item) => (
           <div className="info">
             <div
               className="bar small-header-white"
-              style={{ height: item.times * 2 }}
+              style={{ height: item.count * 10 }}
             >
-              {item.times}
+              {item.count}
             </div>
             <img
-              src={item.img}
+              src={item?.img}
               className="bar-image small-circle-img"
               alt="Song Cover"
             />
-            {item.artist && item.name && (
+            {item?.artists && item?.name && (
               <div className="pop-info">
-                <h3 className="small-header-white">{item.name}</h3>
-                <span className="small-text-white">{item.artist}</span>
+                <h3 className="small-header-white">{item?.name}</h3>
+                <div>
+                  {item?.artists.map((artist: ArtistAlt, i: number) => (
+                    <span key={i} className="small-text-white">
+                      {artist?.profile?.name || artist?.name}
+                      {i < item?.artists.length - 1 ? (
+                        <span className="small-text-white">, </span>
+                      ) : (
+                        ""
+                      )}
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
           </div>

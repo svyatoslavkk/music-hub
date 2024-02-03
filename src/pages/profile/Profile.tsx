@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
@@ -10,13 +11,33 @@ import Chart from "../../components/chart/Chart";
 
 export default function Profile() {
   const windowSize = useWindowSize();
-  const { user, users, isExpanded } = useMusicContext();
+  const [fetchTopSongs, setFetchTopSongs] = useState<[string, number][]>([]);
+  const { user, users, isExpanded, allMusic } = useMusicContext();
   const { activeSong, isPlaying } = useSelector(
     (state: RootState) => state.player,
   );
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+  const allSongs = allMusic || [];
   const filteredAllMusic = myData?.favTracks || [];
+  const frequentMusic = myData?.listenedTimes || [];
+
+  ///////////////////////
+  const songNames = frequentMusic.map((song: SongAlt) => song.id);
+  const songCounter = new Map<string, number>();
+  songNames.forEach((song) => {
+    songCounter.set(song, (songCounter.get(song) || 0) + 1);
+  });
+  const sortedSongs = Array.from(songCounter.entries()).sort(
+    (a, b) => b[1] - a[1],
+  );
+  const topFiveSongs = sortedSongs.slice(0, 5);
+
+  const topFiveSongsDetails = topFiveSongs.map(([songId, count]) => {
+    const songDetails = allSongs.find((song) => song.id === songId);
+    return songDetails ? { ...songDetails, count } : null;
+  });
+
   const totalTimeTracks: number =
     filteredAllMusic?.reduce((totalTime: number, track: SongAlt) => {
       return totalTime + track.duration;
@@ -59,7 +80,7 @@ export default function Profile() {
               stats={stats}
             />
           </div>
-          <Chart />
+          <Chart topFiveSongsDetails={topFiveSongsDetails} />
           {filteredAllMusic && filteredAllMusic.length > 0 && (
             <div className="column-content">
               {filteredAllMusic.map((song: SongAlt, i: number) => (

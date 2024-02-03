@@ -74,6 +74,7 @@ export default function SignUp() {
           email: currentUser.email,
           favTracks: [],
           recentTracks: [],
+          listenedTimes: [],
           listeningStats: {},
           ...(avatar && { avatar: pictureUrl }),
         });

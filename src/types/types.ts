@@ -6,6 +6,7 @@ export type User = {
   email: string;
   favTracks: SongAlt[];
   recentTracks: SongAlt[];
+  listenedTimes: SongAlt[];
   uid: string;
   userName: string;
   listeningStats: {};
