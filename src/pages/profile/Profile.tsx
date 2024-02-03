@@ -6,6 +6,7 @@ import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import useWindowSize from "../../hooks/useWindowSize";
 import { RootState } from "../../redux/slices/playerSlice";
+import Chart from "../../components/chart/Chart";
 
 export default function Profile() {
   const windowSize = useWindowSize();
@@ -58,6 +59,7 @@ export default function Profile() {
               stats={stats}
             />
           </div>
+          <Chart />
           {filteredAllMusic && filteredAllMusic.length > 0 && (
             <div className="column-content">
               {filteredAllMusic.map((song: SongAlt, i: number) => (
