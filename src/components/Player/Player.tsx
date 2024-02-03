@@ -32,6 +32,7 @@ export default function Player() {
   const [shuffle, setShuffle] = useState(false);
   const [volume, setVolume] = useState(0.3);
   const [start, setStart] = useState(0);
+  const [hasEnded, setHasEnded] = useState(false);
   const dispatch = useDispatch();
   const ref = useRef<HTMLAudioElement>(null);
   const collectionRef = collection(database, "Users Data");
@@ -115,6 +116,23 @@ export default function Player() {
   const handleEnded = async () => {
     handleNextSong();
     handleTrackCompletion();
+  };
+
+  const handleTimeUpdate = async (event: any) => {
+    const currentTime = event.target.currentTime;
+    const duration = event.target.duration;
+    const fixedCurrentTime = currentTime.toFixed(0);
+    const fixedDuration = (duration * 0.99).toFixed(0);
+    setAppTime(currentTime);
+    if (fixedCurrentTime === fixedDuration && !hasEnded && repeat) {
+      handleTrackCompletion();
+      setHasEnded(true);
+    } else if (
+      fixedCurrentTime < fixedDuration ||
+      fixedCurrentTime > fixedDuration
+    ) {
+      setHasEnded(false);
+    }
   };
 
   // const getCurrentDate = async () => {
@@ -267,16 +285,7 @@ export default function Player() {
         ref={ref}
         loop={repeat}
         onEnded={handleEnded}
-        onTimeUpdate={(event: any) => {
-          const currentTime = event.target.currentTime.toFixed(0);
-          const duration = event.target.duration.toFixed(0);
-          const fixedDuration = (duration * 0.98).toFixed(0);
-          if (currentTime === fixedDuration) {
-            console.log("SUCCESS");
-            handleTrackCompletion();
-          }
-          setAppTime(event.target.currentTime);
-        }}
+        onTimeUpdate={(event: any) => setAppTime(event.target.currentTime)}
         onLoadedData={(event: any) => setDuration(event.target.duration)}
       />
       {/* <div

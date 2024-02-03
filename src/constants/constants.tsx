@@ -23,4 +23,4 @@ export const slides = [
   },
 ];
 
-export const MAX_RECENT_TRACKS = 8;
+export const MAX_RECENT_TRACKS = 22;

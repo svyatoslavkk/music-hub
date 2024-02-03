@@ -1,5 +1,5 @@
 import { useExploreTracksQuery } from "../../redux/api/api";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
@@ -13,24 +13,33 @@ import { useSelector } from "react-redux";
 import Genres from "../../components/genres/Genres";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
+import SliderList from "../../components/sliderList/SliderList";
+import { RootState } from "../../redux/slices/playerSlice";
 
 export default function Explore() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const [isLoading, setIsLoading] = useState(false);
+  const { activeSong, isPlaying } = useSelector(
+    (state: RootState) => state.player,
+  );
+  const [recommendedTracks, setRecommendedTracks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
-  const { allMusic, isExpanded } = useMusicContext();
+  const { user, users, allMusic, isExpanded } = useMusicContext();
   const collectionRef = collection(database, "Music Data");
   const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
+  const myData =
+    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const hashFromQuery = searchParams.get("hash") || "";
 
+  /////////////////////////////////////////////
+  //////////////////////////////////////////////////
   const uniqueArtistsSet = new Set();
   allMusic.forEach((song) => {
     if (song.artists && Array.isArray(song.artists)) {
-      song.artists.forEach((artist) => {
+      song.artists.forEach((artist: ArtistAlt) => {
         if (artist.profile) {
           uniqueArtistsSet.add(artist.profile.name);
         }
@@ -38,6 +47,8 @@ export default function Explore() {
     }
   });
   const uniqueArtistsArray = [...uniqueArtistsSet];
+
+  const mightHeader = "You might like it";
 
   const {
     data: exploreTracks,
@@ -118,11 +129,64 @@ export default function Explore() {
     };
   }, []);
 
+  const favArtists = myData?.favTracks
+    ? Array.from(
+        new Set(
+          myData?.favTracks.flatMap((track) =>
+            track.artists.map((artist: ArtistAlt) => artist.name),
+          ),
+        ),
+      )
+    : [];
+
+  const recentArtists = myData?.recentTracks
+    ? Array.from(
+        new Set(
+          myData?.recentTracks.flatMap((track) =>
+            track.artists.map((artist: ArtistAlt) => artist.name),
+          ),
+        ),
+      )
+    : [];
+  const favArtistsSet = new Set(favArtists);
+  const recentArtistsSet = new Set(recentArtists);
+  const filterByArtists = (musicArray: SongAlt[], artistsSet: string[]) =>
+    musicArray.filter((song: SongAlt) =>
+      song.artists.some((artist: ArtistAlt) =>
+        artistsSet.has(artist.profile.name),
+      ),
+    );
+  const filteredByFavArtists = filterByArtists(allMusic, favArtistsSet);
+  const filteredByRecentArtists = filterByArtists(allMusic, recentArtistsSet);
+  const filteredMusicByFavRecent = [
+    ...filteredByFavArtists,
+    ...filteredByRecentArtists,
+  ];
+  const uniqueRecs = Array.from(
+    new Map(filteredMusicByFavRecent.map((song) => [song.id, song])).values(),
+  ); // ALL RECOMMENDED SONGS
+  const favTracks = myData?.favTracks || [];
+  const isNotInFavTracks = (song: SongAlt) =>
+    !favTracks.some((favTrack: SongAlt) => favTrack.id === song.id);
+  const newRecsNotInFav = uniqueRecs.filter(isNotInFavTracks);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const shuffledUniqueRecs = shuffleArray(newRecsNotInFav);
+  const mightMusic = shuffledUniqueRecs.slice(0, 10);
+  const memoizedMusic = useMemo(() => mightMusic, []);
+
   return (
     <>
       <div className="container">
         <div className="explore" style={marginBottomStyle}>
-          <div>
+          <div className="container-gap">
             <div className="test-header-wrapper">
               <TestHeader
                 value={searchQuery}
@@ -136,8 +200,9 @@ export default function Explore() {
                 handleGenreClick={handleGenreClick}
               />
             )}
+            <SliderList music={mightMusic} header={mightHeader} />
             <div className="column-content">
-              {searchQuery.length > 2 &&
+              {searchQuery.length >= 3 &&
                 filteredAllMusic &&
                 filteredAllMusic.map((song: SongAlt, i: number) => (
                   <TrackListItem
@@ -198,11 +263,6 @@ export default function Explore() {
         </div> */}
           </div>
         </div>
-        {isLoading && (
-          <div className="center-loader">
-            <Loader />
-          </div>
-        )}
       </div>
       <ColorOverlay />
     </>

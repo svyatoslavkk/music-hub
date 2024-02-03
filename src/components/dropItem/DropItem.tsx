@@ -24,7 +24,7 @@ export default function DropItem({
   };
 
   const handleItemClick = () => {
-    if (isPlaying && activeSong?.title === song.title) {
+    if (isPlaying && activeSong?.id === song?.id) {
       handlePauseClick();
     } else {
       handlePlayClick();
@@ -33,7 +33,7 @@ export default function DropItem({
 
   return (
     <>
-      <div className="drop-item" key={key} onClick={handleItemClick}>
+      <div className="drop-item" key={song?.id} onClick={handleItemClick}>
         <img
           className="large-sq-img"
           src={song?.image || song?.img}

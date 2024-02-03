@@ -11,6 +11,14 @@ export default function Main() {
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const recentMusic = myData?.recentTracks || [];
+  const uniqueRecentMusic = recentMusic.filter(
+    (value, index, self) =>
+      index ===
+      self.findIndex(
+        (item) => item.id === value.id && item.soundFile === value.soundFile,
+      ),
+  );
+
   const popularHeader = "Popular";
   const newestHeader = "Newest";
   const recentHeader = "Recently Listened";
@@ -64,8 +72,8 @@ export default function Main() {
             </div> */}
             <SliderList music={fetchMusic} header={popularHeader} />
             <SliderList music={newestMusic} header={newestHeader} />
-            {recentMusic.length >= 4 && (
-              <SliderList music={recentMusic} header={recentHeader} />
+            {uniqueRecentMusic.length >= 4 && (
+              <SliderList music={uniqueRecentMusic} header={recentHeader} />
             )}
           </div>
         </div>
