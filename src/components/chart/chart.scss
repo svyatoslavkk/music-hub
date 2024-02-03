@@ -29,6 +29,7 @@
         justify-content: center;
         width: 66%;
         max-width: 48px;
+        min-height: 30px;
         max-height: 200px;
         border-radius: 0.25rem;
         z-index: 50;
@@ -39,10 +40,10 @@
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 0%);
-        width: 80%;
+        max-width: 80%;
         text-align: center;
         flex-direction: column;
-        padding: 0.25rem 1rem;
+        padding: 0.25rem 2rem;
         border-radius: 2rem;
         background-color: #ffffff22;
         backdrop-filter: blur(10px);
@@ -50,7 +51,9 @@
         transition: 0.2s ease;
         z-index: -1;
         overflow: hidden;
-        .small-header-white {
+        .small-header-white,
+        .artists12 {
+          display: flex;
           @include flex-nowrap-text-styles;
         }
       }

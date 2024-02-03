@@ -24,6 +24,7 @@ export type SongAlt = {
   id: string;
   name: string;
   artists: [];
+  count: number;
   soundFile: string;
   img: string;
   duration: number;
