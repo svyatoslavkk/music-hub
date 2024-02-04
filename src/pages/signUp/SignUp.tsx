@@ -140,7 +140,10 @@ export default function SignUp() {
     }
   };
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
     setShowPassword(!showPassword);
   };
 
@@ -241,34 +244,31 @@ export default function SignUp() {
                 onChange={handlePasswordChange}
                 onBlur={validatePassword}
               />
-              <span
+              {passwordError ? (
+                <span className="alert-icon-password">
+                  <PriorityHighIcon
+                    fontSize="inherit"
+                    sx={{ color: "#304030" }}
+                  />
+                </span>
+              ) : (
+                <span className="done-icon-password">
+                  <DoneIcon fontSize="inherit" sx={{ color: "#304030" }} />
+                </span>
+              )}
+              <button
                 className="visibility-icon"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? (
                   <VisibilityOffIcon
-                    fontSize="inherit"
+                    fontSize="small"
                     sx={{ color: "#E0E0E0" }}
                   />
                 ) : (
-                  <VisibilityIcon
-                    fontSize="inherit"
-                    sx={{ color: "#E0E0E0" }}
-                  />
+                  <VisibilityIcon fontSize="small" sx={{ color: "#E0E0E0" }} />
                 )}
-                {passwordError ? (
-                  <span className="alert-icon-password">
-                    <PriorityHighIcon
-                      fontSize="inherit"
-                      sx={{ color: "#304030" }}
-                    />
-                  </span>
-                ) : (
-                  <span className="done-icon-password">
-                    <DoneIcon fontSize="inherit" sx={{ color: "#304030" }} />
-                  </span>
-                )}
-              </span>
+              </button>
             </div>
             <button className="primary-btn" onClick={handleSignUp}>
               <span className="mid-header-dark">Sign Up</span>

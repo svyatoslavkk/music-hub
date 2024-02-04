@@ -8,6 +8,7 @@ import { useState } from "react";
 import { app } from "../../firebase/firebase";
 import Loader from "../../components/loader/Loader";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,7 +51,10 @@ export default function Login() {
     setPassword(event.target.value);
   };
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
     setShowPassword(!showPassword);
   };
 
@@ -59,8 +63,8 @@ export default function Login() {
       <div className="signup">
         <div className="signup-content">
           <div className="column-content" style={{ textAlign: "center" }}>
-            <h2 className="big-header-dark">Welcome back to Music Hub!</h2>
-            <p className="mid-text">
+            <h2 className="big-header-white">Welcome back to Music Hub!</h2>
+            <p className="mid-text-white">
               Let's continue to listen your favorite music
             </p>
           </div>
@@ -68,58 +72,69 @@ export default function Login() {
             <div className="auth-input-section">
               <span className="username-icon">
                 <EmailOutlinedIcon
-                  fontSize="small"
-                  sx={{ color: "#00000099" }}
+                  fontSize="inherit"
+                  sx={{ color: "#E0E0E0" }}
                 />
               </span>
               <input
                 type="text"
                 className="auth-input"
                 placeholder="Email"
+                value={email}
                 onChange={handleEmailChange}
               />
             </div>
             <div className="auth-input-section">
               <span className="username-icon">
                 <VpnKeyOutlinedIcon
-                  fontSize="small"
-                  sx={{ color: "#00000099" }}
+                  fontSize="inherit"
+                  sx={{ color: "#E0E0E0" }}
                 />
               </span>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className="auth-input"
                 placeholder="Password"
+                value={password}
                 onChange={handlePasswordChange}
               />
-              <span
+              <button
                 className="visibility-icon"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? (
                   <VisibilityOffIcon
                     fontSize="small"
-                    sx={{ color: "#00000099" }}
+                    sx={{ color: "#E0E0E0" }}
                   />
                 ) : (
-                  <VisibilityIcon
-                    fontSize="small"
-                    sx={{ color: "#00000099" }}
-                  />
+                  <VisibilityIcon fontSize="small" sx={{ color: "#E0E0E0" }} />
                 )}
-              </span>
+              </button>
             </div>
             <button className="primary-btn" onClick={signIn}>
-              <span className="mid-header-white">Log In</span>
+              <span className="mid-header-dark">Log In</span>
             </button>
+            <div className="line-block">
+              <div className="line"></div>
+              <span className="mid-header-white">or</span>
+              <div className="line"></div>
+            </div>
             <button className="secondary-btn">
-              <GoogleIcon sx={{ color: "#e4774d" }} />
-              <span className="mid-header-gray">Log In with Google</span>
+              <GoogleIcon fontSize="small" sx={{ color: "#e4774d" }} />
+              <span className="mid-header-white">Log In with Google</span>
             </button>
           </form>
           <div className="column-content">
-            <p className="mid-text">
-              Don't have an account? <Link to="/signup">Sign Up</Link>
+            <p className="mid-text-white">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="mid-text-white"
+                style={{ color: "#dfbf60", textDecoration: "none" }}
+              >
+                Sign Up
+              </Link>
             </p>
           </div>
         </div>
@@ -129,6 +144,7 @@ export default function Login() {
           <Loader />
         </div>
       )}
+      <ColorOverlay />
     </>
   );
 }

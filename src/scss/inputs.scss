@@ -13,6 +13,7 @@
     transform: translateY(-50%);
     right: 10px;
     display: flex;
+    background-color: transparent;
   }
   .search-icon {
     position: absolute;
@@ -48,11 +49,11 @@
     background-color: $green;
   }
   .alert-icon-password {
-    right: 24px;
+    right: 36px;
     background-color: $interactive-alt;
   }
   .done-icon-password {
-    right: 24px;
+    right: 36px;
     background-color: $green;
   }
   .error-message {
