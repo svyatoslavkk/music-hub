@@ -9,16 +9,10 @@ import {
 import MiniPlayer from "../miniPlayer/MiniPlayer";
 import ExpandedPlayer from "../expandedPlayer/ExpandedPlayer";
 import { useMusicContext } from "../../context/MusicContext";
-import {
-  collection,
-  getDocs,
-  doc,
-  updateDoc,
-  arrayUnion,
-} from "firebase/firestore";
-import { app, database } from "../../firebase/firebase";
+import { collection, doc, updateDoc } from "firebase/firestore";
+import { database } from "../../firebase/firebase";
 import PlayerDesktop from "../shared/playerDesktop/PlayerDesktop";
-import { ArtistAlt, User } from "../../types/types";
+import { ArtistAlt, SongAlt, User } from "../../types/types";
 import { MAX_RECENT_TRACKS } from "../../constants/constants";
 
 export default function Player() {
@@ -31,12 +25,11 @@ export default function Player() {
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [volume, setVolume] = useState(0.3);
-  const [start, setStart] = useState(0);
   const [hasEnded, setHasEnded] = useState(false);
   const dispatch = useDispatch();
   const ref = useRef<HTMLAudioElement>(null);
   const collectionRef = collection(database, "Users Data");
-  const myData: User =
+  const myData: User | null =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const userDocRef = myData ? myData.docId : null;
 
@@ -79,7 +72,7 @@ export default function Player() {
   const handleTrackCompletion = async () => {
     const currentDate = new Date();
     if (userDocRef && activeSong) {
-      const listenedTrackData = {
+      const listenedTrackData: SongAlt = {
         id: activeSong?.id,
         img: activeSong?.img,
         name: activeSong?.name,

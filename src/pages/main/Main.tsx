@@ -4,10 +4,11 @@ import PlaylistCards from "../../components/playlistCards/PlaylistCards";
 import { useMusicContext } from "../../context/MusicContext";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
+import { useSpring, animated, useChain } from "react-spring";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { user, users, fetchMusic, allMusic, isExpanded } = useMusicContext();
+  const { user, users, allMusic, fetchMusic, isExpanded } = useMusicContext();
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const recentMusic = myData?.recentTracks || [];

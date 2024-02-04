@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Song } from "../../types/types";
+import { SongAlt } from "../../types/types";
 
 interface MusicState {
-  currentSongs: Song[];
+  currentSongs: SongAlt[];
   currentIndex: number;
   isActive: boolean;
   isPlaying: boolean;
-  activeSong: Song;
+  activeSong: SongAlt;
 }
 
 export interface RootState {
@@ -18,7 +18,7 @@ const initialState: MusicState = {
   currentIndex: 0,
   isActive: false,
   isPlaying: false,
-  activeSong: {} as Song,
+  activeSong: {} as SongAlt,
 };
 
 const playerSlice = createSlice({

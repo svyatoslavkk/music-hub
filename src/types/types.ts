@@ -53,14 +53,25 @@ export type Playlist = {
   name: string;
 };
 
+export type Stat = {
+  value: number | string;
+  key: string;
+};
+
 export interface PlayerProps {
   onToggle?: () => void;
   isPlaying: boolean;
   isActive: boolean;
-  activeSong: Song;
+  activeSong: SongAlt;
+  repeat: boolean;
+  setRepeat: React.Dispatch<React.SetStateAction<boolean>>;
+  shuffle: boolean;
+  setShuffle: React.Dispatch<React.SetStateAction<boolean>>;
   currentIndex: number;
   currentSongs: Song[];
   handlePlayPause: () => void;
+  handlePrevSong: () => void;
+  handleNextSong: () => void;
   value?: number;
   min?: number;
   max?: number;

@@ -19,6 +19,7 @@ export default function SliderList({ music, header }: SliderListProps) {
   const [splideOptions, setSplideOptions] = useState({
     type: "slide",
     perMove: 1,
+    rewind: true,
     height: "17.3rem",
     pagination: true,
     gap: "0.5rem",

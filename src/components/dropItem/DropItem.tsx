@@ -2,10 +2,9 @@ import { useDispatch } from "react-redux";
 import { playPause, setActiveSong } from "../../redux/slices/playerSlice";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
-import { Artist } from "../../types/types";
+import { ArtistAlt } from "../../types/types";
 
 export default function DropItem({
-  key,
   song,
   music,
   isPlaying,
@@ -44,8 +43,8 @@ export default function DropItem({
           <div className="text">
             <h3 className="small-header-white">{song?.title || song?.name}</h3>
             <div className="flex-content">
-              {song?.artists.map((artist: Artist, index: number) => (
-                <span key={artist.id} className="small-text-white">
+              {song?.artists.map((artist: ArtistAlt, index: number) => (
+                <span key={index} className="small-text-white">
                   {artist?.name || artist?.profile?.name}
                   {index < song.artists.length - 1 ? "," : ""}
                 </span>

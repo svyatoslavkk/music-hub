@@ -3,7 +3,6 @@ import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import PreviewSlider from "../../components/previewSlider/PreviewSlider";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { app } from "../../firebase/firebase";
@@ -58,7 +57,6 @@ export default function Login() {
   return (
     <>
       <div className="signup">
-        <PreviewSlider />
         <div className="signup-content">
           <div className="column-content" style={{ textAlign: "center" }}>
             <h2 className="big-header-dark">Welcome back to Music Hub!</h2>

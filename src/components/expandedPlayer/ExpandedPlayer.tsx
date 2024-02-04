@@ -12,16 +12,12 @@ import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import { Artist, PlayerProps } from "../../types/types";
+import { ArtistAlt, PlayerProps } from "../../types/types";
 
 export default function ExpandedPlayer({
   onToggle,
   isPlaying,
   activeSong,
-  repeat,
-  setRepeat,
-  shuffle,
-  setShuffle,
   handlePlayPause,
   handlePrevSong,
   handleNextSong,
@@ -62,7 +58,7 @@ export default function ExpandedPlayer({
               <div style={{ display: "flex", gap: 4 }}>
                 {(activeSong &&
                   activeSong.artists &&
-                  activeSong.artists.map((artist: Artist, i: number) => (
+                  activeSong.artists.map((artist: ArtistAlt, i: number) => (
                     <span key={i} className="small-text-white">
                       {artist?.name || artist?.profile?.name}
                       {i < activeSong.artists.length - 1 ? "," : ""}
@@ -107,18 +103,20 @@ export default function ExpandedPlayer({
         </div>
         <label className="line-bar">
           <span className="small-text-white">
-            {value === 0 ? "0:00" : getTime(value)}
+            {value === undefined ? "0:00" : getTime(value)}
           </span>
           <input
             type="range"
             className="input-range seek"
-            value={value}
-            min={min}
-            max={max}
-            onInput={(event: any) => setSeekTime(event.target.value)}
+            value={value || 0}
+            min={min || 0}
+            max={max || 100}
+            onInput={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSeekTime && setSeekTime(Number(event.target.value))
+            }
           />
           <span className="small-text-white">
-            {max === 0 ? "0:00" : getTime(max)}
+            {max === undefined ? "0:00" : getTime(max)}
           </span>
         </label>
       </div>

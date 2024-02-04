@@ -1,12 +1,7 @@
-import { useExploreTracksQuery } from "../../redux/api/api";
-import React, { useState, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
-import { doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
-import { database } from "../../firebase/firebase";
 import { useMusicContext } from "../../context/MusicContext";
-import Loader from "../../components/loader/Loader";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { ArtistAlt, SongAlt } from "../../types/types";
 import { useSelector } from "react-redux";
@@ -21,13 +16,9 @@ export default function Explore() {
   const { activeSong, isPlaying } = useSelector(
     (state: RootState) => state.player,
   );
-  const [recommendedTracks, setRecommendedTracks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
   const { user, users, allMusic, isExpanded } = useMusicContext();
-  const collectionRef = collection(database, "Music Data");
-  const musicDocRef = doc(collectionRef, "3GYHK0jYEV5qV4bc5nCG");
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const { search } = useLocation();
@@ -50,18 +41,6 @@ export default function Explore() {
 
   const mightHeader = "You might like it";
 
-  const {
-    data: exploreTracks,
-    isFetching: exploreTracksFetching,
-    error: exploreTracksError,
-  } = useExploreTracksQuery({
-    q: debouncedSearchQuery,
-    type: "multi",
-    offset: "0",
-    limit: "15",
-    numberOfTopResults: "15",
-  });
-
   const filteredAllMusic = allMusic.filter((song: SongAlt) => {
     const lowerCaseSearchQuery = debouncedSearchQuery.toLowerCase();
     const lowerCaseSongName = song.name.toLowerCase();
@@ -79,34 +58,12 @@ export default function Explore() {
     setSearchQuery(e.target.value);
   };
 
-  const handleGenreClick = (genre) => {
+  const handleGenreClick = (genre: string) => {
     setSearchQuery(genre);
   };
 
   const handleClearClick = () => {
     setSearchQuery("");
-  };
-
-  const handleAddToFavorites = async (song: any) => {
-    if (song && song.data && song.data.albumOfTrack) {
-      const allMusicData = {
-        artists: song.data.artists.items,
-        img: song.data.albumOfTrack.coverArt.sources[2].url,
-        name: song.data.name,
-        id: song.data.id,
-        duration: song.data.duration.totalMilliseconds,
-      };
-
-      try {
-        await updateDoc(musicDocRef, {
-          allMusic: arrayUnion(allMusicData),
-        });
-      } catch (error) {
-        console.error("Error updating favorites:", error);
-      }
-    } else {
-      console.error("Invalid song object:", song);
-    }
   };
 
   const handleResize = () => {
@@ -170,7 +127,7 @@ export default function Explore() {
     !favTracks.some((favTrack: SongAlt) => favTrack.id === song.id);
   const newRecsNotInFav = uniqueRecs.filter(isNotInFavTracks);
 
-  function shuffleArray(array) {
+  function shuffleArray(array: SongAlt[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -178,9 +135,8 @@ export default function Explore() {
     return array;
   }
 
-  const shuffledUniqueRecs = shuffleArray(newRecsNotInFav);
+  const shuffledUniqueRecs: SongAlt[] = shuffleArray(newRecsNotInFav);
   const mightMusic = shuffledUniqueRecs.slice(0, 10);
-  const memoizedMusic = useMemo(() => mightMusic, []);
 
   return (
     <>
@@ -215,52 +171,6 @@ export default function Explore() {
                   />
                 ))}
             </div>
-
-            {/* <div>
-          {exploreTracks && exploreTracks?.tracks?.items?.map((hit: any, i: any) => {
-            const song = hit?.data;
-            return (
-              <div
-                key={i}
-                className="flex-content"
-                style={{ backgroundColor: "#ff000099", marginBottom: 16 }}
-              >
-                <div className="flex-content">
-                  <div>
-                    <button onClick={() => handleAddToFavorites(hit)}>+</button>
-                  </div>
-                  <div>
-                    {song ? (
-                      <>
-                        <div className="small-text-white">{song.name}</div>
-                        <div>
-                          {song.artists.items.map(
-                            (artist: any, index: number) => (
-                              <div key={index} className="flex-content">
-                                <p className="flex-content small-text-white">
-                                  {artist.profile.name}
-                                  {index !== song.artists.items.length - 1 && (
-                                    <>
-                                      <span style={{ color: "#ccc" }}>
-                                        ,&nbsp;
-                                      </span>
-                                    </>
-                                  )}
-                                </p>
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <span>Invalid song data</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div> */}
           </div>
         </div>
       </div>

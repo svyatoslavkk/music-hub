@@ -5,7 +5,6 @@ import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import PreviewSlider from "../../components/previewSlider/PreviewSlider";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { app, database } from "../../firebase/firebase";
@@ -145,7 +144,6 @@ export default function SignUp() {
   return (
     <>
       <div className="signup">
-        <PreviewSlider />
         <div className="signup-content">
           <div className="column-content" style={{ textAlign: "center" }}>
             <h2 className="big-header-dark">Welcome to Music Hub!</h2>

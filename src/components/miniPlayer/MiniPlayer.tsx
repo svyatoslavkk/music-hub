@@ -1,7 +1,7 @@
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
-import { Artist, PlayerProps } from "../../types/types";
+import { ArtistAlt, PlayerProps } from "../../types/types";
 
 export default function MiniPlayer({
   onToggle,
@@ -26,7 +26,10 @@ export default function MiniPlayer({
                 r="25"
                 className="progressbar__svg-circle circle-js shadow-js"
                 style={{
-                  strokeDashoffset: 155 - (155 * ((value / max) * 100)) / 100,
+                  strokeDashoffset:
+                    value !== undefined && max !== undefined
+                      ? 155 - (155 * ((value / max) * 100)) / 100
+                      : 0,
                 }}
               >
                 {" "}
@@ -47,7 +50,7 @@ export default function MiniPlayer({
             <div style={{ display: "flex", gap: 4 }}>
               {(activeSong &&
                 activeSong.artists &&
-                activeSong.artists?.map((artist: Artist, i: number) => (
+                activeSong.artists?.map((artist: ArtistAlt, i: number) => (
                   <span key={i} className="small-text-white">
                     {artist?.name || artist?.profile?.name}
                     {i < activeSong.artists.length - 1 ? "," : ""}

@@ -1,6 +1,7 @@
+import { TopFiveChartProps } from "../../types/interfaces";
 import { ArtistAlt, SongAlt } from "../../types/types";
 
-export default function Chart({ topFiveSongsDetails }) {
+export default function Chart({ topFiveSongsDetails }: TopFiveChartProps) {
   const totalListens = topFiveSongsDetails.reduce(
     (acc: number, item: SongAlt) => acc + item.count,
     0,

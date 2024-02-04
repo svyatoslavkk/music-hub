@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
@@ -11,7 +10,6 @@ import Chart from "../../components/chart/Chart";
 
 export default function Profile() {
   const windowSize = useWindowSize();
-  const [fetchTopSongs, setFetchTopSongs] = useState<[string, number][]>([]);
   const { user, users, isExpanded, allMusic } = useMusicContext();
   const { activeSong, isPlaying } = useSelector(
     (state: RootState) => state.player,

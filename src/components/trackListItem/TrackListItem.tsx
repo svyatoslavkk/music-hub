@@ -15,7 +15,6 @@ import {
 } from "../../utils/favoritesUtils";
 
 export default function TrackListItem({
-  key,
   song,
   filteredAllMusic,
   isPlaying,
@@ -26,7 +25,7 @@ export default function TrackListItem({
   const collectionRef = collection(database, "Users Data");
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
-  const userDocRef = myData ? doc(collectionRef, myData.docId) : null;
+  const userDocRef = myData ? doc(collectionRef, myData.docId) : "";
   const dispatch = useDispatch();
 
   const isFavorite = isFavoriteSong(myData, song);
