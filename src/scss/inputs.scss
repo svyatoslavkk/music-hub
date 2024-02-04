@@ -4,14 +4,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 6px;
+    left: 10px;
     display: flex;
   }
   .visibility-icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 6px;
+    right: 10px;
     display: flex;
   }
   .search-icon {
@@ -28,14 +28,53 @@
     right: 6px;
     display: flex;
   }
+  .alert-icon,
+  .alert-icon-password,
+  .done-icon,
+  .done-icon-password {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    display: flex;
+    z-index: 105;
+  }
+  .alert-icon {
+    right: 10px;
+    background-color: $interactive-alt;
+  }
+  .done-icon {
+    right: 10px;
+    background-color: $green;
+  }
+  .alert-icon-password {
+    right: 24px;
+    background-color: $interactive-alt;
+  }
+  .done-icon-password {
+    right: 24px;
+    background-color: $green;
+  }
+  .error-message {
+    position: absolute;
+    top: -18px;
+    right: 0;
+    background-color: #ffffff22;
+    backdrop-filter: blur(10px);
+    padding: 0.25rem;
+    border-radius: 3rem;
+    z-index: 100;
+    width: 100%;
+  }
 }
 
 .auth-input {
   @include button-styles;
   gap: 0.5rem;
-  background-color: $component-alt;
+  background-color: transparent;
+  border: 1px solid $icon-alt;
   color: $text-alt;
-  padding: 0.5rem 0.5rem 0.5rem 2.25rem;
+  padding: 0.75rem 0.5rem 0.75rem 2.25rem;
   &::placeholder {
     color: #E0E0E077;
   }

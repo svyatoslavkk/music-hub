@@ -78,4 +78,6 @@ export interface PlayerProps {
   onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setSeekTime?: React.Dispatch<SetStateAction<number>>;
   appTime?: number;
+  volume: number;
+  setVolume: React.Dispatch<React.SetStateAction<number>>;
 }

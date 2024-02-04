@@ -16,24 +16,16 @@ import LoopRoundedIcon from "@mui/icons-material/LoopRounded";
 import VolumeUpRoundedIcon from "@mui/icons-material/VolumeUpRounded";
 
 export default function PlayerDesktop({
-  onToggle,
   isPlaying,
-  isActive,
   repeat,
   setRepeat,
-  shuffle,
-  setShuffle,
   activeSong,
-  currentIndex,
-  currentSongs,
   handlePlayPause,
   handlePrevSong,
   handleNextSong,
   value,
   min,
   max,
-  onInput,
-  appTime,
   setSeekTime,
   volume,
   setVolume,
@@ -44,7 +36,7 @@ export default function PlayerDesktop({
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const userDocRef = myData ? doc(collectionRef, myData.docId) : null;
   const fake =
-    "https://i.scdn.co/image/ab67616100005174f2db81b3312a1f167fc54096";
+    "https://static.vecteezy.com/system/resources/previews/000/630/395/non_2x/play-button-icon-design-illustration-vector.jpg";
   const getTime = (time: number) =>
     `${Math.floor(time / 60)}:${`0${Math.floor(time % 60)}`.slice(-2)}`;
   const isFavorite = isFavoriteSong(myData, activeSong);
@@ -112,18 +104,20 @@ export default function PlayerDesktop({
         </div>
         <label className="line-bar">
           <span className="small-text-white">
-            {value === 0 ? "0:00" : getTime(value)}
+            {value === undefined ? "0:00" : getTime(value)}
           </span>
           <input
             type="range"
             className="input-range seek"
-            value={value}
-            min={min}
-            max={max}
-            onInput={(event: any) => setSeekTime(event.target.value)}
+            value={value || 0}
+            min={min || 0}
+            max={max || 100}
+            onInput={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSeekTime && setSeekTime(Number(event.target.value))
+            }
           />
           <span className="small-text-white">
-            {max === 0 ? "0:00" : getTime(max)}
+            {max === undefined ? "0:00" : getTime(max)}
           </span>
         </label>
       </div>
@@ -138,7 +132,9 @@ export default function PlayerDesktop({
             value={volume * 100}
             min="0"
             max="100"
-            onChange={(event) => setVolume(event.target.value / 100)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setVolume(Number(event.target.value) / 100)
+            }
           />
         </label>
       </div>

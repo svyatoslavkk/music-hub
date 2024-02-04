@@ -4,7 +4,6 @@ import PlaylistCards from "../../components/playlistCards/PlaylistCards";
 import { useMusicContext } from "../../context/MusicContext";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
-import { useSpring, animated, useChain } from "react-spring";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -66,11 +65,6 @@ export default function Main() {
               <TestHeader />
             </div>
             <PlaylistCards />
-            {/* <div className="desktop">
-              <HashTags />
-              <Popular music={fetchMusic} />
-              <GridBlock music={newestMusic} />
-            </div> */}
             <SliderList music={fetchMusic} header={popularHeader} />
             <SliderList music={newestMusic} header={newestHeader} />
             {uniqueRecentMusic.length >= 4 && (

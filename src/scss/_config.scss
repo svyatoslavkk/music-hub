@@ -12,6 +12,7 @@ $component-alt: #1e1d1d;
 $interactive-alt: #dfbf60;
 $text-alt: #E0E0E0;
 $icon-alt: #9E9E9E;
+$green: #1af651;
 
 
 @mixin default-container-styles {
@@ -26,7 +27,7 @@ $icon-alt: #9E9E9E;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 2rem;
+  border-radius: 3rem;
   width: 100%;
 }
 

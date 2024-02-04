@@ -1,5 +1,6 @@
 import { ChangeEvent, MouseEvent } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -16,6 +17,18 @@ export default function TestHeader({
   onChange,
   onClearClick,
 }: TestHeaderProps) {
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/signup");
+    } catch (error: any) {
+      console.error("Logout error:", error.message);
+    }
+  };
+
   return (
     <header className="test-header">
       <Link to="/" className="small-blur-circle-btn">
@@ -37,7 +50,7 @@ export default function TestHeader({
           </button>
         ) : null}
       </div>
-      <button className="small-blur-circle-btn">
+      <button className="small-blur-circle-btn" onClick={handleLogout}>
         <LogoutRoundedIcon sx={{ color: "#d0d2d8" }} />
       </button>
     </header>
