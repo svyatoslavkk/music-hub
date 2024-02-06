@@ -1,13 +1,16 @@
 .signup {
-  @include default-container-styles;
-  height: 100vh;
-  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh
 }
 
 .signup-content {
   @include column-between-styles;
+  justify-content: center;
   flex: 1;
   height: 100%;
+  max-width: 512px;
   gap: 1.5rem;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -29,15 +32,5 @@
       background-color: $icon-alt;
       border-radius: 2px;
     }
-  }
-}
-
-@media (min-width: 1024px) {
-  .signup {
-    flex-direction: row;
-  }
-  .signup-content {
-    max-width: 512px;
-    justify-content: center;
   }
 }
