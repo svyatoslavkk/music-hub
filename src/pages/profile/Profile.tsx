@@ -73,10 +73,10 @@ export default function Profile() {
       : { marginBottom: isExpanded ? 248 : 130 };
 
   useEffect(() => {
-    if (myData) {
+    if (users.length > 0) {
       setUserDataLoaded(true);
     }
-  }, [myData]);
+  }, [users]);
 
   if (!userDataLoaded) {
     return (
