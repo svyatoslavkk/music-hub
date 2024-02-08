@@ -1,7 +1,7 @@
 import { useMusicContext } from "../../../context/MusicContext";
 import { doc, collection } from "firebase/firestore";
 import { database } from "../../../firebase/firebase";
-import { ArtistAlt, PlayerProps } from "../../../types/types";
+import { ArtistAlt, PlayerProps, User } from "../../../types/types";
 import {
   handleAddToFavorites,
   isFavoriteSong,
@@ -33,7 +33,9 @@ export default function PlayerDesktop({
   const { user, users, setUsers } = useMusicContext();
   const collectionRef = collection(database, "Users Data");
   const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: User) => data.uid === user?.uid)[0]
+      : null;
   const userDocRef = myData ? doc(collectionRef, myData.docId) : null;
   const fake =
     "https://static.vecteezy.com/system/resources/previews/000/630/395/non_2x/play-button-icon-design-illustration-vector.jpg";

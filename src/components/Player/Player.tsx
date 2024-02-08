@@ -29,7 +29,9 @@ export default function Player() {
   const ref = useRef<HTMLAudioElement>(null);
   const collectionRef = collection(database, "Users Data");
   const myData: User | null =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: User) => data.uid === user?.uid)[0]
+      : null;
   const userDocRef = myData ? myData.docId : null;
 
   useEffect(() => {

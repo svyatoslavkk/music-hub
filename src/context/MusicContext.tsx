@@ -13,7 +13,7 @@ import { ArtistAlt, Playlist, SongAlt, User } from "../types/types";
 const MusicContext = createContext<
   | {
       user: User;
-      users: User[];
+      users: any;
       setUsers: React.Dispatch<SetStateAction<User[]>>;
       fireData: any[];
       fetchMusic: SongAlt[];
@@ -33,18 +33,18 @@ const MusicContext = createContext<
 >(undefined);
 
 export const MusicProvider = ({ children }: any) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [users, setUsers] = useState<any>([]);
   const [fireData, setFireData] = useState<any[]>([]);
   const [fetchMusic, setFetchMusic] = useState<SongAlt[]>([]);
   const [allMusic, setAllMusic] = useState<SongAlt[]>([]);
   const [newestMusic, setNewestMusic] = useState<SongAlt[]>([]);
   const [mightMusic, setMightMusic] = useState<SongAlt[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [welcomePlaylists, setWelcomePlaylists] = useState<Playlist[]>([]);
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const collectionRef = collection(database, "Users Data");
   const musicCollectionRef = collection(database, "Music Data");
   const playlistsCollectionRef = collection(database, "Playlist Data");
@@ -55,7 +55,7 @@ export const MusicProvider = ({ children }: any) => {
       const userList = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
+      })) as User[];
       setUsers(userList);
     } catch (error) {
       console.error("Error getting users:", error);
@@ -66,10 +66,10 @@ export const MusicProvider = ({ children }: any) => {
     getUsers();
   }, []);
 
-  const myData =
+  const myData: User | undefined =
     users.length > 0
-      ? users.filter((data: any) => data.uid === user?.uid)[0]
-      : null;
+      ? users.find((data: User) => data.uid === user?.uid)
+      : undefined;
 
   const fetchData = async () => {
     try {
@@ -89,7 +89,7 @@ export const MusicProvider = ({ children }: any) => {
         id: doc.id,
         ...doc.data(),
       }));
-      const targetMusic = musicDoc.find(
+      const targetMusic: any = musicDoc.find(
         (item) => item.id === "3GYHK0jYEV5qV4bc5nCG",
       );
       const musicArray = targetMusic?.allMusic || [];
@@ -109,7 +109,7 @@ export const MusicProvider = ({ children }: any) => {
         id: doc.id,
         ...doc.data(),
       }));
-      const targetMusic = musicDoc.find(
+      const targetMusic: any = musicDoc.find(
         (item) => item.id === "3GYHK0jYEV5qV4bc5nCG",
       );
       const musicArray = targetMusic?.allMusic || [];
@@ -126,17 +126,17 @@ export const MusicProvider = ({ children }: any) => {
         id: doc.id,
         ...doc.data(),
       }));
-      const targetMusic = musicDoc.find(
+      const targetMusic: any = musicDoc.find(
         (item) => item.id === "3GYHK0jYEV5qV4bc5nCG",
       );
       const musicArray = targetMusic?.allMusic || [];
-      const sortedMusic = musicArray.sort((a, b) => {
-        const dateA = new Date(
+      const sortedMusic = musicArray.sort((a: any, b: any) => {
+        const dateA: any = new Date(
           parseInt(a?.release_date?.split("-")[2]),
           parseInt(a?.release_date?.split("-")[1]) - 1,
           parseInt(a?.release_date?.split("-")[0]),
         );
-        const dateB = new Date(
+        const dateB: any = new Date(
           parseInt(b?.release_date?.split("-")[2]),
           parseInt(b?.release_date?.split("-")[1]) - 1,
           parseInt(b?.release_date?.split("-")[0]),
@@ -152,7 +152,7 @@ export const MusicProvider = ({ children }: any) => {
   const getMightLikeMusic = async () => {
     setIsLoading(true);
     try {
-      const favArtists = new Set(
+      const favArtists = new Set<string>(
         myData?.favTracks
           ? myData.favTracks.flatMap((track: SongAlt) =>
               track.artists.map((artist: ArtistAlt) => artist.name),
@@ -160,7 +160,7 @@ export const MusicProvider = ({ children }: any) => {
           : [],
       );
 
-      const recentArtists = new Set(
+      const recentArtists = new Set<string>(
         myData?.recentTracks
           ? myData.recentTracks.flatMap((song: SongAlt) =>
               song.artists.map((artist: ArtistAlt) => artist.name),
@@ -224,7 +224,7 @@ export const MusicProvider = ({ children }: any) => {
         id: doc.id,
         ...doc.data(),
       }));
-      const targetMusic = playlistDoc.find(
+      const targetMusic: any = playlistDoc.find(
         (item) => item.id === "Rf5DvjfzNQey8DYUyTwX",
       );
       const playlistsArray = targetMusic?.welcomePlaylists || [];

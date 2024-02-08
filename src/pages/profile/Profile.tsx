@@ -1,7 +1,7 @@
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
-import { SongAlt } from "../../types/types";
+import { SongAlt, User } from "../../types/types";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -16,7 +16,9 @@ export default function Profile() {
     (state: RootState) => state.player,
   );
   const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: User) => data.uid === user?.uid)[0]
+      : null;
   const allSongs = allMusic || [];
   const filteredAllMusic = myData?.favTracks || [];
   const frequentMusic = myData?.listenedTimes || [];
@@ -24,7 +26,7 @@ export default function Profile() {
   //////////////////////////////////////////////
   const songNames = frequentMusic.map((song: SongAlt) => song.id);
   const songCounter = new Map<string, number>();
-  songNames.forEach((song) => {
+  songNames.forEach((song: any) => {
     songCounter.set(song, (songCounter.get(song) || 0) + 1);
   });
   const sortedSongs = Array.from(songCounter.entries()).sort(
