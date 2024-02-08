@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
@@ -8,6 +9,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { RootState } from "../../redux/slices/playerSlice";
 import Chart from "../../components/chart/Chart";
 import ChartAdaptive from "../../components/chartAdaptive/ChartAdaptive";
+import Loader from "../../components/loader/Loader";
 
 export default function Profile() {
   const windowSize = useWindowSize();
@@ -22,6 +24,7 @@ export default function Profile() {
   const allSongs = allMusic || [];
   const filteredAllMusic = myData?.favTracks || [];
   const frequentMusic = myData?.listenedTimes || [];
+  const [userDataLoaded, setUserDataLoaded] = useState(false);
 
   //////////////////////////////////////////////
   const songNames = frequentMusic.map((song: SongAlt) => song.id);
@@ -68,6 +71,22 @@ export default function Profile() {
     windowSize.width > 624
       ? { marginBottom: isExpanded ? 183 : 183 }
       : { marginBottom: isExpanded ? 248 : 130 };
+
+  useEffect(() => {
+    if (myData) {
+      setUserDataLoaded(true);
+    }
+  }, [myData]);
+
+  if (!userDataLoaded) {
+    return (
+      <div className="profile-overlay">
+        <div className="loader">
+          <Loader />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
