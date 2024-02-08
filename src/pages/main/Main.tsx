@@ -4,19 +4,23 @@ import PlaylistCards from "../../components/playlistCards/PlaylistCards";
 import { useMusicContext } from "../../context/MusicContext";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import TestHeader from "../../components/shared/testHeader/TestHeader";
+import { SongAlt, User } from "../../types/types";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { user, users, fetchMusic, newestMusic, isExpanded } =
     useMusicContext();
   const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: User) => data.uid === user?.uid)[0]
+      : null;
   const recentMusic = myData?.recentTracks || [];
   const uniqueRecentMusic = recentMusic.filter(
-    (value, index, self) =>
+    (value: SongAlt, index: number, self: any) =>
       index ===
       self.findIndex(
-        (item) => item.id === value.id && item.soundFile === value.soundFile,
+        (item: SongAlt) =>
+          item.id === value.id && item.soundFile === value.soundFile,
       ),
   );
 

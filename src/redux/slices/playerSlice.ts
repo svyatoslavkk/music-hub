@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { SongAlt } from "../../types/types";
 
 interface MusicState {
-  currentSongs: SongAlt[];
+  currentSongs: any;
   currentIndex: number;
   isActive: boolean;
   isPlaying: boolean;
