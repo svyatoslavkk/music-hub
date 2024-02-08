@@ -3,9 +3,11 @@ import { ArtistAlt, SongAlt } from "../../types/types";
 
 export default function Chart({ topFiveSongsDetails }: TopFiveChartProps) {
   const totalListens = topFiveSongsDetails.reduce(
-    (acc: number, item: SongAlt) => acc + item.count,
+    (acc: number, item: SongAlt) => (item.count ? acc + item.count : acc),
     0,
   );
+
+  console.log("topFiveSongsDetails", topFiveSongsDetails);
 
   return (
     <section className="chart">
@@ -14,6 +16,7 @@ export default function Chart({ topFiveSongsDetails }: TopFiveChartProps) {
       </div>
       <div className="stats">
         {topFiveSongsDetails.map((item: SongAlt) => {
+          if (!item.count) return null;
           const barHeight = (item.count / totalListens) * 100 * 2;
           return (
             <div className="info">

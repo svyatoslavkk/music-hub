@@ -1,5 +1,6 @@
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
@@ -7,6 +8,17 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 
 export default function NavBar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/signup");
+    } catch (error: any) {
+      console.error("Logout error:", error.message);
+    }
+  };
 
   const navEls = [
     {
@@ -82,7 +94,7 @@ export default function NavBar() {
         ))}
       </div>
       <div className="lower">
-        <button className="blur-circle-btn flex-content">
+        <button className="blur-circle-btn flex-content" onClick={handleLogout}>
           <LogoutRoundedIcon sx={{ color: "#d0d2d8" }} />
           <span className={`name small-header-white`}>Logout</span>
         </button>

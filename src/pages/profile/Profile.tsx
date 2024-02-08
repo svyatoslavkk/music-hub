@@ -7,6 +7,7 @@ import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 import useWindowSize from "../../hooks/useWindowSize";
 import { RootState } from "../../redux/slices/playerSlice";
 import Chart from "../../components/chart/Chart";
+import ChartAdaptive from "../../components/chartAdaptive/ChartAdaptive";
 
 export default function Profile() {
   const windowSize = useWindowSize();
@@ -48,8 +49,8 @@ export default function Profile() {
       alt={myData?.userName}
     />
   );
-  const plTitle = myData?.userName;
-  const plDesc = myData?.email;
+  const plTitle = myData?.userName || "";
+  const plDesc = myData?.email || "";
   const stats = [
     {
       value: myData?.favTracks?.length,
@@ -78,7 +79,10 @@ export default function Profile() {
               stats={stats}
             />
           </div>
-          <Chart topFiveSongsDetails={topFiveSongsDetails} />
+          {topFiveSongsDetails.length >= 5 && (
+            <Chart topFiveSongsDetails={topFiveSongsDetails} />
+          )}
+          {topFiveSongsDetails.length < 5 && <ChartAdaptive />}
           {filteredAllMusic && filteredAllMusic.length > 0 && (
             <div className="column-content">
               {filteredAllMusic.map((song: SongAlt, i: number) => (

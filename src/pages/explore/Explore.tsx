@@ -22,7 +22,6 @@ export default function Explore() {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const hashFromQuery = searchParams.get("hash") || "";
-  console.log("mightMusic", mightMusic);
 
   /////////////////////////////////////////////
   //////////////////////////////////////////////////

@@ -34,7 +34,7 @@ const MusicContext = createContext<
 
 export const MusicProvider = ({ children }: any) => {
   const [user, setUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<any>([]);
   const [fireData, setFireData] = useState<any[]>([]);
   const [fetchMusic, setFetchMusic] = useState<SongAlt[]>([]);
   const [allMusic, setAllMusic] = useState<SongAlt[]>([]);
@@ -67,7 +67,9 @@ export const MusicProvider = ({ children }: any) => {
   }, []);
 
   const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: any) => data.uid === user?.uid)[0]
+      : null;
 
   const fetchData = async () => {
     try {
@@ -152,7 +154,7 @@ export const MusicProvider = ({ children }: any) => {
     try {
       const favArtists = new Set(
         myData?.favTracks
-          ? myData.favTracks.flatMap((track) =>
+          ? myData.favTracks.flatMap((track: SongAlt) =>
               track.artists.map((artist: ArtistAlt) => artist.name),
             )
           : [],
@@ -160,7 +162,7 @@ export const MusicProvider = ({ children }: any) => {
 
       const recentArtists = new Set(
         myData?.recentTracks
-          ? myData.recentTracks.flatMap((song) =>
+          ? myData.recentTracks.flatMap((song: SongAlt) =>
               song.artists.map((artist: ArtistAlt) => artist.name),
             )
           : [],
@@ -192,7 +194,7 @@ export const MusicProvider = ({ children }: any) => {
 
       const favTracks = myData?.favTracks || [];
       const isNotInFavTracks = (song: SongAlt) =>
-        !favTracks.some((favTrack) => favTrack.id === song.id);
+        !favTracks.some((favTrack: SongAlt) => favTrack.id === song.id);
 
       const newRecsNotInFav = uniqueRecs.filter(isNotInFavTracks);
 
