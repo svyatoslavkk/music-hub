@@ -1,7 +1,7 @@
 import { useMusicContext } from "../../../context/MusicContext";
 import { doc, collection } from "firebase/firestore";
 import { database } from "../../../firebase/firebase";
-import { Artist, PlayerProps } from "../../../types/types";
+import { ArtistAlt, PlayerProps } from "../../../types/types";
 import {
   handleAddToFavorites,
   isFavoriteSong,
@@ -41,31 +41,31 @@ export default function PlayerDesktop({
     `${Math.floor(time / 60)}:${`0${Math.floor(time % 60)}`.slice(-2)}`;
   const isFavorite = isFavoriteSong(myData, activeSong);
   const handleFavorites = () => {
-    handleAddToFavorites(userDocRef, myData, user, activeSong, setUsers);
+    if (userDocRef) {
+      handleAddToFavorites(userDocRef, myData, user, activeSong, setUsers);
+    }
   };
 
   return (
     <div className="player-desktop">
       <img
-        src={activeSong?.image || activeSong?.img || fake}
+        src={activeSong?.img || fake}
         className="image"
-        alt={activeSong?.title || activeSong?.name || "Track"}
+        alt={activeSong?.name || "Track"}
       />
       <div className="controller">
         <div>
           <div style={{ display: "flex", gap: 4 }}>
             {(activeSong &&
               activeSong.artists &&
-              activeSong.artists.map((artist: Artist, i: number) => (
+              activeSong.artists.map((artist: ArtistAlt, i: number) => (
                 <span key={i} className="mid-text-white">
                   {artist?.name || artist?.profile?.name}
                   {i < activeSong.artists.length - 1 ? "," : ""}
                 </span>
               ))) || <span className="mid-text-white">Artist</span>}
           </div>
-          <h3 className="big-header-white">
-            {activeSong?.title || activeSong?.name || "Track"}
-          </h3>
+          <h3 className="big-header-white">{activeSong?.name || "Track"}</h3>
         </div>
         <div className="buttons">
           {isFavorite ? (
@@ -97,7 +97,7 @@ export default function PlayerDesktop({
           </div>
           <button
             className="transparent-btn"
-            onClick={() => setRepeat((prev) => !prev)}
+            onClick={() => setRepeat && setRepeat((prev: boolean) => !prev)}
           >
             <LoopRoundedIcon sx={{ color: repeat ? "#dfbf60" : "#d0d2d8" }} />
           </button>
@@ -129,11 +129,11 @@ export default function PlayerDesktop({
           <input
             type="range"
             className="volume-range"
-            value={volume * 100}
+            value={volume !== undefined ? volume * 100 : 0}
             min="0"
             max="100"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setVolume(Number(event.target.value) / 100)
+              setVolume && setVolume(Number(event.target.value) / 100)
             }
           />
         </label>

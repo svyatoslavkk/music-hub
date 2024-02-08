@@ -7,7 +7,8 @@ import TestHeader from "../../components/shared/testHeader/TestHeader";
 
 export default function Main() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { user, users, allMusic, fetchMusic, isExpanded } = useMusicContext();
+  const { user, users, fetchMusic, newestMusic, isExpanded } =
+    useMusicContext();
   const myData =
     users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const recentMusic = myData?.recentTracks || [];
@@ -38,23 +39,6 @@ export default function Main() {
     windowWidth > 624
       ? { marginBottom: isExpanded ? 184 : 184 }
       : { marginBottom: isExpanded ? 248 : 130 };
-
-  const sortedMusic = allMusic.sort((a, b) => {
-    const dateA = new Date(
-      parseInt(a?.release_date?.split("-")[2]),
-      parseInt(a?.release_date?.split("-")[1]) - 1,
-      parseInt(a?.release_date?.split("-")[0]),
-    );
-    const dateB = new Date(
-      parseInt(b?.release_date?.split("-")[2]),
-      parseInt(b?.release_date?.split("-")[1]) - 1,
-      parseInt(b?.release_date?.split("-")[0]),
-    );
-
-    return dateB - dateA;
-  });
-
-  const newestMusic = sortedMusic.slice(0, 10);
 
   return (
     <>

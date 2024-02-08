@@ -12,18 +12,17 @@ import SliderList from "../../components/sliderList/SliderList";
 import { RootState } from "../../redux/slices/playerSlice";
 
 export default function Explore() {
+  const { allMusic, mightMusic, isExpanded } = useMusicContext();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { activeSong, isPlaying } = useSelector(
     (state: RootState) => state.player,
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
-  const { user, users, allMusic, isExpanded } = useMusicContext();
-  const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const hashFromQuery = searchParams.get("hash") || "";
+  console.log("mightMusic", mightMusic);
 
   /////////////////////////////////////////////
   //////////////////////////////////////////////////
@@ -86,57 +85,9 @@ export default function Explore() {
     };
   }, []);
 
-  const favArtists = myData?.favTracks
-    ? Array.from(
-        new Set(
-          myData?.favTracks.flatMap((track) =>
-            track.artists.map((artist: ArtistAlt) => artist.name),
-          ),
-        ),
-      )
-    : [];
-
-  const recentArtists = myData?.recentTracks
-    ? Array.from(
-        new Set(
-          myData?.recentTracks.flatMap((track) =>
-            track.artists.map((artist: ArtistAlt) => artist.name),
-          ),
-        ),
-      )
-    : [];
-  const favArtistsSet = new Set(favArtists);
-  const recentArtistsSet = new Set(recentArtists);
-  const filterByArtists = (musicArray: SongAlt[], artistsSet: string[]) =>
-    musicArray.filter((song: SongAlt) =>
-      song.artists.some((artist: ArtistAlt) =>
-        artistsSet.has(artist.profile.name),
-      ),
-    );
-  const filteredByFavArtists = filterByArtists(allMusic, favArtistsSet);
-  const filteredByRecentArtists = filterByArtists(allMusic, recentArtistsSet);
-  const filteredMusicByFavRecent = [
-    ...filteredByFavArtists,
-    ...filteredByRecentArtists,
-  ];
-  const uniqueRecs = Array.from(
-    new Map(filteredMusicByFavRecent.map((song) => [song.id, song])).values(),
-  ); // ALL RECOMMENDED SONGS
-  const favTracks = myData?.favTracks || [];
-  const isNotInFavTracks = (song: SongAlt) =>
-    !favTracks.some((favTrack: SongAlt) => favTrack.id === song.id);
-  const newRecsNotInFav = uniqueRecs.filter(isNotInFavTracks);
-
-  function shuffleArray(array: SongAlt[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
+  if (!mightMusic.length) {
+    <div className="mid-text-white">Loading...</div>;
   }
-
-  const shuffledUniqueRecs: SongAlt[] = shuffleArray(newRecsNotInFav);
-  const mightMusic = shuffledUniqueRecs.slice(0, 10);
 
   return (
     <>
@@ -156,7 +107,9 @@ export default function Explore() {
                 handleGenreClick={handleGenreClick}
               />
             )}
-            <SliderList music={mightMusic} header={mightHeader} />
+            {mightMusic.length > 0 && (
+              <SliderList music={mightMusic} header={mightHeader} />
+            )}
             <div className="column-content">
               {searchQuery.length >= 3 &&
                 filteredAllMusic &&

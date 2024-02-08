@@ -25,7 +25,6 @@ export default function Player() {
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [volume, setVolume] = useState(0.3);
-  const [hasEnded, setHasEnded] = useState(false);
   const dispatch = useDispatch();
   const ref = useRef<HTMLAudioElement>(null);
   const collectionRef = collection(database, "Users Data");
@@ -78,13 +77,14 @@ export default function Player() {
         name: activeSong?.name,
         soundFile: activeSong?.soundFile,
         duration: activeSong?.duration,
-        artists: activeSong?.artists.map((artist: ArtistAlt) => ({
-          name: artist?.profile?.name || artist?.name,
-          uri: artist?.profile?.uri || artist?.uri,
-        })),
+        artists:
+          activeSong?.artists.map((artist: ArtistAlt) => ({
+            name: artist?.profile?.name || artist?.name,
+            uri: artist?.profile?.uri || artist?.uri,
+          })) || [],
       };
 
-      const songTimesData = {
+      const songTimesData: SongAlt = {
         id: activeSong?.id,
         img: activeSong?.img,
         name: activeSong?.name,
@@ -95,7 +95,7 @@ export default function Player() {
           uri: artist?.profile?.uri || artist?.uri,
         })),
         count: {
-          date: currentDate,
+          date: currentDate.toISOString(),
           count: 1,
         },
       };
@@ -108,11 +108,13 @@ export default function Player() {
         (song) => song?.id === listenedTrackData?.id,
       );
 
-      if (currentArray.length >= MAX_RECENT_TRACKS) {
-        currentArray.shift();
+      if (currentArray && listenedTimesArray) {
+        if (currentArray.length >= MAX_RECENT_TRACKS) {
+          currentArray.shift();
+        }
+        currentArray.push(listenedTrackData);
+        listenedTimesArray.push(songTimesData);
       }
-      currentArray.push(listenedTrackData);
-      listenedTimesArray.push(songTimesData);
 
       try {
         if (!isThere) {
@@ -134,22 +136,22 @@ export default function Player() {
     handleTrackCompletion();
   };
 
-  const handleTimeUpdate = async (event: any) => {
-    const currentTime = event.target.currentTime;
-    const duration = event.target.duration;
-    const fixedCurrentTime = currentTime.toFixed(0);
-    const fixedDuration = (duration * 0.99).toFixed(0);
-    setAppTime(currentTime);
-    if (fixedCurrentTime === fixedDuration && !hasEnded && repeat) {
-      handleTrackCompletion();
-      setHasEnded(true);
-    } else if (
-      fixedCurrentTime < fixedDuration ||
-      fixedCurrentTime > fixedDuration
-    ) {
-      setHasEnded(false);
-    }
-  };
+  // const handleTimeUpdate = async (event: any) => {
+  //   const currentTime = event.target.currentTime;
+  //   const duration = event.target.duration;
+  //   const fixedCurrentTime = currentTime.toFixed(0);
+  //   const fixedDuration = (duration * 0.99).toFixed(0);
+  //   setAppTime(currentTime);
+  //   if (fixedCurrentTime === fixedDuration && !hasEnded && repeat) {
+  //     handleTrackCompletion();
+  //     setHasEnded(true);
+  //   } else if (
+  //     fixedCurrentTime < fixedDuration ||
+  //     fixedCurrentTime > fixedDuration
+  //   ) {
+  //     setHasEnded(false);
+  //   }
+  // };
 
   /************************* FOR AUDIO TAG ***********************/
   if (ref.current) {
@@ -208,11 +210,8 @@ export default function Player() {
           isPlaying={isPlaying}
           isActive={isActive}
           activeSong={activeSong}
-          currentIndex={currentIndex}
-          currentSongs={currentSongs}
           handlePlayPause={handlePlayPause}
           value={appTime}
-          min={0}
           max={duration}
         />
       )}

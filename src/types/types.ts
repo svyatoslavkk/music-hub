@@ -1,6 +1,7 @@
 import { SetStateAction } from "react";
 
 export type User = {
+  id: string;
   avatar: string;
   docId: string;
   email: string;
@@ -23,13 +24,16 @@ export type Song = {
 export type SongAlt = {
   id: string;
   name: string;
-  artists: [];
-  count: number;
+  artists?: any;
+  count?: {
+    date?: string;
+    count?: number;
+  };
   soundFile: string;
   img: string;
   duration: number;
-  playlist: string;
-  release_date: string;
+  playlist?: string;
+  release_date?: string;
 };
 
 export type Artist = {
@@ -59,25 +63,25 @@ export type Stat = {
 };
 
 export interface PlayerProps {
-  onToggle?: () => void;
+  onToggle: () => void;
   isPlaying: boolean;
   isActive: boolean;
   activeSong: SongAlt;
-  repeat: boolean;
-  setRepeat: React.Dispatch<React.SetStateAction<boolean>>;
-  shuffle: boolean;
-  setShuffle: React.Dispatch<React.SetStateAction<boolean>>;
-  currentIndex: number;
-  currentSongs: Song[];
+  repeat?: boolean;
+  setRepeat?: (repeat: boolean) => void;
+  shuffle?: boolean;
+  setShuffle?: (shuffle: boolean) => void;
+  currentIndex?: number;
+  currentSongs?: SongAlt[];
   handlePlayPause: () => void;
-  handlePrevSong: () => void;
-  handleNextSong: () => void;
-  value?: number;
+  handlePrevSong?: () => void;
+  handleNextSong?: () => void;
+  value: number;
   min?: number;
-  max?: number;
+  max: number;
   onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setSeekTime?: React.Dispatch<SetStateAction<number>>;
   appTime?: number;
-  volume: number;
-  setVolume: React.Dispatch<React.SetStateAction<number>>;
+  volume?: number;
+  setVolume?: React.Dispatch<React.SetStateAction<number>>;
 }

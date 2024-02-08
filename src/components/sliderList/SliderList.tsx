@@ -7,7 +7,7 @@ import DropItem from "../dropItem/DropItem";
 import { RootState } from "../../redux/slices/playerSlice";
 
 interface SliderListProps {
-  music: Song[];
+  music: any[];
   header: string;
 }
 

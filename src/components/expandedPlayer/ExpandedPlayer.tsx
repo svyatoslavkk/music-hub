@@ -47,13 +47,13 @@ export default function ExpandedPlayer({
           <div></div>
           <div className="flex-content">
             <img
-              src={activeSong?.image || activeSong?.img || fakeImg}
+              src={activeSong?.img || fakeImg}
               className="small-circle-img"
-              alt={activeSong?.title || activeSong?.name || "Track"}
+              alt={activeSong?.name || "Track"}
             />
             <div className="text">
               <h3 className="small-header-white">
-                {activeSong?.title || activeSong?.name || "Track"}
+                {activeSong?.name || "Track"}
               </h3>
               <div style={{ display: "flex", gap: 4 }}>
                 {(activeSong &&
