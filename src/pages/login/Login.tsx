@@ -7,7 +7,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { app } from "../../firebase/firebase";
 import Loader from "../../components/loader/Loader";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
 
 export default function Login() {
@@ -18,7 +23,7 @@ export default function Login() {
   const auth = getAuth(app);
   const navigate = useNavigate();
 
-  const signIn = async (event: any) => {
+  const signIn = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
@@ -41,6 +46,26 @@ export default function Login() {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const signInWithGoogle = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    setLoading(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log(user);
+      const accessToken = await user.getIdToken();
+      sessionStorage.setItem("Token", accessToken);
+      navigate("/");
+    } catch (error) {
+      console.error("Google Sign In Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +145,7 @@ export default function Login() {
               <span className="mid-header-white">or</span>
               <div className="line"></div>
             </div>
-            <button className="secondary-btn">
+            <button className="secondary-btn" onClick={signInWithGoogle}>
               <GoogleIcon fontSize="small" sx={{ color: "#e4774d" }} />
               <span className="mid-header-white">Log In with Google</span>
             </button>

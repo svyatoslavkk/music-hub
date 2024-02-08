@@ -5,6 +5,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -16,7 +18,6 @@ import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import DoneIcon from "@mui/icons-material/Done";
 
@@ -29,12 +30,13 @@ export default function SignUp() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const auth = getAuth(app);
   const navigate = useNavigate();
   const collectionRef = collection(database, "Users Data");
 
-  const handleSignUp = async (event: any) => {
+  const handleSignUp = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     validateUsername();
     validateEmail();
@@ -96,6 +98,35 @@ export default function SignUp() {
     }
   };
 
+  const handleGoogleSignUp = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    const provider = new GoogleAuthProvider();
+    try {
+      setLoading(true);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const docRef = await addDoc(collectionRef, {
+        uid: user.uid,
+        userName: user.displayName,
+        email: user.email,
+        favTracks: [],
+        recentTracks: [],
+        listenedTimes: [],
+        listeningStats: {},
+        avatar: user.photoURL,
+      });
+      const docId = docRef.id;
+      await updateDoc(doc(collectionRef, docId), { docId: docId });
+      navigate("/");
+    } catch (error) {
+      console.error("Google Sign Up Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const validateUsername = () => {
     if (username.length < 6) {
       setUsernameError("Username should be at least 6 characters");
@@ -137,6 +168,11 @@ export default function SignUp() {
     const file = event.target.files?.[0];
     if (file) {
       setAvatar(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedAvatar(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -158,20 +194,43 @@ export default function SignUp() {
             </p>
           </div>
           <form className="auth-form">
-            <div className="auth-input-section">
-              <span className="username-icon">
-                <AddPhotoAlternateIcon
-                  fontSize="inherit"
-                  sx={{ color: "#E0E0E0" }}
+            <div className="flex-content">
+              <div className="input-div">
+                <input
+                  className="input"
+                  name="file"
+                  type="file"
+                  id="avatarInput"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
                 />
-              </span>
-              <input
-                type="file"
-                className="auth-input"
-                id="avatarInput"
-                accept="image/*"
-                onChange={handleAvatarChange}
-              />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                  className="icon"
+                >
+                  <polyline points="16 16 12 12 8 16"></polyline>
+                  <line y2="21" x2="12" y1="12" x1="12"></line>
+                  <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                  <polyline points="16 16 12 12 8 16"></polyline>
+                </svg>
+              </div>
+              {selectedAvatar && (
+                <div className="input-div">
+                  <img
+                    src={selectedAvatar}
+                    className="large-circle-img"
+                    alt="Selected Avatar"
+                  />
+                </div>
+              )}
             </div>
             <div className="auth-input-section">
               <span className="username-icon">
@@ -278,7 +337,7 @@ export default function SignUp() {
               <span className="mid-header-white">or</span>
               <div className="line"></div>
             </div>
-            <button className="secondary-btn">
+            <button className="secondary-btn" onClick={handleGoogleSignUp}>
               <GoogleIcon fontSize="small" sx={{ color: "#e4774d" }} />
               <span className="mid-header-white">Sign Up with Google</span>
             </button>
