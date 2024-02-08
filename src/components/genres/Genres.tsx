@@ -3,7 +3,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
 interface GenresProps {
-  uniqueArtistsArray: string[];
+  uniqueArtistsArray: any;
   handleGenreClick: (genre: string) => void;
 }
 

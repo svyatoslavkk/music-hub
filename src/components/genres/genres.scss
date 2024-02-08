@@ -7,4 +7,9 @@
   background-color: #44444488;
   padding: 0.5rem 0.75rem;
   border-radius: 0.99rem;
+  transition: 0.1s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: #66666688;
+  }
 }

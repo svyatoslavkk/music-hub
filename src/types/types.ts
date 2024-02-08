@@ -65,7 +65,7 @@ export interface PlayerProps {
   isActive: boolean;
   activeSong: SongAlt;
   repeat?: boolean;
-  setRepeat?: (repeat: boolean) => void;
+  setRepeat?: any;
   shuffle?: boolean;
   setShuffle?: (shuffle: boolean) => void;
   currentIndex?: number;

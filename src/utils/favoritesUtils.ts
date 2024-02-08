@@ -1,11 +1,4 @@
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  collection,
-} from "firebase/firestore";
-import { database } from "../../firebase/firebase";
+import { updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { SongAlt, ArtistAlt, User } from "../types/types";
 
 export const isFavoriteSong = (myData: any, song: SongAlt) => {
@@ -13,8 +6,8 @@ export const isFavoriteSong = (myData: any, song: SongAlt) => {
 };
 
 export const handleAddToFavorites = async (
-  userDocRef: string,
-  myData: {},
+  userDocRef: any,
+  myData: any,
   user: User,
   song: SongAlt,
   setUsers: React.Dispatch<React.SetStateAction<any[]>>,

@@ -1,5 +1,3 @@
-import { SongAlt, Stat } from "./types";
-
 export interface SplideOptions {
   type: string;
   perMove: number;
@@ -15,9 +13,9 @@ export interface HeaderProps {
   plImage: string | JSX.Element;
   plTitle: string;
   plDesc: string;
-  stats: Stat[];
+  stats: any;
 }
 
 export interface TopFiveChartProps {
-  topFiveSongsDetails: SongAlt[];
+  topFiveSongsDetails: any;
 }
