@@ -1,6 +1,6 @@
-import { ArtistAlt, SongAlt } from "../types/types";
+import { ArtistAlt, SongAlt, User } from "../types/types";
 
-export const getRecs = (myData, allMusic) => {
+export const getRecs = (myData: User, allMusic: SongAlt[]) => {
   const favArtists = myData?.favTracks
     ? Array.from(
         new Set(
@@ -24,7 +24,7 @@ export const getRecs = (myData, allMusic) => {
   const favArtistsSet = new Set(favArtists);
   const recentArtistsSet = new Set(recentArtists);
 
-  const filterByArtists = (musicArray, artistsSet) =>
+  const filterByArtists = (musicArray: SongAlt[], artistsSet: any) =>
     musicArray.filter((song: SongAlt) =>
       song.artists.some((artist: ArtistAlt) =>
         artistsSet.has(artist.profile.name),
@@ -47,7 +47,7 @@ export const getRecs = (myData, allMusic) => {
     !favTracks.some((favTrack) => favTrack.id === song.id);
   const newRecsNotInFav = uniqueRecs.filter(isNotInFavTracks);
 
-  function shuffleArray(array) {
+  function shuffleArray(array: SongAlt[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
