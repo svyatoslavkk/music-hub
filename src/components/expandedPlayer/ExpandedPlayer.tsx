@@ -12,7 +12,7 @@ import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import { ArtistAlt, PlayerProps } from "../../types/types";
+import { ArtistAlt, PlayerProps, User } from "../../types/types";
 
 export default function ExpandedPlayer({
   onToggle,
@@ -29,7 +29,9 @@ export default function ExpandedPlayer({
   const { user, users, setUsers } = useMusicContext();
   const collectionRef = collection(database, "Users Data");
   const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: User) => data.uid === user?.uid)[0]
+      : null;
   const userDocRef = myData ? doc(collectionRef, myData.docId) : null;
   const isFavorite = isFavoriteSong(myData, activeSong);
   const handleFavorites = () => {

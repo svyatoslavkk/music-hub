@@ -3,7 +3,7 @@ import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { formatMillisecondsToMMSS } from "../../utils/formatMillisecondsToMMSS";
-import { ArtistAlt } from "../../types/types";
+import { ArtistAlt, User } from "../../types/types";
 import { useDispatch } from "react-redux";
 import { playPause, setActiveSong } from "../../redux/slices/playerSlice";
 import { useMusicContext } from "../../context/MusicContext";
@@ -24,7 +24,9 @@ export default function TrackListItem({
   const { user, users, setUsers } = useMusicContext();
   const collectionRef = collection(database, "Users Data");
   const myData =
-    users.length > 0 ? users.filter((data) => data.uid === user?.uid)[0] : null;
+    users.length > 0
+      ? users.filter((data: User) => data.uid === user?.uid)[0]
+      : null;
   const userDocRef = myData ? doc(collectionRef, myData.docId) : "";
   const dispatch = useDispatch();
 

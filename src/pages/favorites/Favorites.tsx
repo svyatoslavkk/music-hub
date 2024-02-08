@@ -1,7 +1,7 @@
 import { useMusicContext } from "../../context/MusicContext";
 import TrackListItem from "../../components/trackListItem/TrackListItem";
 import { useSelector } from "react-redux";
-import { SongAlt } from "../../types/types";
+import { SongAlt, User } from "../../types/types";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ExpandedHeader from "../../components/expandedHeader/ExpandedHeader";
 import ColorOverlay from "../../components/colorOverlay/ColorOverlay";
@@ -14,7 +14,7 @@ export default function Favorites() {
   const { activeSong, isPlaying } = useSelector(
     (state: RootState) => state.player,
   );
-  const myData = users.filter((data) => data.uid === user?.uid)[0];
+  const myData = users.filter((data: User) => data.uid === user?.uid)[0];
   const filteredAllMusic = myData?.favTracks || [];
   const totalTimeTracks: number =
     filteredAllMusic?.reduce((totalTime: number, track: SongAlt) => {
