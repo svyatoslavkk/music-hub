@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+<h1>SoundFinder</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h3>EN:</h3>
+The application allows users to search for music, receive recommendations for new songs based on previously listened tracks and favorited songs, and track statistics on their most played tracks.
+<br />
+<ul>
+  <li>Player control is managed through Redux actions.</li>
+  <li>Recommendation customization is achieved using JavaScript methods.</li>
+  <li>All user and music information within the application is stored in the Firebase database.</li>
+  <li>Implemented responsive design for both desktop and mobile devices.</li>
+</ul>
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<h3>RU:</h3>
+Приложение позволяет пользователям искать музыку, получать рекомендации по новым песням на основе ранее прослушанных треков и избранных песен, а также отслеживать статистику по наиболее воспроизводимым трекам.
+<br />
+<ul>
+  <li>Управление плеером с помощью экшенов Redux.</li>
+  <li>Настройка рекомендаций с помощью методов JavaScript.</li>
+  <li>Вся информация о пользователе и музыке в приложении хранится в базе данных Firebase.</li>
+  <li>Реализован адаптивный дизайн для компьютеров и смартфонов.</li>
+</ul>
